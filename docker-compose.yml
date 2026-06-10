@@ -1,0 +1,23 @@
+# NV Tools topology: the container binds loopback only; Caddy on the VM
+# terminates TLS on :443 and forwards here. See the deploy notes in
+# docs/superpowers/specs/2026-06-10-skills-only-query-sde-design.md §4.
+services:
+  nvskills:
+    build:
+      context: .
+      args:
+        # Must match URL_PREFIX below (e.g. "/skillquery").
+        VITE_URL_PREFIX: ${URL_PREFIX:-}
+    image: nvskills:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8083:8083"
+    environment:
+      NV_TOKEN: ${NV_TOKEN:?set NV_TOKEN in .env}
+      URL_PREFIX: ${URL_PREFIX:-}
+      DATA_SOURCE: ${DATA_SOURCE:-real}
+      SKILLS_API_URL: ${SKILLS_API_URL:-}
+      SKILLS_API_TOKEN: ${SKILLS_API_TOKEN:-}
+      USERS_API_URL: ${USERS_API_URL:-}
+      USERS_API_TOKEN: ${USERS_API_TOKEN:-}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}

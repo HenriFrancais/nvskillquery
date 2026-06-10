@@ -1,13 +1,31 @@
 """End-to-end API tests against the demo fixtures.
 
-Demo data ground truth: 80 skills (ids 1000-1187 stepping by group), 50
-users, 130 characters, 4 character groups (Home/Strat/Farm/Alpha);
-skill 1000 = "Gunnery Operation".
+Demo ground truth is derived from the committed fixture files rather than
+hardcoded: the skill catalogue is a sampled subset of the REAL SDE (see
+scripts/gen_demo_fixtures.py), so ids and counts change when regenerated.
+50 users and the Home/Strat/Farm/Alpha vocabulary are generator constants.
 """
 
 from __future__ import annotations
 
+import json
+from collections import Counter
+from pathlib import Path
+
 from tests.conftest import GATED_HEADERS, TEST_TOKEN, UNGATED_HEADERS
+
+DATA_DEMO = Path(__file__).resolve().parent.parent / "data_demo"
+DEMO_CATALOG = json.loads((DATA_DEMO / "sde_skills.json").read_text())
+DEMO_TRAINED = json.loads((DATA_DEMO / "skills_api.json").read_text())
+
+# The most commonly trained skill across the demo characters — guaranteed to
+# produce matches.
+COMMON_SKILL_ID = Counter(
+    s["skill_id"]
+    for u in DEMO_TRAINED["users"]
+    for c in u["characters"]
+    for s in c["skills"]
+).most_common(1)[0][0]
 
 DOCTRINE_HEADERS = {
     "Authorization": f"Bearer {TEST_TOKEN}",
@@ -16,7 +34,7 @@ DOCTRINE_HEADERS = {
     "X-User-Teams": "Doctrine,FC",
 }
 
-SIMPLE_QUERY = {"query": {"kind": "skill", "skill_id": 1000, "min_level": 1}}
+SIMPLE_QUERY = {"query": {"kind": "skill", "skill_id": COMMON_SKILL_ID, "min_level": 1}}
 
 
 # --- gating matrix -----------------------------------------------------------
@@ -57,30 +75,38 @@ def test_gated_endpoints_ok_for_doctrine_team(client):
 
 def test_catalog_shape(client):
     cat = client.get("/api/catalog", headers=GATED_HEADERS).json()
-    assert len(cat["skills"]) == 80
-    assert len(cat["groups"]) == 10
+    assert len(cat["skills"]) == len(DEMO_CATALOG["skills"])
+    expected_groups = {s["group_id"] for s in DEMO_CATALOG["skills"]}
+    assert len(cat["groups"]) == len(expected_groups)
     assert cat["character_groups"] == ["Home", "Strat", "Farm", "Alpha"]
     assert "char_types" not in cat
-    assert cat["sde_build_number"] == 0  # demo fallback catalogue
+    assert cat["sde_build_number"] == DEMO_CATALOG["sde_build_number"]
     assert cat["snapshot_version"] == 1
-    skill_1000 = next(s for s in cat["skills"] if s["skill_id"] == 1000)
-    assert skill_1000["name"] == "Gunnery Operation"
-    assert skill_1000["group_name"] == "Gunnery"
-    # Some skill has prerequisites with names resolved server-side.
+    # Names/groups come straight from the (real-SDE-derived) catalogue file.
+    expected = next(s for s in DEMO_CATALOG["skills"] if s["skill_id"] == COMMON_SKILL_ID)
+    served = next(s for s in cat["skills"] if s["skill_id"] == COMMON_SKILL_ID)
+    assert served["name"] == expected["name"]
+    assert served["group_name"] == expected["group_name"]
+    # Some skill has prerequisites with names resolved server-side (the
+    # fallback catalogue includes the prerequisite closure, so every prereq
+    # name must resolve to a real name, never the #id placeholder).
     with_prereqs = [s for s in cat["skills"] if s["prerequisites"]]
     assert with_prereqs
-    assert all("name" in p for s in with_prereqs for p in s["prerequisites"])
+    assert all(
+        not p["name"].startswith("#") for s in with_prereqs for p in s["prerequisites"]
+    )
 
 
 # --- query -------------------------------------------------------------------
 
 
 def test_query_happy_path(client):
+    n_chars = sum(len(u["characters"]) for u in DEMO_TRAINED["users"])
     resp = client.post("/api/query", json=SIMPLE_QUERY, headers=GATED_HEADERS)
     assert resp.status_code == 200
     body = resp.json()
     assert body["totals"]["total_users"] == 50
-    assert body["totals"]["total_characters"] == 130
+    assert body["totals"]["total_characters"] == n_chars
     assert body["totals"]["users_with_matches"] == len(body["rows"]) > 0
     assert body["totals"]["total_matching_characters"] == sum(
         r["match_count"] for r in body["rows"]
@@ -92,16 +118,17 @@ def test_query_happy_path(client):
 
 
 def test_query_nested_tree(client):
+    ids = [s["skill_id"] for s in DEMO_CATALOG["skills"][:3]]
     nested = {
         "query": {
             "kind": "group",
             "op": "or",
             "children": [
                 {"kind": "group", "op": "and", "children": [
-                    {"kind": "skill", "skill_id": 1000, "min_level": 4},
-                    {"kind": "skill", "skill_id": 1001, "min_level": 3},
+                    {"kind": "skill", "skill_id": ids[0], "min_level": 4},
+                    {"kind": "skill", "skill_id": ids[1], "min_level": 3},
                 ]},
-                {"kind": "skill", "skill_id": 1002, "min_level": 1},
+                {"kind": "skill", "skill_id": COMMON_SKILL_ID, "min_level": 1},
             ],
         }
     }
@@ -147,7 +174,7 @@ def test_query_unknown_group_422(client):
 def test_query_structural_422(client):
     resp = client.post(
         "/api/query",
-        json={"query": {"kind": "skill", "skill_id": 1000, "min_level": 9}},
+        json={"query": {"kind": "skill", "skill_id": COMMON_SKILL_ID, "min_level": 9}},
         headers=GATED_HEADERS,
     )
     assert resp.status_code == 422

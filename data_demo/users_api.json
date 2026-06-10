@@ -9,1001 +9,911 @@
  "users": [
   {
    "user_id": 1,
-   "user_name": "Droquidro",
+   "user_name": "Zokdro",
    "main_character_id": 90000001,
    "characters": [
     {
      "character_id": 90000001,
-     "name": "Droquidro",
-     "group": "Home"
+     "name": "Zokdro",
+     "group": "Alpha"
     },
     {
      "character_id": 90000002,
-     "name": "Droquidro II",
+     "name": "Zokdro II",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000003,
+     "name": "Zokdro Prime",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000004,
+     "name": "Zokdro's Hammer",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000005,
+     "name": "Zokdro's Anvil",
      "group": "Strat"
     }
    ]
   },
   {
    "user_id": 2,
-   "user_name": "Ashvenra",
-   "main_character_id": 90000003,
+   "user_name": "Raqui",
+   "main_character_id": 90000006,
    "characters": [
     {
-     "character_id": 90000003,
-     "name": "Ashvenra",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000004,
-     "name": "Ashvenra II",
-     "group": "Alpha"
+     "character_id": 90000006,
+     "name": "Raqui",
+     "group": "Home"
     }
    ]
   },
   {
    "user_id": 3,
-   "user_name": "Ashmizok",
-   "main_character_id": 90000005,
+   "user_name": "Raven",
+   "main_character_id": 90000007,
    "characters": [
-    {
-     "character_id": 90000005,
-     "name": "Ashmizok",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000006,
-     "name": "Ashmizok II",
-     "group": "Home"
-    },
     {
      "character_id": 90000007,
-     "name": "Ashmizok Prime",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000008,
-     "name": "Ashmizok's Hammer",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 4,
-   "user_name": "Sunven",
-   "main_character_id": 90000009,
-   "characters": [
-    {
-     "character_id": 90000009,
-     "name": "Sunven",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 5,
-   "user_name": "Karbelkar",
-   "main_character_id": 90000010,
-   "characters": [
-    {
-     "character_id": 90000010,
-     "name": "Karbelkar",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 6,
-   "user_name": "Venashbel",
-   "main_character_id": 90000011,
-   "characters": [
-    {
-     "character_id": 90000011,
-     "name": "Venashbel",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000012,
-     "name": "Venashbel II",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000013,
-     "name": "Venashbel Prime",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 7,
-   "user_name": "Razoksun",
-   "main_character_id": 90000014,
-   "characters": [
-    {
-     "character_id": 90000014,
-     "name": "Razoksun",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 8,
-   "user_name": "Thalash",
-   "main_character_id": 90000015,
-   "characters": [
-    {
-     "character_id": 90000015,
-     "name": "Thalash",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000016,
-     "name": "Thalash II",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 9,
-   "user_name": "Karsun",
-   "main_character_id": 90000017,
-   "characters": [
-    {
-     "character_id": 90000017,
-     "name": "Karsun",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000018,
-     "name": "Karsun II",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 10,
-   "user_name": "Nornor",
-   "main_character_id": 90000019,
-   "characters": [
-    {
-     "character_id": 90000019,
-     "name": "Nornor",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000020,
-     "name": "Nornor II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000021,
-     "name": "Nornor Prime",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000022,
-     "name": "Nornor's Hammer",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000023,
-     "name": "Nornor's Anvil",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 11,
-   "user_name": "Mibeldro",
-   "main_character_id": 90000024,
-   "characters": [
-    {
-     "character_id": 90000024,
-     "name": "Mibeldro",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000025,
-     "name": "Mibeldro II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000026,
-     "name": "Mibeldro Prime",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 12,
-   "user_name": "Sunmi",
-   "main_character_id": 90000027,
-   "characters": [
-    {
-     "character_id": 90000027,
-     "name": "Sunmi",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000028,
-     "name": "Sunmi II",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000029,
-     "name": "Sunmi Prime",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000030,
-     "name": "Sunmi's Hammer",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 13,
-   "user_name": "Thalquiven",
-   "main_character_id": 90000031,
-   "characters": [
-    {
-     "character_id": 90000031,
-     "name": "Thalquiven",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000032,
-     "name": "Thalquiven II",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 14,
-   "user_name": "Ashradro",
-   "main_character_id": 90000033,
-   "characters": [
-    {
-     "character_id": 90000033,
-     "name": "Ashradro",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000034,
-     "name": "Ashradro II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000035,
-     "name": "Ashradro Prime",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 15,
-   "user_name": "Miashsun",
-   "main_character_id": 90000036,
-   "characters": [
-    {
-     "character_id": 90000036,
-     "name": "Miashsun",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000037,
-     "name": "Miashsun II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000038,
-     "name": "Miashsun Prime",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 16,
-   "user_name": "Midro",
-   "main_character_id": 90000039,
-   "characters": [
-    {
-     "character_id": 90000039,
-     "name": "Midro",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000040,
-     "name": "Midro II",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000041,
-     "name": "Midro Prime",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 17,
-   "user_name": "Thalthalash",
-   "main_character_id": 90000042,
-   "characters": [
-    {
-     "character_id": 90000042,
-     "name": "Thalthalash",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000043,
-     "name": "Thalthalash II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000044,
-     "name": "Thalthalash Prime",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 18,
-   "user_name": "Sunbel",
-   "main_character_id": 90000045,
-   "characters": [
-    {
-     "character_id": 90000045,
-     "name": "Sunbel",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000046,
-     "name": "Sunbel II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000047,
-     "name": "Sunbel Prime",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 19,
-   "user_name": "Thalqui",
-   "main_character_id": 90000048,
-   "characters": [
-    {
-     "character_id": 90000048,
-     "name": "Thalqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000049,
-     "name": "Thalqui II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 20,
-   "user_name": "Thalbel",
-   "main_character_id": 90000050,
-   "characters": [
-    {
-     "character_id": 90000050,
-     "name": "Thalbel",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000051,
-     "name": "Thalbel II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000052,
-     "name": "Thalbel Prime",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 21,
-   "user_name": "Sunsun",
-   "main_character_id": 90000053,
-   "characters": [
-    {
-     "character_id": 90000053,
-     "name": "Sunsun",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 22,
-   "user_name": "Zokvenkar",
-   "main_character_id": 90000054,
-   "characters": [
-    {
-     "character_id": 90000054,
-     "name": "Zokvenkar",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000055,
-     "name": "Zokvenkar II",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 23,
-   "user_name": "Norra",
-   "main_character_id": 90000056,
-   "characters": [
-    {
-     "character_id": 90000056,
-     "name": "Norra",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000057,
-     "name": "Norra II",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000058,
-     "name": "Norra Prime",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000059,
-     "name": "Norra's Hammer",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 24,
-   "user_name": "Zokkarqui",
-   "main_character_id": 90000060,
-   "characters": [
-    {
-     "character_id": 90000060,
-     "name": "Zokkarqui",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000061,
-     "name": "Zokkarqui II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 25,
-   "user_name": "Thalashkar",
-   "main_character_id": 90000062,
-   "characters": [
-    {
-     "character_id": 90000062,
-     "name": "Thalashkar",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000063,
-     "name": "Thalashkar II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000064,
-     "name": "Thalashkar Prime",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 26,
-   "user_name": "Quithalmi",
-   "main_character_id": 90000065,
-   "characters": [
-    {
-     "character_id": 90000065,
-     "name": "Quithalmi",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000066,
-     "name": "Quithalmi II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 27,
-   "user_name": "Quisunthal",
-   "main_character_id": 90000067,
-   "characters": [
-    {
-     "character_id": 90000067,
-     "name": "Quisunthal",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000068,
-     "name": "Quisunthal II",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 28,
-   "user_name": "Zokbelthal",
-   "main_character_id": 90000069,
-   "characters": [
-    {
-     "character_id": 90000069,
-     "name": "Zokbelthal",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000070,
-     "name": "Zokbelthal II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000071,
-     "name": "Zokbelthal Prime",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 29,
-   "user_name": "Norzok",
-   "main_character_id": 90000072,
-   "characters": [
-    {
-     "character_id": 90000072,
-     "name": "Norzok",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000073,
-     "name": "Norzok II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000074,
-     "name": "Norzok Prime",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 30,
-   "user_name": "Dromisun",
-   "main_character_id": 90000075,
-   "characters": [
-    {
-     "character_id": 90000075,
-     "name": "Dromisun",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000076,
-     "name": "Dromisun II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 31,
-   "user_name": "Thalven",
-   "main_character_id": 90000077,
-   "characters": [
-    {
-     "character_id": 90000077,
-     "name": "Thalven",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000078,
-     "name": "Thalven II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000079,
-     "name": "Thalven Prime",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000080,
-     "name": "Thalven's Hammer",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000081,
-     "name": "Thalven's Anvil",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 32,
-   "user_name": "Drosunzok",
-   "main_character_id": 90000082,
-   "characters": [
-    {
-     "character_id": 90000082,
-     "name": "Drosunzok",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000083,
-     "name": "Drosunzok II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000084,
-     "name": "Drosunzok Prime",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 33,
-   "user_name": "Sunashqui",
-   "main_character_id": 90000085,
-   "characters": [
-    {
-     "character_id": 90000085,
-     "name": "Sunashqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000086,
-     "name": "Sunashqui II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000087,
-     "name": "Sunashqui Prime",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000088,
-     "name": "Sunashqui's Hammer",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 34,
-   "user_name": "Quivenmi",
-   "main_character_id": 90000089,
-   "characters": [
-    {
-     "character_id": 90000089,
-     "name": "Quivenmi",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000090,
-     "name": "Quivenmi II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000091,
-     "name": "Quivenmi Prime",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000092,
-     "name": "Quivenmi's Hammer",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000093,
-     "name": "Quivenmi's Anvil",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 35,
-   "user_name": "Karkarven",
-   "main_character_id": 90000094,
-   "characters": [
-    {
-     "character_id": 90000094,
-     "name": "Karkarven",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000095,
-     "name": "Karkarven II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000096,
-     "name": "Karkarven Prime",
-     "group": "Farm"
-    }
-   ]
-  },
-  {
-   "user_id": 36,
-   "user_name": "Vendrokar",
-   "main_character_id": 90000097,
-   "characters": [
-    {
-     "character_id": 90000097,
-     "name": "Vendrokar",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000098,
-     "name": "Vendrokar II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 37,
-   "user_name": "Mithal",
-   "main_character_id": 90000099,
-   "characters": [
-    {
-     "character_id": 90000099,
-     "name": "Mithal",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000100,
-     "name": "Mithal II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 38,
-   "user_name": "Mibel",
-   "main_character_id": 90000101,
-   "characters": [
-    {
-     "character_id": 90000101,
-     "name": "Mibel",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000102,
-     "name": "Mibel II",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 39,
-   "user_name": "Belash",
-   "main_character_id": 90000103,
-   "characters": [
-    {
-     "character_id": 90000103,
-     "name": "Belash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000104,
-     "name": "Belash II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000105,
-     "name": "Belash Prime",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 40,
-   "user_name": "Rasun",
-   "main_character_id": 90000106,
-   "characters": [
-    {
-     "character_id": 90000106,
-     "name": "Rasun",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 41,
-   "user_name": "Norqui",
-   "main_character_id": 90000107,
-   "characters": [
-    {
-     "character_id": 90000107,
-     "name": "Norqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000108,
-     "name": "Norqui II",
-     "group": "Home"
-    }
-   ]
-  },
-  {
-   "user_id": 42,
-   "user_name": "Thalsun",
-   "main_character_id": 90000109,
-   "characters": [
-    {
-     "character_id": 90000109,
-     "name": "Thalsun",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000110,
-     "name": "Thalsun II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000111,
-     "name": "Thalsun Prime",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000112,
-     "name": "Thalsun's Hammer",
-     "group": "Alpha"
-    }
-   ]
-  },
-  {
-   "user_id": 43,
-   "user_name": "Beldro",
-   "main_character_id": 90000113,
-   "characters": [
-    {
-     "character_id": 90000113,
-     "name": "Beldro",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000114,
-     "name": "Beldro II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000115,
-     "name": "Beldro Prime",
-     "group": "Strat"
-    }
-   ]
-  },
-  {
-   "user_id": 44,
-   "user_name": "Raven",
-   "main_character_id": 90000116,
-   "characters": [
-    {
-     "character_id": 90000116,
      "name": "Raven",
      "group": "Home"
     },
     {
-     "character_id": 90000117,
+     "character_id": 90000008,
      "name": "Raven II",
-     "group": "Farm"
+     "group": "Strat"
     },
     {
-     "character_id": 90000118,
+     "character_id": 90000009,
      "name": "Raven Prime",
      "group": "Strat"
     }
    ]
   },
   {
-   "user_id": 45,
-   "user_name": "Thalkar",
-   "main_character_id": 90000119,
+   "user_id": 4,
+   "user_name": "Thalkarthal",
+   "main_character_id": 90000010,
    "characters": [
     {
-     "character_id": 90000119,
-     "name": "Thalkar",
+     "character_id": 90000010,
+     "name": "Thalkarthal",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000011,
+     "name": "Thalkarthal II",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000012,
+     "name": "Thalkarthal Prime",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 5,
+   "user_name": "Drodroash",
+   "main_character_id": 90000013,
+   "characters": [
+    {
+     "character_id": 90000013,
+     "name": "Drodroash",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000014,
+     "name": "Drodroash II",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000015,
+     "name": "Drodroash Prime",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 6,
+   "user_name": "Zokkarkar",
+   "main_character_id": 90000016,
+   "characters": [
+    {
+     "character_id": 90000016,
+     "name": "Zokkarkar",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 7,
+   "user_name": "Zokash",
+   "main_character_id": 90000017,
+   "characters": [
+    {
+     "character_id": 90000017,
+     "name": "Zokash",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000018,
+     "name": "Zokash II",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000019,
+     "name": "Zokash Prime",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000020,
+     "name": "Zokash's Hammer",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 8,
+   "user_name": "Venkar",
+   "main_character_id": 90000021,
+   "characters": [
+    {
+     "character_id": 90000021,
+     "name": "Venkar",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000022,
+     "name": "Venkar II",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000023,
+     "name": "Venkar Prime",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 9,
+   "user_name": "Norbel",
+   "main_character_id": 90000024,
+   "characters": [
+    {
+     "character_id": 90000024,
+     "name": "Norbel",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000025,
+     "name": "Norbel II",
+     "group": "Farm"
+    }
+   ]
+  },
+  {
+   "user_id": 10,
+   "user_name": "Rasunsun",
+   "main_character_id": 90000026,
+   "characters": [
+    {
+     "character_id": 90000026,
+     "name": "Rasunsun",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 11,
+   "user_name": "Venbel",
+   "main_character_id": 90000027,
+   "characters": [
+    {
+     "character_id": 90000027,
+     "name": "Venbel",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000028,
+     "name": "Venbel II",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 12,
+   "user_name": "Zoksunthal",
+   "main_character_id": 90000029,
+   "characters": [
+    {
+     "character_id": 90000029,
+     "name": "Zoksunthal",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000030,
+     "name": "Zoksunthal II",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000031,
+     "name": "Zoksunthal Prime",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 13,
+   "user_name": "Thalbelash",
+   "main_character_id": 90000032,
+   "characters": [
+    {
+     "character_id": 90000032,
+     "name": "Thalbelash",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000033,
+     "name": "Thalbelash II",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000034,
+     "name": "Thalbelash Prime",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000035,
+     "name": "Thalbelash's Hammer",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 14,
+   "user_name": "Thalvenven",
+   "main_character_id": 90000036,
+   "characters": [
+    {
+     "character_id": 90000036,
+     "name": "Thalvenven",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000037,
+     "name": "Thalvenven II",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 15,
+   "user_name": "Venqui",
+   "main_character_id": 90000038,
+   "characters": [
+    {
+     "character_id": 90000038,
+     "name": "Venqui",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000039,
+     "name": "Venqui II",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 16,
+   "user_name": "Sunzoksun",
+   "main_character_id": 90000040,
+   "characters": [
+    {
+     "character_id": 90000040,
+     "name": "Sunzoksun",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 17,
+   "user_name": "Karkar",
+   "main_character_id": 90000041,
+   "characters": [
+    {
+     "character_id": 90000041,
+     "name": "Karkar",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000042,
+     "name": "Karkar II",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000043,
+     "name": "Karkar Prime",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000044,
+     "name": "Karkar's Hammer",
+     "group": "Farm"
+    }
+   ]
+  },
+  {
+   "user_id": 18,
+   "user_name": "Dronorzok",
+   "main_character_id": 90000045,
+   "characters": [
+    {
+     "character_id": 90000045,
+     "name": "Dronorzok",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 19,
+   "user_name": "Sunqui",
+   "main_character_id": 90000046,
+   "characters": [
+    {
+     "character_id": 90000046,
+     "name": "Sunqui",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 20,
+   "user_name": "Ashashthal",
+   "main_character_id": 90000047,
+   "characters": [
+    {
+     "character_id": 90000047,
+     "name": "Ashashthal",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 21,
+   "user_name": "Ashdrothal",
+   "main_character_id": 90000048,
+   "characters": [
+    {
+     "character_id": 90000048,
+     "name": "Ashdrothal",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 22,
+   "user_name": "Zokven",
+   "main_character_id": 90000049,
+   "characters": [
+    {
+     "character_id": 90000049,
+     "name": "Zokven",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000050,
+     "name": "Zokven II",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 23,
+   "user_name": "Thalnorqui",
+   "main_character_id": 90000051,
+   "characters": [
+    {
+     "character_id": 90000051,
+     "name": "Thalnorqui",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000052,
+     "name": "Thalnorqui II",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000053,
+     "name": "Thalnorqui Prime",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 24,
+   "user_name": "Normi",
+   "main_character_id": 90000054,
+   "characters": [
+    {
+     "character_id": 90000054,
+     "name": "Normi",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 25,
+   "user_name": "Quiquibel",
+   "main_character_id": 90000055,
+   "characters": [
+    {
+     "character_id": 90000055,
+     "name": "Quiquibel",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 26,
+   "user_name": "Thalthal",
+   "main_character_id": 90000056,
+   "characters": [
+    {
+     "character_id": 90000056,
+     "name": "Thalthal",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000057,
+     "name": "Thalthal II",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 27,
+   "user_name": "Thalmi",
+   "main_character_id": 90000058,
+   "characters": [
+    {
+     "character_id": 90000058,
+     "name": "Thalmi",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000059,
+     "name": "Thalmi II",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000060,
+     "name": "Thalmi Prime",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000061,
+     "name": "Thalmi's Hammer",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 28,
+   "user_name": "Thalash",
+   "main_character_id": 90000062,
+   "characters": [
+    {
+     "character_id": 90000062,
+     "name": "Thalash",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000063,
+     "name": "Thalash II",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000064,
+     "name": "Thalash Prime",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000065,
+     "name": "Thalash's Hammer",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 29,
+   "user_name": "Thalquira",
+   "main_character_id": 90000066,
+   "characters": [
+    {
+     "character_id": 90000066,
+     "name": "Thalquira",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 30,
+   "user_name": "Rasun",
+   "main_character_id": 90000067,
+   "characters": [
+    {
+     "character_id": 90000067,
+     "name": "Rasun",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000068,
+     "name": "Rasun II",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 31,
+   "user_name": "Quiqui",
+   "main_character_id": 90000069,
+   "characters": [
+    {
+     "character_id": 90000069,
+     "name": "Quiqui",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000070,
+     "name": "Quiqui II",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000071,
+     "name": "Quiqui Prime",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 32,
+   "user_name": "Miashsun",
+   "main_character_id": 90000072,
+   "characters": [
+    {
+     "character_id": 90000072,
+     "name": "Miashsun",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000073,
+     "name": "Miashsun II",
+     "group": "Farm"
+    }
+   ]
+  },
+  {
+   "user_id": 33,
+   "user_name": "Beldro",
+   "main_character_id": 90000074,
+   "characters": [
+    {
+     "character_id": 90000074,
+     "name": "Beldro",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000075,
+     "name": "Beldro II",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 34,
+   "user_name": "Norkar",
+   "main_character_id": 90000076,
+   "characters": [
+    {
+     "character_id": 90000076,
+     "name": "Norkar",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 35,
+   "user_name": "Venmi",
+   "main_character_id": 90000077,
+   "characters": [
+    {
+     "character_id": 90000077,
+     "name": "Venmi",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 36,
+   "user_name": "Thalvenkar",
+   "main_character_id": 90000078,
+   "characters": [
+    {
+     "character_id": 90000078,
+     "name": "Thalvenkar",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 37,
+   "user_name": "Rakarven",
+   "main_character_id": 90000079,
+   "characters": [
+    {
+     "character_id": 90000079,
+     "name": "Rakarven",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 38,
+   "user_name": "Thalvennor",
+   "main_character_id": 90000080,
+   "characters": [
+    {
+     "character_id": 90000080,
+     "name": "Thalvennor",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 39,
+   "user_name": "Quiash",
+   "main_character_id": 90000081,
+   "characters": [
+    {
+     "character_id": 90000081,
+     "name": "Quiash",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000082,
+     "name": "Quiash II",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000083,
+     "name": "Quiash Prime",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 40,
+   "user_name": "Karvenkar",
+   "main_character_id": 90000084,
+   "characters": [
+    {
+     "character_id": 90000084,
+     "name": "Karvenkar",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000085,
+     "name": "Karvenkar II",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000086,
+     "name": "Karvenkar Prime",
+     "group": "Farm"
+    }
+   ]
+  },
+  {
+   "user_id": 41,
+   "user_name": "Venthalbel",
+   "main_character_id": 90000087,
+   "characters": [
+    {
+     "character_id": 90000087,
+     "name": "Venthalbel",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000088,
+     "name": "Venthalbel II",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 42,
+   "user_name": "Quizokqui",
+   "main_character_id": 90000089,
+   "characters": [
+    {
+     "character_id": 90000089,
+     "name": "Quizokqui",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000090,
+     "name": "Quizokqui II",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000091,
+     "name": "Quizokqui Prime",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000092,
+     "name": "Quizokqui's Hammer",
+     "group": "Alpha"
+    }
+   ]
+  },
+  {
+   "user_id": 43,
+   "user_name": "Norven",
+   "main_character_id": 90000093,
+   "characters": [
+    {
+     "character_id": 90000093,
+     "name": "Norven",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000094,
+     "name": "Norven II",
+     "group": "Strat"
+    }
+   ]
+  },
+  {
+   "user_id": 44,
+   "user_name": "Belmi",
+   "main_character_id": 90000095,
+   "characters": [
+    {
+     "character_id": 90000095,
+     "name": "Belmi",
+     "group": "Home"
+    }
+   ]
+  },
+  {
+   "user_id": 45,
+   "user_name": "Ashradro",
+   "main_character_id": 90000096,
+   "characters": [
+    {
+     "character_id": 90000096,
+     "name": "Ashradro",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000097,
+     "name": "Ashradro II",
+     "group": "Home"
+    },
+    {
+     "character_id": 90000098,
+     "name": "Ashradro Prime",
      "group": "Strat"
     }
    ]
   },
   {
    "user_id": 46,
-   "user_name": "Thalmi",
-   "main_character_id": 90000120,
+   "user_name": "Sundrokar",
+   "main_character_id": 90000099,
    "characters": [
     {
-     "character_id": 90000120,
-     "name": "Thalmi",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000121,
-     "name": "Thalmi II",
+     "character_id": 90000099,
+     "name": "Sundrokar",
      "group": "Strat"
     },
     {
-     "character_id": 90000122,
-     "name": "Thalmi Prime",
+     "character_id": 90000100,
+     "name": "Sundrokar II",
      "group": "Alpha"
+    },
+    {
+     "character_id": 90000101,
+     "name": "Sundrokar Prime",
+     "group": "Strat"
     }
    ]
   },
   {
    "user_id": 47,
-   "user_name": "Ashmiqui",
-   "main_character_id": 90000123,
+   "user_name": "Karzok",
+   "main_character_id": 90000102,
    "characters": [
     {
-     "character_id": 90000123,
-     "name": "Ashmiqui",
-     "group": "Farm"
+     "character_id": 90000102,
+     "name": "Karzok",
+     "group": "Home"
     },
     {
-     "character_id": 90000124,
-     "name": "Ashmiqui II",
-     "group": "Alpha"
+     "character_id": 90000103,
+     "name": "Karzok II",
+     "group": "Strat"
     }
    ]
   },
   {
    "user_id": 48,
-   "user_name": "Zokthalnor",
-   "main_character_id": 90000125,
+   "user_name": "Miash",
+   "main_character_id": 90000104,
    "characters": [
     {
-     "character_id": 90000125,
-     "name": "Zokthalnor",
+     "character_id": 90000104,
+     "name": "Miash",
      "group": "Home"
+    },
+    {
+     "character_id": 90000105,
+     "name": "Miash II",
+     "group": "Alpha"
+    },
+    {
+     "character_id": 90000106,
+     "name": "Miash Prime",
+     "group": "Farm"
+    },
+    {
+     "character_id": 90000107,
+     "name": "Miash's Hammer",
+     "group": "Alpha"
     }
    ]
   },
   {
    "user_id": 49,
-   "user_name": "Rabel",
-   "main_character_id": 90000126,
+   "user_name": "Zokthal",
+   "main_character_id": 90000108,
    "characters": [
     {
-     "character_id": 90000126,
-     "name": "Rabel",
+     "character_id": 90000108,
+     "name": "Zokthal",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000109,
+     "name": "Zokthal II",
+     "group": "Strat"
+    },
+    {
+     "character_id": 90000110,
+     "name": "Zokthal Prime",
      "group": "Home"
     },
     {
-     "character_id": 90000127,
-     "name": "Rabel II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000128,
-     "name": "Rabel Prime",
+     "character_id": 90000111,
+     "name": "Zokthal's Hammer",
      "group": "Alpha"
     }
    ]
   },
   {
    "user_id": 50,
-   "user_name": "Miven",
-   "main_character_id": 90000129,
+   "user_name": "Zokqui",
+   "main_character_id": 90000112,
    "characters": [
     {
-     "character_id": 90000129,
-     "name": "Miven",
+     "character_id": 90000112,
+     "name": "Zokqui",
      "group": "Home"
-    },
-    {
-     "character_id": 90000130,
-     "name": "Miven II",
-     "group": "Farm"
     }
    ]
   }

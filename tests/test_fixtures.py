@@ -41,12 +41,19 @@ def test_demo_fixtures_parse_and_build():
     users = UsersApiPayload.model_validate(
         json.loads((DATA_DEMO / "users_api.json").read_text())
     )
-    snap = build_snapshot(skills, users, catalog=_demo_catalog(), version=1, fetched_at=0.0)
-    assert len(snap.skills) == 80
+    catalog = _demo_catalog()
+    snap = build_snapshot(skills, users, catalog=catalog, version=1, fetched_at=0.0)
+    assert len(snap.skills) == len(catalog.skills) >= 50
     assert len(snap.users) == 50
     assert len(snap.characters) >= 100
     assert snap.character_groups == ("Home", "Strat", "Farm", "Alpha")
-    assert snap.sde_build_number == 0
+    assert snap.sde_build_number == catalog.build_number > 0
+    # Trained skills reference the catalogue (real SDE ids) — nothing dropped.
+    assert all(
+        sid in snap.skills
+        for c in snap.characters.values()
+        for sid in c.skill_levels
+    )
     # Every user's first character is their main.
     for user in snap.users.values():
         assert snap.characters[user.character_ids[0]].is_main

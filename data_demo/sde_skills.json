@@ -1,991 +1,2646 @@
 {
- "sde_build_number": 0,
+ "sde_build_number": 3386912,
  "skills": [
   {
-   "skill_id": 1000,
-   "name": "Gunnery Operation",
-   "group_id": 100,
+   "skill_id": 3184,
+   "name": "ORE Hauler",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3300,
+   "name": "Gunnery",
+   "group_id": 255,
    "group_name": "Gunnery",
    "prerequisites": []
   },
   {
-   "skill_id": 1001,
-   "name": "Gunnery Systems",
-   "group_id": 100,
+   "skill_id": 3301,
+   "name": "Small Hybrid Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3302,
+   "name": "Small Projectile Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3303,
+   "name": "Small Energy Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3304,
+   "name": "Medium Hybrid Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 3
+    },
+    {
+     "skill_id": 3301,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3305,
+   "name": "Medium Projectile Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 3
+    },
+    {
+     "skill_id": 3302,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3306,
+   "name": "Medium Energy Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 3
+    },
+    {
+     "skill_id": 3303,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3307,
+   "name": "Large Hybrid Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 3304,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3308,
+   "name": "Large Projectile Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 3305,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3309,
+   "name": "Large Energy Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 3306,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3311,
+   "name": "Sharpshooter",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3312,
+   "name": "Motion Prediction",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3318,
+   "name": "Weapon Upgrades",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3319,
+   "name": "Missile Launcher Operation",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3321,
+   "name": "Light Missiles",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 3319,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3324,
+   "name": "Heavy Missiles",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 3319,
+     "level": 3
+    },
+    {
+     "skill_id": 3321,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3325,
+   "name": "Torpedoes",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 3319,
+     "level": 4
+    },
+    {
+     "skill_id": 3324,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3326,
+   "name": "Cruise Missiles",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 3319,
+     "level": 5
+    },
+    {
+     "skill_id": 3324,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3327,
+   "name": "Spaceship Command",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3328,
+   "name": "Gallente Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3329,
+   "name": "Minmatar Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3330,
+   "name": "Caldari Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3331,
+   "name": "Amarr Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3332,
+   "name": "Gallente Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 2
+    },
+    {
+     "skill_id": 33093,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3333,
+   "name": "Minmatar Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 2
+    },
+    {
+     "skill_id": 33094,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3334,
+   "name": "Caldari Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 2
+    },
+    {
+     "skill_id": 33092,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3335,
+   "name": "Amarr Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 2
+    },
+    {
+     "skill_id": 33091,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3336,
+   "name": "Gallente Battleship",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 33097,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3337,
+   "name": "Minmatar Battleship",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 33098,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3338,
+   "name": "Caldari Battleship",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 33096,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3339,
+   "name": "Amarr Battleship",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 33095,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3343,
+   "name": "Amarr Hauler",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3344,
+   "name": "Gallente Titan",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 5
+    },
+    {
+     "skill_id": 3336,
+     "level": 3
+    },
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3345,
+   "name": "Minmatar Titan",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 5
+    },
+    {
+     "skill_id": 3337,
+     "level": 3
+    },
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3346,
+   "name": "Caldari Titan",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 5
+    },
+    {
+     "skill_id": 3338,
+     "level": 3
+    },
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3347,
+   "name": "Amarr Titan",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 5
+    },
+    {
+     "skill_id": 3339,
+     "level": 3
+    },
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3348,
+   "name": "Leadership",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3352,
+   "name": "Information Command Specialist",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 3348,
+     "level": 1
+    },
+    {
+     "skill_id": 20495,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3354,
+   "name": "Command Burst Specialist",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3355,
+   "name": "Social",
+   "group_id": 278,
+   "group_name": "Social",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3358,
+   "name": "Fast Talk",
+   "group_id": 278,
+   "group_name": "Social",
+   "prerequisites": [
+    {
+     "skill_id": 3355,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 3380,
+   "name": "Industry",
+   "group_id": 268,
+   "group_name": "Production",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3385,
+   "name": "Reprocessing",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 3380,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3386,
+   "name": "Mining",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3389,
+   "name": "Reprocessing Efficiency",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 3385,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 3392,
+   "name": "Mechanics",
+   "group_id": 1210,
+   "group_name": "Armor",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3393,
+   "name": "Repair Systems",
+   "group_id": 1210,
+   "group_name": "Armor",
+   "prerequisites": [
+    {
+     "skill_id": 3392,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3394,
+   "name": "Hull Upgrades",
+   "group_id": 1210,
+   "group_name": "Armor",
+   "prerequisites": [
+    {
+     "skill_id": 3392,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3402,
+   "name": "Science",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3403,
+   "name": "Research",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3408,
+   "name": "Sleeper Encryption Methods",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 5
+    },
+    {
+     "skill_id": 3409,
+     "level": 4
+    },
+    {
+     "skill_id": 3403,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 3409,
+   "name": "Metallurgy",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 3410,
+   "name": "Astrogeology",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 4
+    },
+    {
+     "skill_id": 3386,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 3411,
+   "name": "Cybernetics",
+   "group_id": 1220,
+   "group_name": "Neural Enhancement",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3413,
+   "name": "Power Grid Management",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3416,
+   "name": "Shield Operation",
+   "group_id": 1209,
+   "group_name": "Shields",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3418,
+   "name": "Capacitor Management",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3420,
+   "name": "Tactical Shield Manipulation",
+   "group_id": 1209,
+   "group_name": "Shields",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3422,
+   "name": "Shield Emission Systems",
+   "group_id": 1209,
+   "group_name": "Shields",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 3
+    },
+    {
+     "skill_id": 3402,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3423,
+   "name": "Capacitor Emission Systems",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 3
+    },
+    {
+     "skill_id": 3402,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3424,
+   "name": "Energy Grid Upgrades",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 2
+    },
+    {
+     "skill_id": 3402,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3426,
+   "name": "CPU Management",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3427,
+   "name": "Electronic Warfare",
+   "group_id": 272,
+   "group_name": "Electronic Systems",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3428,
+   "name": "Long Range Targeting",
+   "group_id": 1213,
+   "group_name": "Targeting",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3429,
+   "name": "Target Management",
+   "group_id": 1213,
+   "group_name": "Targeting",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3430,
+   "name": "Advanced Target Management",
+   "group_id": 1213,
+   "group_name": "Targeting",
+   "prerequisites": [
+    {
+     "skill_id": 3429,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3431,
+   "name": "Signature Analysis",
+   "group_id": 1213,
+   "group_name": "Targeting",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3435,
+   "name": "Propulsion Jamming",
+   "group_id": 272,
+   "group_name": "Electronic Systems",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 3
+    },
+    {
+     "skill_id": 3449,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 3436,
+   "name": "Drones",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3441,
+   "name": "Heavy Drone Operation",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 3436,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3442,
+   "name": "Drone Interfacing",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 3436,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3443,
+   "name": "Trade",
+   "group_id": 274,
+   "group_name": "Trade",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3449,
+   "name": "Navigation",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 3450,
+   "name": "Afterburner",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3449,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3454,
+   "name": "High Speed Maneuvering",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3449,
+     "level": 3
+    },
+    {
+     "skill_id": 3450,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 3455,
+   "name": "Warp Drive Operation",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3449,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 3456,
+   "name": "Jump Drive Operation",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3449,
+     "level": 5
+    },
+    {
+     "skill_id": 3455,
+     "level": 5
+    },
+    {
+     "skill_id": 3402,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 3551,
+   "name": "Survey",
+   "group_id": 1217,
+   "group_name": "Scanning",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 4385,
+   "name": "Micro Jump Drive Operation",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3449,
+     "level": 4
+    },
+    {
+     "skill_id": 3455,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 11207,
+   "name": "Advanced Weapon Upgrades",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3318,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 11442,
+   "name": "Nanite Engineering",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 5
+    },
+    {
+     "skill_id": 3426,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 11446,
+   "name": "Graviton Physics",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 5
+    },
+    {
+     "skill_id": 3413,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 11455,
+   "name": "Quantum Physics",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 5
+    },
+    {
+     "skill_id": 3413,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 11529,
+   "name": "Molecular Engineering",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 5
+    },
+    {
+     "skill_id": 3392,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 11566,
+   "name": "Thermal Shield Compensation",
+   "group_id": 1209,
+   "group_name": "Shields",
+   "prerequisites": [
+    {
+     "skill_id": 3416,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 11574,
+   "name": "Wing Command",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 11584,
+   "name": "Anchoring",
+   "group_id": 1545,
+   "group_name": "Structure Management",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 12096,
+   "name": "Logistics Cruisers",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    },
+    {
+     "skill_id": 3431,
+     "level": 5
+    },
+    {
+     "skill_id": 3428,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12098,
+   "name": "Interdictors",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 11446,
+     "level": 1
+    },
+    {
+     "skill_id": 3435,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12205,
+   "name": "Large Beam Laser Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3311,
+     "level": 5
+    },
+    {
+     "skill_id": 3309,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12207,
+   "name": "Large Railgun Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3311,
+     "level": 5
+    },
+    {
+     "skill_id": 3307,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12211,
+   "name": "Medium Blaster Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3312,
+     "level": 4
+    },
+    {
+     "skill_id": 3304,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12213,
+   "name": "Small Pulse Laser Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3312,
+     "level": 3
+    },
+    {
+     "skill_id": 3303,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12214,
+   "name": "Medium Pulse Laser Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3312,
+     "level": 4
+    },
+    {
+     "skill_id": 3306,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 12484,
+   "name": "Amarr Drone Specialization",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 3436,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 13278,
+   "name": "Archaeology",
+   "group_id": 1217,
+   "group_name": "Scanning",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 3
+    },
+    {
+     "skill_id": 3551,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 16281,
+   "name": "Ice Harvesting",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 3386,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 16591,
+   "name": "Heavy Assault Cruisers",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3424,
+     "level": 5
+    },
+    {
+     "skill_id": 3318,
+     "level": 5
+    },
+    {
+     "skill_id": 3327,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 16595,
+   "name": "Daytrading",
+   "group_id": 274,
+   "group_name": "Trade",
+   "prerequisites": [
+    {
+     "skill_id": 3443,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 17940,
+   "name": "Mining Barge",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3410,
+     "level": 3
+    },
+    {
+     "skill_id": 3380,
+     "level": 5
+    },
+    {
+     "skill_id": 32918,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 19761,
+   "name": "Signal Dispersion",
+   "group_id": 272,
+   "group_name": "Electronic Systems",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 4
+    },
+    {
+     "skill_id": 3427,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 20342,
+   "name": "Advanced Spaceship Command",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 20495,
+   "name": "Information Command",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 3348,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 20524,
+   "name": "Amarr Freighter",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20342,
+     "level": 5
+    },
+    {
+     "skill_id": 3343,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 20525,
+   "name": "Amarr Dreadnought",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 3
+    },
+    {
+     "skill_id": 3339,
+     "level": 3
+    },
+    {
+     "skill_id": 22043,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 20530,
+   "name": "Caldari Dreadnought",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 3
+    },
+    {
+     "skill_id": 3338,
+     "level": 3
+    },
+    {
+     "skill_id": 22043,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 20531,
+   "name": "Gallente Dreadnought",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 3
+    },
+    {
+     "skill_id": 3336,
+     "level": 3
+    },
+    {
+     "skill_id": 22043,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 20532,
+   "name": "Minmatar Dreadnought",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 3
+    },
+    {
+     "skill_id": 3337,
+     "level": 3
+    },
+    {
+     "skill_id": 22043,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 20533,
+   "name": "Capital Ships",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20342,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 21603,
+   "name": "Cynosural Field Theory",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3426,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 21611,
+   "name": "Jump Drive Calibration",
+   "group_id": 275,
+   "group_name": "Navigation",
+   "prerequisites": [
+    {
+     "skill_id": 3456,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 21666,
+   "name": "Capital Hybrid Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 3307,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 21667,
+   "name": "Capital Projectile Turret",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 3308,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 22043,
+   "name": "Tactical Weapon Reconfiguration",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 11207,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 22536,
+   "name": "Mining Foreman",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 3348,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 22552,
+   "name": "Mining Director",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 3348,
+     "level": 1
+    },
+    {
+     "skill_id": 22536,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 22809,
+   "name": "Thermal Armor Compensation",
+   "group_id": 1210,
+   "group_name": "Armor",
+   "prerequisites": [
+    {
+     "skill_id": 3394,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 23069,
+   "name": "Fighters",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 3442,
+     "level": 5
+    },
+    {
+     "skill_id": 3348,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 23123,
+   "name": "Takmahl Technology",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 13278,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 23950,
+   "name": "Command Ships",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 5
+    },
+    {
+     "skill_id": 3354,
+     "level": 4
+    },
+    {
+     "skill_id": 11574,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 24241,
+   "name": "Light Drone Operation",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 3436,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 24242,
+   "name": "Infomorph Psychology",
+   "group_id": 1220,
+   "group_name": "Neural Enhancement",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 24311,
+   "name": "Amarr Carrier",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 4
+    },
+    {
+     "skill_id": 3339,
+     "level": 3
+    },
+    {
+     "skill_id": 3442,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 24312,
+   "name": "Caldari Carrier",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 4
+    },
+    {
+     "skill_id": 3338,
+     "level": 3
+    },
+    {
+     "skill_id": 3442,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 24313,
+   "name": "Gallente Carrier",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 4
+    },
+    {
+     "skill_id": 3336,
+     "level": 3
+    },
+    {
+     "skill_id": 3442,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 24314,
+   "name": "Minmatar Carrier",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20533,
+     "level": 4
+    },
+    {
+     "skill_id": 3337,
+     "level": 3
+    },
+    {
+     "skill_id": 3442,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 24571,
+   "name": "Capital Shield Emission Systems",
+   "group_id": 1209,
+   "group_name": "Shields",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 5
+    },
+    {
+     "skill_id": 3422,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 24572,
+   "name": "Capital Capacitor Emission Systems",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 5
+    },
+    {
+     "skill_id": 3423,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 25235,
+   "name": "Contracting",
+   "group_id": 274,
+   "group_name": "Trade",
+   "prerequisites": [
+    {
+     "skill_id": 3355,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 25719,
+   "name": "Heavy Assault Missiles",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 3319,
+     "level": 3
+    },
+    {
+     "skill_id": 3321,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 25863,
+   "name": "Salvaging",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 3392,
+     "level": 3
+    },
+    {
+     "skill_id": 3551,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 26224,
+   "name": "Drug Manufacturing",
+   "group_id": 268,
+   "group_name": "Production",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 26252,
+   "name": "Jury Rigging",
+   "group_id": 269,
+   "group_name": "Rigging",
+   "prerequisites": [
+    {
+     "skill_id": 3392,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 26258,
+   "name": "Energy Weapon Rigging",
+   "group_id": 269,
+   "group_name": "Rigging",
+   "prerequisites": [
+    {
+     "skill_id": 26252,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 28164,
+   "name": "Thermodynamics",
+   "group_id": 1216,
+   "group_name": "Engineering",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 4
+    },
+    {
+     "skill_id": 3418,
+     "level": 3
+    },
+    {
+     "skill_id": 3402,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 28374,
+   "name": "Capital Industrial Ships",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20342,
+     "level": 5
+    },
+    {
+     "skill_id": 29637,
+     "level": 3
+    },
+    {
+     "skill_id": 20533,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 29637,
+   "name": "Industrial Command Ships",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 5
+    },
+    {
+     "skill_id": 3184,
+     "level": 3
+    },
+    {
+     "skill_id": 22552,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 30324,
+   "name": "Defensive Subsystem Technology",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3403,
+     "level": 5
+    },
+    {
+     "skill_id": 11442,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 30532,
+   "name": "Amarr Defensive Systems",
+   "group_id": 1240,
+   "group_name": "Subsystems",
+   "prerequisites": [
+    {
+     "skill_id": 3392,
+     "level": 5
+    },
+    {
+     "skill_id": 3416,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 30539,
+   "name": "Amarr Core Systems",
+   "group_id": 1240,
+   "group_name": "Subsystems",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 30547,
+   "name": "Minmatar Core Systems",
+   "group_id": 1240,
+   "group_name": "Subsystems",
+   "prerequisites": [
+    {
+     "skill_id": 3413,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 30553,
+   "name": "Gallente Propulsion Systems",
+   "group_id": 1240,
+   "group_name": "Subsystems",
+   "prerequisites": [
+    {
+     "skill_id": 3449,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 30651,
+   "name": "Caldari Strategic Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3334,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 30652,
+   "name": "Gallente Strategic Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3332,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 32918,
+   "name": "Mining Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 33091,
+   "name": "Amarr Destroyer",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3331,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33092,
+   "name": "Caldari Destroyer",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3330,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33093,
+   "name": "Gallente Destroyer",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3328,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33094,
+   "name": "Minmatar Destroyer",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3329,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33095,
+   "name": "Amarr Battlecruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    },
+    {
+     "skill_id": 3335,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33096,
+   "name": "Caldari Battlecruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    },
+    {
+     "skill_id": 3334,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33097,
+   "name": "Gallente Battlecruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    },
+    {
+     "skill_id": 3332,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33098,
+   "name": "Minmatar Battlecruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    },
+    {
+     "skill_id": 3333,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 33399,
+   "name": "Infomorph Synchronizing",
+   "group_id": 1220,
+   "group_name": "Neural Enhancement",
+   "prerequisites": [
+    {
+     "skill_id": 24242,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 37797,
+   "name": "Structure Doomsday Operation",
+   "group_id": 1545,
+   "group_name": "Structure Management",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 1
+    },
+    {
+     "skill_id": 11584,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 41404,
+   "name": "Capital Artillery Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3311,
+     "level": 5
+    },
+    {
+     "skill_id": 21667,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 43702,
+   "name": "Ice Harvesting Drone Operation",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 3436,
+     "level": 1
+    },
+    {
+     "skill_id": 16281,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 44067,
+   "name": "Invulnerability Core Operation",
+   "group_id": 1209,
+   "group_name": "Shields",
+   "prerequisites": [
+    {
+     "skill_id": 3420,
+     "level": 5
+    },
+    {
+     "skill_id": 24571,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 45746,
+   "name": "Reactions",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 45748,
+   "name": "Mass Reactions",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 45746,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 45749,
+   "name": "Advanced Mass Reactions",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 45748,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 45750,
+   "name": "Remote Reactions",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 45746,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 47867,
+   "name": "Precursor Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 47868,
+   "name": "Precursor Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 49742,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 47869,
+   "name": "Precursor Battleship",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 5
+    },
+    {
+     "skill_id": 49743,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 47870,
+   "name": "Small Precursor Weapon",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 47871,
+   "name": "Medium Precursor Weapon",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 3
+    },
+    {
+     "skill_id": 47870,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 47872,
+   "name": "Large Precursor Weapon",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 47871,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 47875,
+   "name": "Large Disintegrator Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3312,
+     "level": 5
+    },
+    {
+     "skill_id": 47872,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 49742,
+   "name": "Precursor Destroyer",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 47867,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 49743,
+   "name": "Precursor Battlecruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 4
+    },
+    {
+     "skill_id": 47868,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 52998,
+   "name": "Capital Precursor Weapon",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 3300,
+     "level": 5
+    },
+    {
+     "skill_id": 47872,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 54828,
+   "name": "Medium Vorton Specialization",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 54841,
+     "level": 4
+    },
+    {
+     "skill_id": 55035,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 54841,
+   "name": "Vorton Arc Guidance",
+   "group_id": 255,
+   "group_name": "Gunnery",
+   "prerequisites": [
+    {
+     "skill_id": 55033,
+     "level": 2
+    }
+   ]
+  },
+  {
+   "skill_id": 55031,
+   "name": "EDENCOM Frigate",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 55032,
+   "name": "EDENCOM Cruiser",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 2
+    },
+    {
+     "skill_id": 55031,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 55033,
+   "name": "Vorton Projector Operation",
+   "group_id": 255,
    "group_name": "Gunnery",
    "prerequisites": []
   },
   {
-   "skill_id": 1002,
-   "name": "Gunnery Calibration",
-   "group_id": 100,
+   "skill_id": 55034,
+   "name": "Small Vorton Projector",
+   "group_id": 255,
    "group_name": "Gunnery",
    "prerequisites": [
     {
-     "skill_id": 1000,
-     "level": 4
-    },
-    {
-     "skill_id": 1001,
-     "level": 3
+     "skill_id": 55033,
+     "level": 1
     }
    ]
   },
   {
-   "skill_id": 1003,
-   "name": "Gunnery Doctrine",
-   "group_id": 100,
+   "skill_id": 55035,
+   "name": "Medium Vorton Projector",
+   "group_id": 255,
    "group_name": "Gunnery",
    "prerequisites": [
     {
-     "skill_id": 1001,
+     "skill_id": 55033,
      "level": 3
     },
     {
-     "skill_id": 1000,
+     "skill_id": 55034,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 60380,
+   "name": "Complex Ore Processing",
+   "group_id": 1218,
+   "group_name": "Resource Processing",
+   "prerequisites": [
+    {
+     "skill_id": 3389,
+     "level": 5
+    },
+    {
+     "skill_id": 3409,
+     "level": 4
+    }
+   ]
+  },
+  {
+   "skill_id": 62453,
+   "name": "Fleet Compression Logistics",
+   "group_id": 258,
+   "group_name": "Fleet Support",
+   "prerequisites": [
+    {
+     "skill_id": 22552,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 81032,
+   "name": "Upwell Hauler",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 3327,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 81044,
+   "name": "Upwell Freighter",
+   "group_id": 257,
+   "group_name": "Spaceship Command",
+   "prerequisites": [
+    {
+     "skill_id": 20342,
+     "level": 5
+    },
+    {
+     "skill_id": 81032,
+     "level": 3
+    }
+   ]
+  },
+  {
+   "skill_id": 81050,
+   "name": "Upwell Starship Engineering",
+   "group_id": 270,
+   "group_name": "Science",
+   "prerequisites": [
+    {
+     "skill_id": 3402,
+     "level": 5
+    },
+    {
+     "skill_id": 3392,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 81366,
+   "name": "Parallel Sequencing",
+   "group_id": 4734,
+   "group_name": "Sequencing",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 81368,
+   "name": "Hub Promotion",
+   "group_id": 4734,
+   "group_name": "Sequencing",
+   "prerequisites": []
+  },
+  {
+   "skill_id": 86260,
+   "name": "Breacher Pod Launcher Operation",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 3319,
+     "level": 3
+    },
+    {
+     "skill_id": 24242,
      "level": 1
     }
    ]
   },
   {
-   "skill_id": 1004,
-   "name": "Gunnery Mastery",
-   "group_id": 100,
+   "skill_id": 86261,
+   "name": "Breacher Pod Clone Efficacity",
+   "group_id": 256,
+   "group_name": "Missiles",
+   "prerequisites": [
+    {
+     "skill_id": 86260,
+     "level": 1
+    }
+   ]
+  },
+  {
+   "skill_id": 92400,
+   "name": "Caldari Fighter Specialization",
+   "group_id": 273,
+   "group_name": "Drones",
+   "prerequisites": [
+    {
+     "skill_id": 23069,
+     "level": 5
+    }
+   ]
+  },
+  {
+   "skill_id": 92541,
+   "name": "Capital Disintegrator Specialization",
+   "group_id": 255,
    "group_name": "Gunnery",
    "prerequisites": [
     {
-     "skill_id": 1003,
+     "skill_id": 3312,
      "level": 5
     },
     {
-     "skill_id": 1000,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1005,
-   "name": "Gunnery Theory",
-   "group_id": 100,
-   "group_name": "Gunnery",
-   "prerequisites": [
-    {
-     "skill_id": 1003,
-     "level": 1
-    },
-    {
-     "skill_id": 1002,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1006,
-   "name": "Gunnery Specialist",
-   "group_id": 100,
-   "group_name": "Gunnery",
-   "prerequisites": [
-    {
-     "skill_id": 1003,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1007,
-   "name": "Gunnery Command",
-   "group_id": 100,
-   "group_name": "Gunnery",
-   "prerequisites": [
-    {
-     "skill_id": 1006,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1020,
-   "name": "Missiles Operation",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1021,
-   "name": "Missiles Systems",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1022,
-   "name": "Missiles Calibration",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": [
-    {
-     "skill_id": 1021,
+     "skill_id": 52998,
      "level": 5
-    },
-    {
-     "skill_id": 1020,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1023,
-   "name": "Missiles Doctrine",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": [
-    {
-     "skill_id": 1020,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1024,
-   "name": "Missiles Mastery",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": [
-    {
-     "skill_id": 1020,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1025,
-   "name": "Missiles Theory",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": [
-    {
-     "skill_id": 1020,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1026,
-   "name": "Missiles Specialist",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": [
-    {
-     "skill_id": 1023,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1027,
-   "name": "Missiles Command",
-   "group_id": 101,
-   "group_name": "Missiles",
-   "prerequisites": [
-    {
-     "skill_id": 1020,
-     "level": 3
-    },
-    {
-     "skill_id": 1024,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1040,
-   "name": "Spaceship Command Operation",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1041,
-   "name": "Spaceship Command Systems",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1042,
-   "name": "Spaceship Command Calibration",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": [
-    {
-     "skill_id": 1040,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1043,
-   "name": "Spaceship Command Doctrine",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": [
-    {
-     "skill_id": 1040,
-     "level": 5
-    },
-    {
-     "skill_id": 1042,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1044,
-   "name": "Spaceship Command Mastery",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": [
-    {
-     "skill_id": 1040,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1045,
-   "name": "Spaceship Command Theory",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": [
-    {
-     "skill_id": 1040,
-     "level": 5
-    },
-    {
-     "skill_id": 1043,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1046,
-   "name": "Spaceship Command Specialist",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": [
-    {
-     "skill_id": 1042,
-     "level": 2
-    },
-    {
-     "skill_id": 1040,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1047,
-   "name": "Spaceship Command Command",
-   "group_id": 102,
-   "group_name": "Spaceship Command",
-   "prerequisites": [
-    {
-     "skill_id": 1042,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1060,
-   "name": "Navigation Operation",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1061,
-   "name": "Navigation Systems",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1062,
-   "name": "Navigation Calibration",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": [
-    {
-     "skill_id": 1061,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1063,
-   "name": "Navigation Doctrine",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": [
-    {
-     "skill_id": 1060,
-     "level": 4
-    },
-    {
-     "skill_id": 1062,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1064,
-   "name": "Navigation Mastery",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": [
-    {
-     "skill_id": 1063,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1065,
-   "name": "Navigation Theory",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": [
-    {
-     "skill_id": 1060,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1066,
-   "name": "Navigation Specialist",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": [
-    {
-     "skill_id": 1063,
-     "level": 2
-    },
-    {
-     "skill_id": 1060,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1067,
-   "name": "Navigation Command",
-   "group_id": 103,
-   "group_name": "Navigation",
-   "prerequisites": [
-    {
-     "skill_id": 1065,
-     "level": 2
-    },
-    {
-     "skill_id": 1061,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1080,
-   "name": "Engineering Operation",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1081,
-   "name": "Engineering Systems",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1082,
-   "name": "Engineering Calibration",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": [
-    {
-     "skill_id": 1081,
-     "level": 5
-    },
-    {
-     "skill_id": 1080,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1083,
-   "name": "Engineering Doctrine",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": [
-    {
-     "skill_id": 1080,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1084,
-   "name": "Engineering Mastery",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": [
-    {
-     "skill_id": 1081,
-     "level": 4
-    },
-    {
-     "skill_id": 1082,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1085,
-   "name": "Engineering Theory",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": [
-    {
-     "skill_id": 1084,
-     "level": 1
-    },
-    {
-     "skill_id": 1082,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1086,
-   "name": "Engineering Specialist",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": [
-    {
-     "skill_id": 1085,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1087,
-   "name": "Engineering Command",
-   "group_id": 104,
-   "group_name": "Engineering",
-   "prerequisites": [
-    {
-     "skill_id": 1086,
-     "level": 3
-    },
-    {
-     "skill_id": 1084,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1100,
-   "name": "Shields Operation",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1101,
-   "name": "Shields Systems",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1102,
-   "name": "Shields Calibration",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": [
-    {
-     "skill_id": 1100,
-     "level": 4
-    },
-    {
-     "skill_id": 1101,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1103,
-   "name": "Shields Doctrine",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": [
-    {
-     "skill_id": 1102,
-     "level": 2
-    },
-    {
-     "skill_id": 1101,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1104,
-   "name": "Shields Mastery",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": [
-    {
-     "skill_id": 1101,
-     "level": 1
-    },
-    {
-     "skill_id": 1103,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1105,
-   "name": "Shields Theory",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": [
-    {
-     "skill_id": 1102,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1106,
-   "name": "Shields Specialist",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": [
-    {
-     "skill_id": 1103,
-     "level": 5
-    },
-    {
-     "skill_id": 1104,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1107,
-   "name": "Shields Command",
-   "group_id": 105,
-   "group_name": "Shields",
-   "prerequisites": [
-    {
-     "skill_id": 1100,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1120,
-   "name": "Armor Operation",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1121,
-   "name": "Armor Systems",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1122,
-   "name": "Armor Calibration",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": [
-    {
-     "skill_id": 1120,
-     "level": 1
-    },
-    {
-     "skill_id": 1121,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1123,
-   "name": "Armor Doctrine",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": [
-    {
-     "skill_id": 1120,
-     "level": 2
-    },
-    {
-     "skill_id": 1121,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1124,
-   "name": "Armor Mastery",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": [
-    {
-     "skill_id": 1122,
-     "level": 1
-    },
-    {
-     "skill_id": 1123,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1125,
-   "name": "Armor Theory",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": [
-    {
-     "skill_id": 1124,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1126,
-   "name": "Armor Specialist",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": [
-    {
-     "skill_id": 1120,
-     "level": 2
-    },
-    {
-     "skill_id": 1121,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1127,
-   "name": "Armor Command",
-   "group_id": 106,
-   "group_name": "Armor",
-   "prerequisites": [
-    {
-     "skill_id": 1126,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1140,
-   "name": "Targeting Operation",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1141,
-   "name": "Targeting Systems",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1142,
-   "name": "Targeting Calibration",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": [
-    {
-     "skill_id": 1141,
-     "level": 2
-    },
-    {
-     "skill_id": 1140,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1143,
-   "name": "Targeting Doctrine",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": [
-    {
-     "skill_id": 1140,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1144,
-   "name": "Targeting Mastery",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": [
-    {
-     "skill_id": 1143,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1145,
-   "name": "Targeting Theory",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": [
-    {
-     "skill_id": 1142,
-     "level": 1
-    },
-    {
-     "skill_id": 1144,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1146,
-   "name": "Targeting Specialist",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": [
-    {
-     "skill_id": 1145,
-     "level": 2
-    },
-    {
-     "skill_id": 1140,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1147,
-   "name": "Targeting Command",
-   "group_id": 107,
-   "group_name": "Targeting",
-   "prerequisites": [
-    {
-     "skill_id": 1142,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1160,
-   "name": "Drones Operation",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1161,
-   "name": "Drones Systems",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1162,
-   "name": "Drones Calibration",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": [
-    {
-     "skill_id": 1160,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1163,
-   "name": "Drones Doctrine",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": [
-    {
-     "skill_id": 1160,
-     "level": 5
-    }
-   ]
-  },
-  {
-   "skill_id": 1164,
-   "name": "Drones Mastery",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": [
-    {
-     "skill_id": 1161,
-     "level": 4
-    },
-    {
-     "skill_id": 1160,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1165,
-   "name": "Drones Theory",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": [
-    {
-     "skill_id": 1162,
-     "level": 4
-    },
-    {
-     "skill_id": 1163,
-     "level": 2
-    }
-   ]
-  },
-  {
-   "skill_id": 1166,
-   "name": "Drones Specialist",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": [
-    {
-     "skill_id": 1160,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1167,
-   "name": "Drones Command",
-   "group_id": 108,
-   "group_name": "Drones",
-   "prerequisites": [
-    {
-     "skill_id": 1162,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1180,
-   "name": "Fleet Support Operation",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1181,
-   "name": "Fleet Support Systems",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": []
-  },
-  {
-   "skill_id": 1182,
-   "name": "Fleet Support Calibration",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": [
-    {
-     "skill_id": 1180,
-     "level": 2
-    },
-    {
-     "skill_id": 1181,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1183,
-   "name": "Fleet Support Doctrine",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": [
-    {
-     "skill_id": 1182,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1184,
-   "name": "Fleet Support Mastery",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": [
-    {
-     "skill_id": 1182,
-     "level": 1
-    },
-    {
-     "skill_id": 1180,
-     "level": 4
-    }
-   ]
-  },
-  {
-   "skill_id": 1185,
-   "name": "Fleet Support Theory",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": [
-    {
-     "skill_id": 1183,
-     "level": 1
-    },
-    {
-     "skill_id": 1182,
-     "level": 3
-    }
-   ]
-  },
-  {
-   "skill_id": 1186,
-   "name": "Fleet Support Specialist",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": [
-    {
-     "skill_id": 1184,
-     "level": 1
-    }
-   ]
-  },
-  {
-   "skill_id": 1187,
-   "name": "Fleet Support Command",
-   "group_id": 109,
-   "group_name": "Fleet Support",
-   "prerequisites": [
-    {
-     "skill_id": 1186,
-     "level": 1
     }
    ]
   }

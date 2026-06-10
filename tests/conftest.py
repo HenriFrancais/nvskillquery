@@ -62,6 +62,9 @@ def make_client(monkeypatch):
             "DEV_MODE": "0",
             "DATA_SOURCE": "demo",
             "URL_PREFIX": "",
+            # Force the committed demo fallback catalogue: a developer's local
+            # var/sde (real SDE) must not leak into test ground truth.
+            "SDE_DIR": "/nonexistent-sde-for-tests",
         }
         defaults.update(env)
         for key, value in defaults.items():

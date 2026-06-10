@@ -4,7 +4,7 @@ import { builderReducer } from './reducer'
 
 function rootWithSkill(): { root: BuilderGroup; skill: BuilderSkill } {
   let root = emptyGroup('and')
-  root = builderReducer(root, { type: 'add_condition', groupId: root.id, kind: 'skill' })
+  root = builderReducer(root, { type: 'add_condition', groupId: root.id })
   const skill = root.children[0] as BuilderSkill
   return { root, skill }
 }
@@ -46,7 +46,7 @@ describe('builderReducer', () => {
     let root = emptyGroup('and')
     root = builderReducer(root, { type: 'add_group', groupId: root.id })
     const sub = root.children[0] as BuilderGroup
-    root = builderReducer(root, { type: 'add_condition', groupId: sub.id, kind: 'char_type' })
+    root = builderReducer(root, { type: 'add_condition', groupId: sub.id })
     const leaf = (root.children[0] as BuilderGroup).children[0]
 
     let next = builderReducer(root, { type: 'remove', id: leaf.id })
@@ -60,15 +60,15 @@ describe('builderReducer', () => {
 describe('toWire / fromWire', () => {
   it('strips ids and skips unfilled conditions', () => {
     let root = emptyGroup('and')
-    root = builderReducer(root, { type: 'add_condition', groupId: root.id, kind: 'skill' })
-    root = builderReducer(root, { type: 'add_condition', groupId: root.id, kind: 'char_type' })
+    root = builderReducer(root, { type: 'add_condition', groupId: root.id })
+    root = builderReducer(root, { type: 'add_condition', groupId: root.id })
     const skill = root.children[0] as BuilderSkill
     root = builderReducer(root, {
       type: 'update_condition',
       id: skill.id,
       patch: { skill_id: 7, min_level: 2 },
     })
-    // char_type still unfilled -> dropped from the wire tree
+    // second skill still unfilled -> dropped from the wire tree
     expect(toWire(root)).toEqual({
       kind: 'group',
       op: 'and',
@@ -91,7 +91,7 @@ describe('toWire / fromWire', () => {
         {
           kind: 'group' as const,
           op: 'and' as const,
-          children: [{ kind: 'char_type' as const, char_type: 'Titan' }],
+          children: [{ kind: 'skill' as const, skill_id: 2, min_level: 3 }],
         },
       ],
     }

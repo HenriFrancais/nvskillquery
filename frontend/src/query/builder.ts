@@ -11,12 +11,6 @@ export interface BuilderSkill {
   min_level: number
 }
 
-export interface BuilderCharType {
-  id: string
-  kind: 'char_type'
-  char_type: string | null
-}
-
 export interface BuilderGroup {
   id: string
   kind: 'group'
@@ -24,7 +18,7 @@ export interface BuilderGroup {
   children: BuilderNode[]
 }
 
-export type BuilderNode = BuilderGroup | BuilderSkill | BuilderCharType
+export type BuilderNode = BuilderGroup | BuilderSkill
 
 let counter = 0
 export function nextId(): string {
@@ -52,8 +46,6 @@ export function fromWire(node: QueryNode): BuilderNode {
       }
     case 'skill':
       return { id: nextId(), kind: 'skill', skill_id: node.skill_id, min_level: node.min_level }
-    case 'char_type':
-      return { id: nextId(), kind: 'char_type', char_type: node.char_type }
   }
 }
 
@@ -74,9 +66,6 @@ export function toWire(node: BuilderNode): QueryNode | null {
     case 'skill':
       if (node.skill_id === null) return null
       return { kind: 'skill', skill_id: node.skill_id, min_level: node.min_level }
-    case 'char_type':
-      if (node.char_type === null || node.char_type === '') return null
-      return { kind: 'char_type', char_type: node.char_type }
   }
 }
 

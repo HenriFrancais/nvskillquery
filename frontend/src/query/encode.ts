@@ -41,8 +41,6 @@ function isQueryNode(data: unknown): data is QueryNode {
         node.min_level >= 1 &&
         node.min_level <= 5
       )
-    case 'char_type':
-      return typeof node.char_type === 'string' && node.char_type.length > 0
     case 'group':
       return (
         (node.op === 'and' || node.op === 'or') &&

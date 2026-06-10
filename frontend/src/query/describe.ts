@@ -1,5 +1,5 @@
 // Human-readable rendering of the current query, e.g.
-//   (Capital Hybrid Turret >= 4 AND Gunnery Doctrine >= 3) OR type = Dreadnought
+//   (Capital Hybrid Turret >= IV AND Gunnery Doctrine >= III) OR Cynosural Field Theory >= I
 
 import type { QueryNode } from './model'
 
@@ -13,8 +13,6 @@ export function describeQuery(
   switch (node.kind) {
     case 'skill':
       return `${skillName(node.skill_id)} ≥ ${ROMAN[node.min_level]}`
-    case 'char_type':
-      return `type = ${node.char_type}`
     case 'group': {
       const joiner = node.op === 'and' ? ' AND ' : ' OR '
       const inner = node.children

@@ -31,7 +31,8 @@ export interface GroupOut {
 export interface CatalogResponse {
   skills: SkillOut[]
   groups: GroupOut[]
-  char_types: string[]
+  character_groups: string[]
+  sde_build_number: number
   snapshot_version: number
   snapshot_fetched_at: string
 }
@@ -39,7 +40,7 @@ export interface CatalogResponse {
 export interface CharacterOut {
   character_id: number
   name: string
-  character_type: string
+  group: string
 }
 
 export interface MainCharacterOut extends CharacterOut {
@@ -100,12 +101,14 @@ const API = `${import.meta.env.BASE_URL}api`
 export const api = {
   me: () => jsonFetch<MeResponse>(`${API}/me`),
   catalog: () => jsonFetch<CatalogResponse>(`${API}/catalog`),
-  query: (query: QueryNode, includeNonMatching: boolean) =>
+  query: (query: QueryNode, groups: string[], includeNonMatching: boolean) =>
     jsonFetch<QueryResponse>(`${API}/query`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ query, include_non_matching: includeNonMatching }),
+      body: JSON.stringify({ query, groups, include_non_matching: includeNonMatching }),
     }),
-  exportCsvUrl: (encodedQuery: string, includeNonMatching: boolean) =>
-    `${API}/query/export.csv?q=${encodedQuery}&include_non_matching=${includeNonMatching}`,
+  exportCsvUrl: (encodedQuery: string, groupsParam: string | null, includeNonMatching: boolean) =>
+    `${API}/query/export.csv?q=${encodedQuery}` +
+    (groupsParam ? `&g=${encodeURIComponent(groupsParam)}` : '') +
+    `&include_non_matching=${includeNonMatching}`,
 }

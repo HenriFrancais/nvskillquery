@@ -14,7 +14,7 @@ const TREE: QueryNode = {
         { kind: 'skill', skill_id: 1001, min_level: 3 },
       ],
     },
-    { kind: 'char_type', char_type: 'Dreadnought' },
+    { kind: 'skill', skill_id: 1002, min_level: 5 },
   ],
 }
 
@@ -45,6 +45,19 @@ describe('encodeQuery / decodeQuery', () => {
     const encode = (data: unknown) => btoa(JSON.stringify(data)).replace(/=+$/, '')
     expect(decodeQuery(encode({ kind: 'skill', skill_id: 1, min_level: 9 }))).toBeNull()
     expect(decodeQuery(encode({ kind: 'group', op: 'and', children: [] }))).toBeNull()
-    expect(decodeQuery(encode({ kind: 'char_type', char_type: '' }))).toBeNull()
+  })
+
+  it('rejects legacy char_type trees', () => {
+    const encode = (data: unknown) => btoa(JSON.stringify(data)).replace(/=+$/, '')
+    expect(decodeQuery(encode({ kind: 'char_type', char_type: 'Home' }))).toBeNull()
+    expect(
+      decodeQuery(
+        encode({
+          kind: 'group',
+          op: 'and',
+          children: [{ kind: 'char_type', char_type: 'Home' }],
+        }),
+      ),
+    ).toBeNull()
   })
 })

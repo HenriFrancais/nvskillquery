@@ -25,7 +25,8 @@ const catalog: CatalogResponse = {
     },
   ],
   groups: [{ group_id: 1, name: 'Gunnery' }],
-  char_types: ['Dreadnought', 'Carrier'],
+  character_groups: ['Home', 'Strat', 'Farm', 'Alpha'],
+  sde_build_number: 0,
   snapshot_version: 1,
   snapshot_fetched_at: '2026-01-01T00:00:00Z',
 }
@@ -62,15 +63,10 @@ describe('GroupEditor', () => {
     expect(lastRoot.op).toBe('or')
   })
 
-  it('adds a char-type condition and selects a type', () => {
+  it('offers no char-type condition (skills-only tree)', () => {
     render(<Harness initial={emptyGroup('and')} />)
 
-    fireEvent.click(screen.getByText('+ type'))
-    fireEvent.change(screen.getByLabelText('Character type'), {
-      target: { value: 'Dreadnought' },
-    })
-
-    expect(lastRoot.children[0]).toMatchObject({ kind: 'char_type', char_type: 'Dreadnought' })
+    expect(screen.queryByText('+ type')).not.toBeInTheDocument()
   })
 
   it('removes a condition but never the root group', () => {

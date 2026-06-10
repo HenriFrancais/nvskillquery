@@ -2,7 +2,6 @@
 // removable; all mutations address nodes by client id.
 
 import {
-  BuilderCharType,
   BuilderGroup,
   BuilderNode,
   BuilderSkill,
@@ -13,14 +12,13 @@ import {
 export type BuilderAction =
   | { type: 'reset'; root: BuilderGroup }
   | { type: 'set_op'; id: string; op: 'and' | 'or' }
-  | { type: 'add_condition'; groupId: string; kind: 'skill' | 'char_type' }
+  | { type: 'add_condition'; groupId: string }
   | { type: 'add_group'; groupId: string }
   | { type: 'remove'; id: string }
   | {
       type: 'update_condition'
       id: string
-      patch: Partial<Pick<BuilderSkill, 'skill_id' | 'min_level'>> &
-        Partial<Pick<BuilderCharType, 'char_type'>>
+      patch: Partial<Pick<BuilderSkill, 'skill_id' | 'min_level'>>
     }
 
 function mapTree(node: BuilderNode, fn: (n: BuilderNode) => BuilderNode): BuilderNode {
@@ -47,10 +45,7 @@ export function builderReducer(root: BuilderGroup, action: BuilderAction): Build
         n.id === action.id && n.kind === 'group' ? { ...n, op: action.op } : n,
       ) as BuilderGroup
     case 'add_condition': {
-      const fresh: BuilderNode =
-        action.kind === 'skill'
-          ? { id: nextId(), kind: 'skill', skill_id: null, min_level: 1 }
-          : { id: nextId(), kind: 'char_type', char_type: null }
+      const fresh: BuilderNode = { id: nextId(), kind: 'skill', skill_id: null, min_level: 1 }
       return mapTree(root, (n) =>
         n.id === action.groupId && n.kind === 'group'
           ? { ...n, children: [...n.children, fresh] }
@@ -72,23 +67,13 @@ export function builderReducer(root: BuilderGroup, action: BuilderAction): Build
     }
     case 'update_condition':
       return mapTree(root, (n) => {
-        if (n.id !== action.id) return n
-        if (n.kind === 'skill') {
-          return {
-            ...n,
-            skill_id: action.patch.skill_id !== undefined ? action.patch.skill_id : n.skill_id,
-            min_level:
-              action.patch.min_level !== undefined ? action.patch.min_level : n.min_level,
-          }
+        if (n.id !== action.id || n.kind !== 'skill') return n
+        return {
+          ...n,
+          skill_id: action.patch.skill_id !== undefined ? action.patch.skill_id : n.skill_id,
+          min_level:
+            action.patch.min_level !== undefined ? action.patch.min_level : n.min_level,
         }
-        if (n.kind === 'char_type') {
-          return {
-            ...n,
-            char_type:
-              action.patch.char_type !== undefined ? action.patch.char_type : n.char_type,
-          }
-        }
-        return n
       }) as BuilderGroup
   }
 }

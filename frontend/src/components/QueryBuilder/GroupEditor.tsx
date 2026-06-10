@@ -4,7 +4,6 @@ import type { CatalogResponse } from '../../api'
 import type { BuilderGroup, BuilderNode } from '../../query/builder'
 import { MAX_DEPTH } from '../../query/model'
 import type { BuilderAction } from '../../query/reducer'
-import { CharTypePicker } from './CharTypePicker'
 import { LevelSelect } from './LevelSelect'
 import { SkillPicker } from './SkillPicker'
 
@@ -51,17 +50,9 @@ export function GroupEditor({
             type="button"
             className="btn subtle"
             disabled={atNodeCap}
-            onClick={() => dispatch({ type: 'add_condition', groupId: group.id, kind: 'skill' })}
+            onClick={() => dispatch({ type: 'add_condition', groupId: group.id })}
           >
             + skill
-          </button>
-          <button
-            type="button"
-            className="btn subtle"
-            disabled={atNodeCap}
-            onClick={() => dispatch({ type: 'add_condition', groupId: group.id, kind: 'char_type' })}
-          >
-            + type
           </button>
           <button
             type="button"
@@ -129,57 +120,38 @@ function ChildEditor({
     )
   }
 
-  const remove = (
-    <button
-      type="button"
-      className="btn remove"
-      aria-label="Remove condition"
-      onClick={() => dispatch({ type: 'remove', id: child.id })}
-    >
-      ✕
-    </button>
-  )
-
-  if (child.kind === 'skill') {
-    const skill =
-      child.skill_id !== null
-        ? catalog.skills.find((s) => s.skill_id === child.skill_id)
-        : undefined
-    return (
-      <div className="condition-row">
-        <SkillPicker
-          skills={catalog.skills}
-          value={child.skill_id}
-          onChange={(skillId) =>
-            dispatch({ type: 'update_condition', id: child.id, patch: { skill_id: skillId } })
-          }
-        />
-        <LevelSelect
-          value={child.min_level}
-          onChange={(level) =>
-            dispatch({ type: 'update_condition', id: child.id, patch: { min_level: level } })
-          }
-        />
-        {remove}
-        {skill && skill.prerequisites.length > 0 && (
-          <span className="prereq-info">
-            needs {skill.prerequisites.map((p) => `${p.name} ${ROMAN[p.level]}`).join(', ')}
-          </span>
-        )}
-      </div>
-    )
-  }
-
+  const skill =
+    child.skill_id !== null
+      ? catalog.skills.find((s) => s.skill_id === child.skill_id)
+      : undefined
   return (
     <div className="condition-row">
-      <CharTypePicker
-        charTypes={catalog.char_types}
-        value={child.char_type}
-        onChange={(charType) =>
-          dispatch({ type: 'update_condition', id: child.id, patch: { char_type: charType } })
+      <SkillPicker
+        skills={catalog.skills}
+        value={child.skill_id}
+        onChange={(skillId) =>
+          dispatch({ type: 'update_condition', id: child.id, patch: { skill_id: skillId } })
         }
       />
-      {remove}
+      <LevelSelect
+        value={child.min_level}
+        onChange={(level) =>
+          dispatch({ type: 'update_condition', id: child.id, patch: { min_level: level } })
+        }
+      />
+      <button
+        type="button"
+        className="btn remove"
+        aria-label="Remove condition"
+        onClick={() => dispatch({ type: 'remove', id: child.id })}
+      >
+        ✕
+      </button>
+      {skill && skill.prerequisites.length > 0 && (
+        <span className="prereq-info">
+          needs {skill.prerequisites.map((p) => `${p.name} ${ROMAN[p.level]}`).join(', ')}
+        </span>
+      )}
     </div>
   )
 }

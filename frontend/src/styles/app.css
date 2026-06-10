@@ -317,3 +317,41 @@ select, input[type="text"], input[type="search"] {
   background: var(--panel-2);
   border-bottom: none;
 }
+
+/* ---- Pool filter ---- */
+
+.pool-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.pool-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-right: 0.2rem;
+}
+
+.pool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  cursor: pointer;
+  color: var(--text-dim);
+  user-select: none;
+}
+.pool-chip input { margin: 0; accent-color: var(--accent); }
+.pool-chip.on {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+}
+.pool-chip:hover { border-color: var(--text-dim); }

@@ -1,7 +1,8 @@
 """End-to-end API tests against the demo fixtures.
 
 Demo data ground truth: 80 skills (ids 1000-1187 stepping by group), 50
-users, 130 characters, 8 character types; skill 1000 = "Gunnery Operation".
+users, 130 characters, 4 character groups (Home/Strat/Farm/Alpha);
+skill 1000 = "Gunnery Operation".
 """
 
 from __future__ import annotations
@@ -58,7 +59,9 @@ def test_catalog_shape(client):
     cat = client.get("/api/catalog", headers=GATED_HEADERS).json()
     assert len(cat["skills"]) == 80
     assert len(cat["groups"]) == 10
-    assert len(cat["char_types"]) == 8
+    assert cat["character_groups"] == ["Home", "Strat", "Farm", "Alpha"]
+    assert "char_types" not in cat
+    assert cat["sde_build_number"] == 0  # demo fallback catalogue
     assert cat["snapshot_version"] == 1
     skill_1000 = next(s for s in cat["skills"] if s["skill_id"] == 1000)
     assert skill_1000["name"] == "Gunnery Operation"
@@ -98,13 +101,47 @@ def test_query_nested_tree(client):
                     {"kind": "skill", "skill_id": 1000, "min_level": 4},
                     {"kind": "skill", "skill_id": 1001, "min_level": 3},
                 ]},
-                {"kind": "char_type", "char_type": "Dreadnought"},
+                {"kind": "skill", "skill_id": 1002, "min_level": 1},
             ],
         }
     }
     resp = client.post("/api/query", json=nested, headers=GATED_HEADERS)
     assert resp.status_code == 200
     assert resp.json()["totals"]["users_with_matches"] > 0
+
+
+def test_query_char_type_node_rejected(client):
+    legacy = {"query": {"kind": "char_type", "char_type": "Home"}}
+    resp = client.post("/api/query", json=legacy, headers=GATED_HEADERS)
+    assert resp.status_code == 422
+
+
+def test_query_groups_scope_pool(client):
+    full = client.post("/api/query", json=SIMPLE_QUERY, headers=GATED_HEADERS).json()
+    home = client.post(
+        "/api/query",
+        json={**SIMPLE_QUERY, "groups": ["Home"]},
+        headers=GATED_HEADERS,
+    ).json()
+    assert home["totals"]["total_characters"] < full["totals"]["total_characters"]
+    assert home["totals"]["total_characters"] > 0
+    for row in home["rows"]:
+        assert all(c["group"] == "Home" for c in row["matching_characters"])
+        assert row["match_count"] <= row["total_characters"]
+    # Every group filter result is a subset of the unfiltered result.
+    assert home["totals"]["total_matching_characters"] <= full["totals"][
+        "total_matching_characters"
+    ]
+
+
+def test_query_unknown_group_422(client):
+    resp = client.post(
+        "/api/query",
+        json={**SIMPLE_QUERY, "groups": ["Dreadnought"]},
+        headers=GATED_HEADERS,
+    )
+    assert resp.status_code == 422
+    assert "Dreadnought" in resp.json()["detail"]
 
 
 def test_query_structural_422(client):
@@ -133,7 +170,7 @@ def test_query_503_when_upstream_unavailable(make_client):
     assert resp.json()["detail"] == "snapshot_unavailable"
 
 
-def test_query_result_cached_per_snapshot_version(client, monkeypatch):
+def test_query_result_cached_per_snapshot_version_and_groups(client, monkeypatch):
     import app.api.query as query_mod
 
     calls = {"n": 0}
@@ -150,6 +187,10 @@ def test_query_result_cached_per_snapshot_version(client, monkeypatch):
             == 200
         )
     assert calls["n"] == 1
+    # A different pool is a different cache entry.
+    body = {**SIMPLE_QUERY, "groups": ["Home"]}
+    assert client.post("/api/query", json=body, headers=GATED_HEADERS).status_code == 200
+    assert calls["n"] == 2
 
 
 # --- CSV export --------------------------------------------------------------
@@ -170,7 +211,7 @@ def test_csv_export(client):
     assert header == [
         "user_name",
         "main_character",
-        "main_character_type",
+        "main_character_group",
         "main_character_matches",
         "match_count",
         "total_characters",
@@ -181,6 +222,20 @@ def test_csv_export(client):
         "rows"
     ]
     assert len(lines) - 1 == len(json_rows)
+
+
+def test_csv_export_groups_param(client):
+    from app.queries.encode import encode_query
+    from app.queries.tree import QUERY_NODE_ADAPTER
+
+    q = encode_query(QUERY_NODE_ADAPTER.validate_python(SIMPLE_QUERY["query"]))
+    full = client.get(f"/api/query/export.csv?q={q}", headers=GATED_HEADERS)
+    home = client.get(f"/api/query/export.csv?q={q}&g=Home", headers=GATED_HEADERS)
+    assert home.status_code == 200
+    assert len(home.text.strip().splitlines()) <= len(full.text.strip().splitlines())
+    # Unknown group name → 422, same as the POST endpoint.
+    bad = client.get(f"/api/query/export.csv?q={q}&g=Nope", headers=GATED_HEADERS)
+    assert bad.status_code == 422
 
 
 def test_csv_export_bad_q_422(client):

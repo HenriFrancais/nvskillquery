@@ -20,6 +20,7 @@ from app.queries.tree import (
     AnyQueryNode,
     QueryNode,
     QueryValidationError,
+    validate_groups,
     validate_limits,
     validate_refs,
 )
@@ -56,23 +57,36 @@ async def get_snapshot_or_503() -> Snapshot:
 
 class QueryRequest(BaseModel):
     query: QueryNode
+    # Pool filter: only characters in these groups are considered. Empty = all.
+    groups: list[str] = []
     # Zero-match users are appended after the matching rows when set.
     include_non_matching: bool = False
 
 
-def _execute(snapshot: Snapshot, root: AnyQueryNode, include_non_matching: bool) -> QueryResponse:
+def _execute(
+    snapshot: Snapshot,
+    root: AnyQueryNode,
+    groups: list[str],
+    include_non_matching: bool,
+) -> QueryResponse:
     try:
         validate_limits(root)
         validate_refs(root, snapshot)
+        validate_groups(groups, snapshot)
     except QueryValidationError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     cache = _get_query_cache()
-    key = f"{canonical_hash(root)}:{snapshot.version}:{include_non_matching}"
+    key = (
+        f"{canonical_hash(root)}:{','.join(sorted(groups))}"
+        f":{snapshot.version}:{include_non_matching}"
+    )
     cached = cache.get(key)
     if cached is not None:
         return cached
-    result = run_query(snapshot, root, include_non_matching=include_non_matching)
+    result = run_query(
+        snapshot, root, groups=groups, include_non_matching=include_non_matching
+    )
     cache.put(key, result)
     return result
 
@@ -80,17 +94,18 @@ def _execute(snapshot: Snapshot, root: AnyQueryNode, include_non_matching: bool)
 @router.post("/api/query")
 async def query(body: QueryRequest) -> QueryResponse:
     snapshot = await get_snapshot_or_503()
-    return _execute(snapshot, body.query, body.include_non_matching)
+    return _execute(snapshot, body.query, body.groups, body.include_non_matching)
 
 
 @router.get("/api/query/export.csv")
-async def export_csv(q: str, include_non_matching: bool = False) -> Response:
+async def export_csv(q: str, g: str = "", include_non_matching: bool = False) -> Response:
     try:
         root = decode_query(q)
     except QueryDecodeError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+    groups = [s for s in g.split(",") if s]
     snapshot = await get_snapshot_or_503()
-    result = _execute(snapshot, root, include_non_matching)
+    result = _execute(snapshot, root, groups, include_non_matching)
     stamp = datetime.now(tz=UTC).strftime("%Y%m%d-%H%M%S")
     return Response(
         content=query_response_to_csv(result),

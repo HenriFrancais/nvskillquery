@@ -1,6 +1,7 @@
 """Catalog endpoint: everything the query builder UI needs to render its
 pickers — skills grouped by skill group (with prerequisite names resolved
-server-side so the UI needs no join) and the character-type vocabulary."""
+server-side so the UI needs no join) and the character-group vocabulary
+for the pool filter."""
 
 from __future__ import annotations
 
@@ -38,7 +39,8 @@ class GroupOut(BaseModel):
 class CatalogResponse(BaseModel):
     skills: list[SkillOut]
     groups: list[GroupOut]
-    char_types: list[str]
+    character_groups: list[str]
+    sde_build_number: int
     snapshot_version: int
     snapshot_fetched_at: str
 
@@ -75,7 +77,8 @@ def _catalog_from(snapshot: Snapshot) -> CatalogResponse:
             GroupOut(group_id=gid, name=name)
             for gid, name in sorted(groups_seen.items(), key=lambda kv: kv[1])
         ],
-        char_types=list(snapshot.char_types),
+        character_groups=list(snapshot.character_groups),
+        sde_build_number=snapshot.sde_build_number,
         snapshot_version=snapshot.version,
         snapshot_fetched_at=datetime.fromtimestamp(
             snapshot.fetched_at, tz=UTC

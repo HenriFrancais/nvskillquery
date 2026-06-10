@@ -10,6 +10,7 @@ from __future__ import annotations
 import pytest
 from fastapi.testclient import TestClient
 
+from app.api.query import reset_query_cache_for_tests
 from app.config import get_app_config, get_settings
 from app.observability.health import HEALTH
 from app.snapshot.store import reset_snapshot_store_for_tests
@@ -40,6 +41,7 @@ def _clear_caches() -> None:
     get_settings.cache_clear()
     get_app_config.cache_clear()
     reset_snapshot_store_for_tests()
+    reset_query_cache_for_tests()
     HEALTH.snapshot_loaded = False
     HEALTH.snapshot_version = 0
     HEALTH.snapshot_fetched_at = 0.0

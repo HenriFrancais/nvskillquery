@@ -14,6 +14,9 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+from app.api.catalog import router as catalog_router
+from app.api.meta import router as meta_router
+from app.api.query import router as query_router
 from app.config import get_settings
 from app.middleware import NVToolsAuthMiddleware
 from app.observability.health import HEALTH
@@ -56,6 +59,9 @@ def create_app() -> FastAPI:
     app = FastAPI(title="NV Skills", lifespan=lifespan)
     app.add_middleware(NVToolsAuthMiddleware)
     app.include_router(health_router, prefix=prefix)
+    app.include_router(meta_router, prefix=prefix)
+    app.include_router(catalog_router, prefix=prefix)
+    app.include_router(query_router, prefix=prefix)
     # Mount the built React bundle last so it acts as a catch-all for non-API paths.
     # API routes registered above take precedence; static assets fall through here.
     if _FRONTEND_DIST.is_dir():

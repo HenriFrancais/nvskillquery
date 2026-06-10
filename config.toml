@@ -1,0 +1,5 @@
+# Who may use the skill query tool. A user qualifies with EITHER a matching
+# rank OR a matching team. Override per deployment in config.local.toml
+# (gitignored) rather than editing this committed example.
+visibility_ranks = ["CEO", "High Command"]
+visibility_teams = ["Doctrine"]

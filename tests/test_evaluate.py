@@ -1,4 +1,4 @@
-"""Query tree evaluation against single characters."""
+"""Query tree evaluation against single characters (skills-only)."""
 
 from __future__ import annotations
 
@@ -23,12 +23,6 @@ def test_untrained_skill_is_level_zero():
     assert not character_matches(node, char(skill_levels={1: 5}))
 
 
-def test_char_type_condition_exact_match():
-    node = q({"kind": "char_type", "char_type": "Dreadnought"})
-    assert character_matches(node, char(character_type="Dreadnought"))
-    assert not character_matches(node, char(character_type="Subcap"))
-
-
 def test_and_group():
     node = q({
         "kind": "group", "op": "and", "children": [
@@ -44,26 +38,26 @@ def test_or_group():
     node = q({
         "kind": "group", "op": "or", "children": [
             {"kind": "skill", "skill_id": 1, "min_level": 5},
-            {"kind": "char_type", "char_type": "Carrier"},
+            {"kind": "skill", "skill_id": 2, "min_level": 1},
         ],
     })
     assert character_matches(node, char(skill_levels={1: 5}))
-    assert character_matches(node, char(character_type="Carrier"))
+    assert character_matches(node, char(skill_levels={2: 1}))
     assert not character_matches(node, char(skill_levels={1: 4}))
 
 
 def test_nested_and_or():
-    # (skill1 >= 4 AND skill2 >= 3) OR type = Dreadnought
+    # (skill1 >= 4 AND skill2 >= 3) OR skill3 >= 1
     node = q({
         "kind": "group", "op": "or", "children": [
             {"kind": "group", "op": "and", "children": [
                 {"kind": "skill", "skill_id": 1, "min_level": 4},
                 {"kind": "skill", "skill_id": 2, "min_level": 3},
             ]},
-            {"kind": "char_type", "char_type": "Dreadnought"},
+            {"kind": "skill", "skill_id": 3, "min_level": 1},
         ],
     })
     assert character_matches(node, char(skill_levels={1: 4, 2: 3}))
-    assert character_matches(node, char(character_type="Dreadnought"))
+    assert character_matches(node, char(skill_levels={3: 1}))
     assert not character_matches(node, char(skill_levels={1: 4, 2: 2}))
     assert not character_matches(node, char(skill_levels={2: 5}))

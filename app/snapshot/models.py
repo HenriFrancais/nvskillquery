@@ -25,7 +25,9 @@ class SkillDef:
 class CharacterRecord:
     character_id: int
     name: str
-    character_type: str
+    # Pool group (e.g. Home/Strat/Farm/Alpha) — scopes which characters a
+    # query considers; never a query condition itself.
+    group: str
     user_id: int
     is_main: bool
     # skill_id → trained level; absent = untrained. The evaluation index:
@@ -46,8 +48,10 @@ class UserRecord:
 class Snapshot:
     version: int
     fetched_at: float  # epoch seconds
+    # The skill catalogue comes from the processed SDE artifact, not upstream.
+    sde_build_number: int
     skills: dict[int, SkillDef]
-    char_types: tuple[str, ...]
+    character_groups: tuple[str, ...]
     users: dict[int, UserRecord]
     characters: dict[int, CharacterRecord]
     # user_ids sorted by user_name — stable result ordering.

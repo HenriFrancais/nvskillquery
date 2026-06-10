@@ -1,7 +1,9 @@
 """Pydantic models for the two upstream API payloads.
 
 The shapes are the proposed contract in docs/upstream-api.md; the committed
-demo fixtures conform to them.
+demo fixtures conform to them. The skill catalogue is NOT part of either
+payload — it comes from the processed SDE artifact (app/sde/catalog.py);
+the skills API only carries trained levels.
 """
 
 from __future__ import annotations
@@ -12,16 +14,10 @@ from pydantic import BaseModel, Field
 
 
 class SkillPrereq(BaseModel):
+    """Prerequisite entry in the SDE-derived skill catalogue."""
+
     skill_id: int
     level: int = Field(ge=1, le=5)
-
-
-class SkillDefIn(BaseModel):
-    skill_id: int
-    name: str
-    group_id: int
-    group_name: str
-    prerequisites: list[SkillPrereq] = Field(default_factory=list)
 
 
 class TrainedSkillIn(BaseModel):
@@ -41,14 +37,13 @@ class SkillsUserIn(BaseModel):
 
 class SkillsApiPayload(BaseModel):
     generated_at: datetime
-    skills: list[SkillDefIn]
     users: list[SkillsUserIn]
 
 
 class UsersCharacterIn(BaseModel):
     character_id: int
     name: str
-    character_type: str
+    group: str
 
 
 class UsersUserIn(BaseModel):
@@ -60,5 +55,5 @@ class UsersUserIn(BaseModel):
 
 class UsersApiPayload(BaseModel):
     generated_at: datetime
-    character_types: list[str] = Field(default_factory=list)
+    character_groups: list[str] = Field(default_factory=list)
     users: list[UsersUserIn]

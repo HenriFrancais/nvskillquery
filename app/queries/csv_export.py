@@ -10,7 +10,7 @@ from app.queries.aggregate import QueryResponse
 HEADER = [
     "user_name",
     "main_character",
-    "main_character_type",
+    "main_character_group",
     "main_character_matches",
     "match_count",
     "total_characters",
@@ -27,12 +27,12 @@ def query_response_to_csv(resp: QueryResponse) -> str:
             [
                 row.user_name,
                 row.main_character.name,
-                row.main_character.character_type,
+                row.main_character.group,
                 "yes" if row.main_character.matches else "no",
                 row.match_count,
                 row.total_characters,
                 "; ".join(
-                    f"{c.name} ({c.character_type})" for c in row.matching_characters
+                    f"{c.name} ({c.group})" for c in row.matching_characters
                 ),
             ]
         )

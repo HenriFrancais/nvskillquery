@@ -1,10 +1,10 @@
-"""Per-user aggregation: rows, ordering, totals, snapshot build rules."""
+"""Per-user aggregation: rows, ordering, totals, pool filter, build rules."""
 
 from __future__ import annotations
 
 from app.queries.aggregate import run_query
 from app.queries.tree import QUERY_NODE_ADAPTER
-from tests.helpers import simple_snapshot, snapshot_from
+from tests.helpers import CATALOG_SKILLS, simple_snapshot, snapshot_from
 
 
 def q(data: dict) -> object:
@@ -39,9 +39,10 @@ def test_main_character_match_flag():
 
 def test_tie_break_by_user_name():
     snap = simple_snapshot()
-    # Matches one character for everyone who has a Subcap: Alice, Bob, Carol.
-    resp = run_query(snap, q({"kind": "char_type", "char_type": "Subcap"}))
-    assert [r.user_name for r in resp.rows] == ["Alice", "Bob", "Carol"]
+    # One matching character each for Alice (alt @4) and Bob (main @2).
+    resp = run_query(snap, q({"kind": "skill", "skill_id": 2, "min_level": 2}))
+    assert [r.user_name for r in resp.rows] == ["Alice", "Bob"]
+    assert [r.match_count for r in resp.rows] == [1, 1]
 
 
 def test_include_non_matching_appends_after_matches():
@@ -68,10 +69,71 @@ def test_snapshot_metadata_passthrough():
     assert resp.snapshot_fetched_at == "1970-01-01T00:00:00+00:00"
 
 
+# ---- group pool filter ----
+
+
+def test_pool_scopes_matching_and_counts():
+    snap = simple_snapshot()
+    # Alice matches with both chars overall, but only the Home main is in pool.
+    resp = run_query(snap, q(SKILL1_AT_3), groups=["Home"])
+    alice = next(r for r in resp.rows if r.user_name == "Alice")
+    assert alice.match_count == 1
+    assert alice.total_characters == 1
+    assert [c.name for c in alice.matching_characters] == ["Alice"]
+    assert all(c.group == "Home" for c in alice.matching_characters)
+
+
+def test_zero_pool_user_dropped():
+    # Bob has no Strat characters at all.
+    snap = simple_snapshot()
+    resp = run_query(snap, q({"kind": "skill", "skill_id": 1, "min_level": 1}),
+                     groups=["Strat"])
+    assert [r.user_name for r in resp.rows] == ["Alice"]
+
+
+def test_zero_pool_user_included_when_non_matching():
+    snap = simple_snapshot()
+    resp = run_query(snap, q({"kind": "skill", "skill_id": 1, "min_level": 1}),
+                     groups=["Strat"], include_non_matching=True)
+    rows = {r.user_name: r for r in resp.rows}
+    assert set(rows) == {"Alice", "Bob", "Carol"}
+    assert rows["Bob"].match_count == 0
+    assert rows["Bob"].total_characters == 0
+
+
+def test_main_outside_pool_shown_not_matching():
+    snap = simple_snapshot()
+    # Carol's main is Farm; the Home pool contains only her matching alt.
+    resp = run_query(snap, q(SKILL1_AT_3), groups=["Home"])
+    carol = next(r for r in resp.rows if r.user_name == "Carol")
+    assert carol.main_character.name == "Carol"
+    assert carol.main_character.matches is False
+    assert carol.total_characters == 1
+
+
+def test_totals_are_pool_relative():
+    snap = simple_snapshot()
+    resp = run_query(snap, q(SKILL1_AT_3), groups=["Home"])
+    # Pool = Alice(101), Bob(201), Carol II(302): 3 chars across 3 users.
+    assert resp.totals.total_characters == 3
+    assert resp.totals.total_users == 3
+    # Matches in pool: Alice main @5, Carol II @4.
+    assert resp.totals.users_with_matches == 2
+    assert resp.totals.total_matching_characters == 2
+
+
+def test_empty_groups_means_all():
+    snap = simple_snapshot()
+    assert run_query(snap, q(SKILL1_AT_3), groups=[]) == run_query(snap, q(SKILL1_AT_3))
+
+
+# ---- snapshot build rules ----
+
+
 def test_build_drops_orphans_and_fixes_bad_main():
     snap = snapshot_from(
+        CATALOG_SKILLS,
         {
-            "skills": [],
             "users": [
                 # user 7 exists; char 999 doesn't → orphan char dropped
                 {"user_id": 7, "characters": [{"character_id": 999, "skills": []}]},
@@ -80,11 +142,11 @@ def test_build_drops_orphans_and_fixes_bad_main():
             ],
         },
         {
-            "character_types": [],
+            "character_groups": [],
             "users": [
                 # main_character_id points at a character not in the list
                 {"user_id": 7, "user_name": "Dave", "main_character_id": 12345, "characters": [
-                    {"character_id": 701, "name": "Dave", "character_type": "Subcap"},
+                    {"character_id": 701, "name": "Dave", "group": "Home"},
                 ]},
                 # zero characters → dropped entirely
                 {"user_id": 9, "user_name": "Eve", "main_character_id": 1, "characters": []},
@@ -94,5 +156,34 @@ def test_build_drops_orphans_and_fixes_bad_main():
     assert set(snap.users) == {7}
     assert snap.users[7].main_character_id == 701
     assert snap.characters[701].is_main
-    # character_types fell back to the distinct set seen on characters.
-    assert snap.char_types == ("Subcap",)
+    # character_groups fell back to the distinct set seen on characters.
+    assert snap.character_groups == ("Home",)
+
+
+def test_build_drops_unknown_trained_skills():
+    snap = snapshot_from(
+        CATALOG_SKILLS,
+        {
+            "users": [
+                {"user_id": 1, "characters": [
+                    {"character_id": 101, "skills": [
+                        {"skill_id": 1, "level": 5},
+                        {"skill_id": 999, "level": 3},  # not in SDE catalogue
+                    ]},
+                ]},
+            ],
+        },
+        {
+            "character_groups": ["Home"],
+            "users": [
+                {"user_id": 1, "user_name": "Alice", "main_character_id": 101, "characters": [
+                    {"character_id": 101, "name": "Alice", "group": "Home"},
+                ]},
+            ],
+        },
+    )
+    assert snap.characters[101].skill_levels == {1: 5}
+
+
+def test_snapshot_carries_sde_build_number():
+    assert simple_snapshot().sde_build_number == 1

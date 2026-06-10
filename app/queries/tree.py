@@ -1,11 +1,13 @@
-"""Query expression tree: arbitrarily nested AND/OR groups over two leaf
-condition kinds. The same JSON shape is produced by the frontend builder and
+"""Query expression tree: arbitrarily nested AND/OR groups over skill
+conditions only. The same JSON shape is produced by the frontend builder and
 encoded into shareable URLs, so it is strictly validated here
 (extra="forbid", bounded depth/size, references checked against the
-snapshot)."""
+snapshot). Character groups are NOT query conditions — they arrive as a
+separate pool filter and are validated by validate_groups."""
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
@@ -28,12 +30,6 @@ class SkillCondition(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
-class CharTypeCondition(BaseModel):
-    kind: Literal["char_type"]
-    char_type: str = Field(min_length=1)
-    model_config = ConfigDict(extra="forbid")
-
-
 class GroupNode(BaseModel):
     kind: Literal["group"]
     op: Literal["and", "or"]
@@ -41,12 +37,10 @@ class GroupNode(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
-QueryNode = Annotated[
-    GroupNode | SkillCondition | CharTypeCondition, Field(discriminator="kind")
-]
+QueryNode = Annotated[GroupNode | SkillCondition, Field(discriminator="kind")]
 
 # Plain union for signatures (QueryNode itself is an Annotated form for pydantic).
-AnyQueryNode = GroupNode | SkillCondition | CharTypeCondition
+AnyQueryNode = GroupNode | SkillCondition
 
 GroupNode.model_rebuild()
 
@@ -70,25 +64,22 @@ def validate_limits(root: AnyQueryNode) -> None:
 
 
 def validate_refs(root: AnyQueryNode, snapshot: Snapshot) -> None:
-    """Reject references to skills/types the snapshot doesn't know, listing the
+    """Reject references to skills the snapshot doesn't know, listing the
     offenders — better UX than silently matching nothing."""
     unknown_skills: list[int] = []
-    unknown_types: list[str] = []
-    type_set = set(snapshot.char_types)
     stack: list[AnyQueryNode] = [root]
     while stack:
         node = stack.pop()
         if isinstance(node, GroupNode):
             stack.extend(node.children)
-        elif isinstance(node, SkillCondition):
-            if node.skill_id not in snapshot.skills:
-                unknown_skills.append(node.skill_id)
-        elif node.char_type not in type_set:
-            unknown_types.append(node.char_type)
-    problems = []
+        elif node.skill_id not in snapshot.skills:
+            unknown_skills.append(node.skill_id)
     if unknown_skills:
-        problems.append(f"unknown skill ids: {sorted(set(unknown_skills))}")
-    if unknown_types:
-        problems.append(f"unknown character types: {sorted(set(unknown_types))}")
-    if problems:
-        raise QueryValidationError("; ".join(problems))
+        raise QueryValidationError(f"unknown skill ids: {sorted(set(unknown_skills))}")
+
+
+def validate_groups(groups: Sequence[str], snapshot: Snapshot) -> None:
+    """Reject pool filters naming groups outside the snapshot vocabulary."""
+    unknown = sorted(set(groups) - set(snapshot.character_groups))
+    if unknown:
+        raise QueryValidationError(f"unknown character groups: {unknown}")

@@ -13,6 +13,7 @@ from fastapi.testclient import TestClient
 from app.api.query import reset_query_cache_for_tests
 from app.config import get_app_config, get_settings
 from app.observability.health import HEALTH
+from app.sde.catalog import reset_sde_catalog_for_tests
 from app.snapshot.store import reset_snapshot_store_for_tests
 
 TEST_TOKEN = "test-token"
@@ -42,6 +43,7 @@ def _clear_caches() -> None:
     get_app_config.cache_clear()
     reset_snapshot_store_for_tests()
     reset_query_cache_for_tests()
+    reset_sde_catalog_for_tests()
     HEALTH.snapshot_loaded = False
     HEALTH.snapshot_version = 0
     HEALTH.snapshot_fetched_at = 0.0

@@ -1,11 +1,12 @@
 """FastAPI app entrypoint.
 
-Lifespan: configure logging (snapshot warmup arrives with the data layer).
+Lifespan: configure logging, warm the snapshot store off the user's path.
 Middleware: NV Tools auth + CSP for iframe embedding.
 """
 
 from __future__ import annotations
 
+import asyncio
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -18,6 +19,7 @@ from app.middleware import NVToolsAuthMiddleware
 from app.observability.health import HEALTH
 from app.observability.health import router as health_router
 from app.observability.logging import configure_logging, log
+from app.snapshot.store import get_snapshot_store
 
 # Repo root → frontend/dist. Present in production images (built by the Dockerfile);
 # absent in dev where Vite serves the UI on its own port and proxies /api here.
@@ -30,10 +32,21 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     configure_logging(level=settings.log_level)
     HEALTH.data_source = settings.data_source
 
+    # Warm the snapshot off the user's path: the two upstream fetches can be
+    # slow, and without this the first query after boot would block on them.
+    async def _warm_snapshot() -> None:
+        try:
+            await get_snapshot_store(settings).get()
+        except Exception as exc:
+            log.warning("snapshot.warmup_failed", error=str(exc))
+
+    warmup = asyncio.create_task(_warm_snapshot(), name="snapshot-warmup")
+
     log.info("app.ready")
     try:
         yield
     finally:
+        warmup.cancel()
         log.info("app.shutdown")
 
 

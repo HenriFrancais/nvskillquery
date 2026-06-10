@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/api.ts","./src/main.tsx","./src/setupTests.ts","./src/vite-env.d.ts","./src/components/NoAccess.tsx","./src/hooks/useCatalog.ts","./src/hooks/useMe.ts","./src/query/model.ts","./src/views/SkillQuery.tsx","./vite.config.ts"],"version":"5.9.3"}

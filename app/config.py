@@ -36,6 +36,10 @@ class Settings(BaseSettings):
     data_source: Literal["real", "demo"] = "real"
     demo_data_dir: Path = Path("./data_demo")
 
+    # Processed SDE skill catalogue (scripts/refresh_sde.py output). Baked into
+    # the container image; gitignored locally.
+    sde_dir: Path = Path("./var/sde")
+
     skills_api_url: str = ""
     skills_api_token: str = ""
     users_api_url: str = ""

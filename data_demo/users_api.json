@@ -1,14 +1,10 @@
 {
  "generated_at": "2026-01-01T00:00:00Z",
- "character_types": [
-  "Subcap",
-  "Dreadnought",
-  "Carrier",
-  "FAX",
-  "Supercarrier",
-  "Titan",
-  "Industrial",
-  "Cyno Alt"
+ "character_groups": [
+  "Home",
+  "Strat",
+  "Farm",
+  "Alpha"
  ],
  "users": [
   {
@@ -19,12 +15,12 @@
     {
      "character_id": 90000001,
      "name": "Droquidro",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000002,
      "name": "Droquidro II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -36,12 +32,12 @@
     {
      "character_id": 90000003,
      "name": "Ashvenra",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     },
     {
      "character_id": 90000004,
      "name": "Ashvenra II",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -53,22 +49,22 @@
     {
      "character_id": 90000005,
      "name": "Ashmizok",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000006,
      "name": "Ashmizok II",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000007,
      "name": "Ashmizok Prime",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000008,
      "name": "Ashmizok's Hammer",
-     "character_type": "Titan"
+     "group": "Farm"
     }
    ]
   },
@@ -80,7 +76,7 @@
     {
      "character_id": 90000009,
      "name": "Sunven",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -92,7 +88,7 @@
     {
      "character_id": 90000010,
      "name": "Karbelkar",
-     "character_type": "Industrial"
+     "group": "Strat"
     }
    ]
   },
@@ -104,17 +100,17 @@
     {
      "character_id": 90000011,
      "name": "Venashbel",
-     "character_type": "FAX"
+     "group": "Strat"
     },
     {
      "character_id": 90000012,
      "name": "Venashbel II",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000013,
      "name": "Venashbel Prime",
-     "character_type": "Carrier"
+     "group": "Strat"
     }
    ]
   },
@@ -126,7 +122,7 @@
     {
      "character_id": 90000014,
      "name": "Razoksun",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -138,12 +134,12 @@
     {
      "character_id": 90000015,
      "name": "Thalash",
-     "character_type": "Supercarrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000016,
      "name": "Thalash II",
-     "character_type": "FAX"
+     "group": "Farm"
     }
    ]
   },
@@ -155,12 +151,12 @@
     {
      "character_id": 90000017,
      "name": "Karsun",
-     "character_type": "Dreadnought"
+     "group": "Home"
     },
     {
      "character_id": 90000018,
      "name": "Karsun II",
-     "character_type": "FAX"
+     "group": "Farm"
     }
    ]
   },
@@ -172,27 +168,27 @@
     {
      "character_id": 90000019,
      "name": "Nornor",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000020,
      "name": "Nornor II",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     },
     {
      "character_id": 90000021,
      "name": "Nornor Prime",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000022,
      "name": "Nornor's Hammer",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000023,
      "name": "Nornor's Anvil",
-     "character_type": "Supercarrier"
+     "group": "Farm"
     }
    ]
   },
@@ -204,17 +200,17 @@
     {
      "character_id": 90000024,
      "name": "Mibeldro",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000025,
      "name": "Mibeldro II",
-     "character_type": "FAX"
+     "group": "Farm"
     },
     {
      "character_id": 90000026,
      "name": "Mibeldro Prime",
-     "character_type": "Titan"
+     "group": "Farm"
     }
    ]
   },
@@ -226,22 +222,22 @@
     {
      "character_id": 90000027,
      "name": "Sunmi",
-     "character_type": "Industrial"
+     "group": "Alpha"
     },
     {
      "character_id": 90000028,
      "name": "Sunmi II",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000029,
      "name": "Sunmi Prime",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000030,
      "name": "Sunmi's Hammer",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -253,12 +249,12 @@
     {
      "character_id": 90000031,
      "name": "Thalquiven",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000032,
      "name": "Thalquiven II",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -270,17 +266,17 @@
     {
      "character_id": 90000033,
      "name": "Ashradro",
-     "character_type": "Supercarrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000034,
      "name": "Ashradro II",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000035,
      "name": "Ashradro Prime",
-     "character_type": "Titan"
+     "group": "Farm"
     }
    ]
   },
@@ -292,17 +288,17 @@
     {
      "character_id": 90000036,
      "name": "Miashsun",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000037,
      "name": "Miashsun II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000038,
      "name": "Miashsun Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -314,17 +310,17 @@
     {
      "character_id": 90000039,
      "name": "Midro",
-     "character_type": "Carrier"
+     "group": "Home"
     },
     {
      "character_id": 90000040,
      "name": "Midro II",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000041,
      "name": "Midro Prime",
-     "character_type": "Industrial"
+     "group": "Farm"
     }
    ]
   },
@@ -336,17 +332,17 @@
     {
      "character_id": 90000042,
      "name": "Thalthalash",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     },
     {
      "character_id": 90000043,
      "name": "Thalthalash II",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000044,
      "name": "Thalthalash Prime",
-     "character_type": "Industrial"
+     "group": "Farm"
     }
    ]
   },
@@ -358,17 +354,17 @@
     {
      "character_id": 90000045,
      "name": "Sunbel",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000046,
      "name": "Sunbel II",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000047,
      "name": "Sunbel Prime",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -380,12 +376,12 @@
     {
      "character_id": 90000048,
      "name": "Thalqui",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000049,
      "name": "Thalqui II",
-     "character_type": "Carrier"
+     "group": "Strat"
     }
    ]
   },
@@ -397,17 +393,17 @@
     {
      "character_id": 90000050,
      "name": "Thalbel",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000051,
      "name": "Thalbel II",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000052,
      "name": "Thalbel Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -419,7 +415,7 @@
     {
      "character_id": 90000053,
      "name": "Sunsun",
-     "character_type": "Carrier"
+     "group": "Home"
     }
    ]
   },
@@ -431,12 +427,12 @@
     {
      "character_id": 90000054,
      "name": "Zokvenkar",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000055,
      "name": "Zokvenkar II",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -448,22 +444,22 @@
     {
      "character_id": 90000056,
      "name": "Norra",
-     "character_type": "Dreadnought"
+     "group": "Home"
     },
     {
      "character_id": 90000057,
      "name": "Norra II",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000058,
      "name": "Norra Prime",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000059,
      "name": "Norra's Hammer",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -475,12 +471,12 @@
     {
      "character_id": 90000060,
      "name": "Zokkarqui",
-     "character_type": "Titan"
+     "group": "Strat"
     },
     {
      "character_id": 90000061,
      "name": "Zokkarqui II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -492,17 +488,17 @@
     {
      "character_id": 90000062,
      "name": "Thalashkar",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000063,
      "name": "Thalashkar II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000064,
      "name": "Thalashkar Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -514,12 +510,12 @@
     {
      "character_id": 90000065,
      "name": "Quithalmi",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000066,
      "name": "Quithalmi II",
-     "character_type": "Carrier"
+     "group": "Strat"
     }
    ]
   },
@@ -531,12 +527,12 @@
     {
      "character_id": 90000067,
      "name": "Quisunthal",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000068,
      "name": "Quisunthal II",
-     "character_type": "Industrial"
+     "group": "Farm"
     }
    ]
   },
@@ -548,17 +544,17 @@
     {
      "character_id": 90000069,
      "name": "Zokbelthal",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000070,
      "name": "Zokbelthal II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000071,
      "name": "Zokbelthal Prime",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -570,17 +566,17 @@
     {
      "character_id": 90000072,
      "name": "Norzok",
-     "character_type": "Dreadnought"
+     "group": "Home"
     },
     {
      "character_id": 90000073,
      "name": "Norzok II",
-     "character_type": "Industrial"
+     "group": "Farm"
     },
     {
      "character_id": 90000074,
      "name": "Norzok Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -592,12 +588,12 @@
     {
      "character_id": 90000075,
      "name": "Dromisun",
-     "character_type": "FAX"
+     "group": "Strat"
     },
     {
      "character_id": 90000076,
      "name": "Dromisun II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -609,27 +605,27 @@
     {
      "character_id": 90000077,
      "name": "Thalven",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000078,
      "name": "Thalven II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000079,
      "name": "Thalven Prime",
-     "character_type": "FAX"
+     "group": "Farm"
     },
     {
      "character_id": 90000080,
      "name": "Thalven's Hammer",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000081,
      "name": "Thalven's Anvil",
-     "character_type": "FAX"
+     "group": "Farm"
     }
    ]
   },
@@ -641,17 +637,17 @@
     {
      "character_id": 90000082,
      "name": "Drosunzok",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000083,
      "name": "Drosunzok II",
-     "character_type": "Industrial"
+     "group": "Farm"
     },
     {
      "character_id": 90000084,
      "name": "Drosunzok Prime",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -663,22 +659,22 @@
     {
      "character_id": 90000085,
      "name": "Sunashqui",
-     "character_type": "Carrier"
+     "group": "Home"
     },
     {
      "character_id": 90000086,
      "name": "Sunashqui II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000087,
      "name": "Sunashqui Prime",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000088,
      "name": "Sunashqui's Hammer",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -690,27 +686,27 @@
     {
      "character_id": 90000089,
      "name": "Quivenmi",
-     "character_type": "Dreadnought"
+     "group": "Home"
     },
     {
      "character_id": 90000090,
      "name": "Quivenmi II",
-     "character_type": "Industrial"
+     "group": "Farm"
     },
     {
      "character_id": 90000091,
      "name": "Quivenmi Prime",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000092,
      "name": "Quivenmi's Hammer",
-     "character_type": "FAX"
+     "group": "Farm"
     },
     {
      "character_id": 90000093,
      "name": "Quivenmi's Anvil",
-     "character_type": "Industrial"
+     "group": "Farm"
     }
    ]
   },
@@ -722,17 +718,17 @@
     {
      "character_id": 90000094,
      "name": "Karkarven",
-     "character_type": "Dreadnought"
+     "group": "Home"
     },
     {
      "character_id": 90000095,
      "name": "Karkarven II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     },
     {
      "character_id": 90000096,
      "name": "Karkarven Prime",
-     "character_type": "Industrial"
+     "group": "Farm"
     }
    ]
   },
@@ -744,12 +740,12 @@
     {
      "character_id": 90000097,
      "name": "Vendrokar",
-     "character_type": "Carrier"
+     "group": "Home"
     },
     {
      "character_id": 90000098,
      "name": "Vendrokar II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -761,12 +757,12 @@
     {
      "character_id": 90000099,
      "name": "Mithal",
-     "character_type": "Industrial"
+     "group": "Alpha"
     },
     {
      "character_id": 90000100,
      "name": "Mithal II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -778,12 +774,12 @@
     {
      "character_id": 90000101,
      "name": "Mibel",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000102,
      "name": "Mibel II",
-     "character_type": "Dreadnought"
+     "group": "Strat"
     }
    ]
   },
@@ -795,17 +791,17 @@
     {
      "character_id": 90000103,
      "name": "Belash",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000104,
      "name": "Belash II",
-     "character_type": "FAX"
+     "group": "Farm"
     },
     {
      "character_id": 90000105,
      "name": "Belash Prime",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -817,7 +813,7 @@
     {
      "character_id": 90000106,
      "name": "Rasun",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -829,12 +825,12 @@
     {
      "character_id": 90000107,
      "name": "Norqui",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000108,
      "name": "Norqui II",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -846,22 +842,22 @@
     {
      "character_id": 90000109,
      "name": "Thalsun",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     },
     {
      "character_id": 90000110,
      "name": "Thalsun II",
-     "character_type": "FAX"
+     "group": "Farm"
     },
     {
      "character_id": 90000111,
      "name": "Thalsun Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     },
     {
      "character_id": 90000112,
      "name": "Thalsun's Hammer",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -873,17 +869,17 @@
     {
      "character_id": 90000113,
      "name": "Beldro",
-     "character_type": "Titan"
+     "group": "Strat"
     },
     {
      "character_id": 90000114,
      "name": "Beldro II",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     },
     {
      "character_id": 90000115,
      "name": "Beldro Prime",
-     "character_type": "Carrier"
+     "group": "Strat"
     }
    ]
   },
@@ -895,17 +891,17 @@
     {
      "character_id": 90000116,
      "name": "Raven",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000117,
      "name": "Raven II",
-     "character_type": "Industrial"
+     "group": "Farm"
     },
     {
      "character_id": 90000118,
      "name": "Raven Prime",
-     "character_type": "Carrier"
+     "group": "Strat"
     }
    ]
   },
@@ -917,7 +913,7 @@
     {
      "character_id": 90000119,
      "name": "Thalkar",
-     "character_type": "FAX"
+     "group": "Strat"
     }
    ]
   },
@@ -929,17 +925,17 @@
     {
      "character_id": 90000120,
      "name": "Thalmi",
-     "character_type": "Industrial"
+     "group": "Alpha"
     },
     {
      "character_id": 90000121,
      "name": "Thalmi II",
-     "character_type": "Carrier"
+     "group": "Strat"
     },
     {
      "character_id": 90000122,
      "name": "Thalmi Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -951,12 +947,12 @@
     {
      "character_id": 90000123,
      "name": "Ashmiqui",
-     "character_type": "Industrial"
+     "group": "Farm"
     },
     {
      "character_id": 90000124,
      "name": "Ashmiqui II",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -968,7 +964,7 @@
     {
      "character_id": 90000125,
      "name": "Zokthalnor",
-     "character_type": "Subcap"
+     "group": "Home"
     }
    ]
   },
@@ -980,17 +976,17 @@
     {
      "character_id": 90000126,
      "name": "Rabel",
-     "character_type": "Subcap"
+     "group": "Home"
     },
     {
      "character_id": 90000127,
      "name": "Rabel II",
-     "character_type": "Industrial"
+     "group": "Farm"
     },
     {
      "character_id": 90000128,
      "name": "Rabel Prime",
-     "character_type": "Cyno Alt"
+     "group": "Alpha"
     }
    ]
   },
@@ -1002,12 +998,12 @@
     {
      "character_id": 90000129,
      "name": "Miven",
-     "character_type": "Dreadnought"
+     "group": "Home"
     },
     {
      "character_id": 90000130,
      "name": "Miven II",
-     "character_type": "Industrial"
+     "group": "Farm"
     }
    ]
   }

@@ -1,4 +1,6 @@
-"""Generate deterministic demo fixtures conforming to docs/upstream-api.md.
+"""Generate deterministic demo fixtures conforming to docs/upstream-api.md,
+plus a fake SDE catalogue (data_demo/sde_skills.json) in the shape produced
+by scripts/refresh_sde.py so DATA_SOURCE=demo runs without a real artifact.
 
 Run once and commit the output; tests and DATA_SOURCE=demo deployments read
 the committed files:
@@ -29,16 +31,8 @@ GROUPS = [
     "Fleet Support",
 ]
 
-CHARACTER_TYPES = [
-    "Subcap",
-    "Dreadnought",
-    "Carrier",
-    "FAX",
-    "Supercarrier",
-    "Titan",
-    "Industrial",
-    "Cyno Alt",
-]
+# Pool groups: which of a user's characters a query considers.
+CHARACTER_GROUPS = ["Home", "Strat", "Farm", "Alpha"]
 
 USER_SYLLABLES = ["ra", "zok", "ven", "kar", "mi", "thal", "dro", "sun", "bel", "qui", "nor", "ash"]
 CHAR_SUFFIXES = ["", " II", " Prime", "'s Hammer", "'s Anvil", " Reborn", " Minor", " the Bold"]
@@ -100,14 +94,12 @@ def generate() -> tuple[dict, dict]:
             char_id = next_char_id
             next_char_id += 1
             char_name = user_name + (CHAR_SUFFIXES[ci] if ci else "")
-            # Mains are usually subcap pilots; alts skew capital/utility.
+            # Mains are usually the Home character; alts skew Strat/Farm/Alpha.
             if ci == 0:
-                char_type = rng.choices(CHARACTER_TYPES, weights=[50, 10, 10, 5, 5, 3, 10, 7])[0]
+                group = rng.choices(CHARACTER_GROUPS, weights=[70, 15, 5, 10])[0]
             else:
-                char_type = rng.choices(CHARACTER_TYPES, weights=[15, 20, 15, 10, 5, 5, 10, 20])[0]
-            chars.append(
-                {"character_id": char_id, "name": char_name, "character_type": char_type}
-            )
+                group = rng.choices(CHARACTER_GROUPS, weights=[15, 35, 30, 20])[0]
+            chars.append({"character_id": char_id, "name": char_name, "group": group})
             n_skills = rng.randint(15, 60)
             trained = rng.sample(all_skill_ids, k=n_skills)
             skills_chars.append(
@@ -132,22 +124,24 @@ def generate() -> tuple[dict, dict]:
         )
         skills_users.append({"user_id": user_id, "characters": skills_chars})
 
-    skills_payload = {"generated_at": GENERATED_AT, "skills": skills, "users": skills_users}
+    sde_payload = {"sde_build_number": 0, "skills": skills}
+    skills_payload = {"generated_at": GENERATED_AT, "users": skills_users}
     users_payload = {
         "generated_at": GENERATED_AT,
-        "character_types": CHARACTER_TYPES,
+        "character_groups": CHARACTER_GROUPS,
         "users": users_users,
     }
-    return skills_payload, users_payload
+    return sde_payload, skills_payload, users_payload
 
 
 def main() -> None:
-    skills_payload, users_payload = generate()
+    sde_payload, skills_payload, users_payload = generate()
     OUT_DIR.mkdir(exist_ok=True)
+    (OUT_DIR / "sde_skills.json").write_text(json.dumps(sde_payload, indent=1) + "\n")
     (OUT_DIR / "skills_api.json").write_text(json.dumps(skills_payload, indent=1) + "\n")
     (OUT_DIR / "users_api.json").write_text(json.dumps(users_payload, indent=1) + "\n")
     n_chars = sum(len(u["characters"]) for u in users_payload["users"])
-    print(f"wrote {len(skills_payload['skills'])} skills, {N_USERS} users, {n_chars} characters")
+    print(f"wrote {len(sde_payload['skills'])} skills, {N_USERS} users, {n_chars} characters")
 
 
 if __name__ == "__main__":

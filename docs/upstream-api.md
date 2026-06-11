@@ -1,106 +1,61 @@
-# Upstream API contract (proposed)
+# Upstream API contract (real)
 
-nvskills consumes two upstream APIs. **Neither exists yet** — this document is
-the proposed contract; review it with whoever builds the real endpoints before
-treating `app/sources/real.py` as final. Until then the service runs with
-`DATA_SOURCE=demo` against the committed fixtures in `data_demo/`, which
-conform to this contract.
+nvskills consumes two **real** NV Tools endpoints (specs: `users_api.md`,
+`skills_api.md` at the repo root). Both are `GET`, authenticated with a single
+`Authorization: Bearer <NV_API_TOKEN>`, served from one base host
+(`NV_API_URL`, default `https://tools.novacancies.space/api`). Each returns the
+full dataset as a flat JSON array (no pagination, no envelope). gzip is
+available via `Accept-Encoding: gzip`.
 
-The **skill catalogue is not part of either upstream API**: skill names,
-groups and prerequisites come from the EVE Online SDE, processed at container
-build time by `scripts/refresh_sde.py` into `var/sde/skills.json` (see
-`docs/superpowers/specs/2026-06-10-skills-only-query-sde-design.md`). The
-skills API only reports what each character has trained.
+The **skill catalogue is not part of either API** — skill names, groups and
+prerequisites come from the EVE SDE, processed at container build time by
+`scripts/refresh_sde.py` into `var/sde/skills.json`. The skills API only
+reports trained levels.
 
-Both endpoints:
+## Users API — `GET {NV_API_URL}/users`
 
-- `GET`, authenticated with `Authorization: Bearer <token>` (separate tokens:
-  `SKILLS_API_TOKEN`, `USERS_API_TOKEN`).
-- Return the **full dataset** in one response — no pagination. At corp scale
-  (hundreds of users, low thousands of characters) this is well under a few MB.
-- `Content-Type: application/json`.
-- All IDs are integers. `character_id` is the EVE character ID. `skill_id` is
-  the EVE type ID of the skill (so it joins directly against the SDE).
+    [ { "user_name": "SomeUser",
+        "main_character_id": 123456789,
+        "characters": [ { "character_id": 123456789, "character_name": "Main Char" } ],
+        "discord_id": "112233445566778899",
+        "rank": "Member",
+        "teams": ["logistics"],
+        "allowed_apps": ["moon_appraiser"] } ]
 
-## Skills API — `GET {SKILLS_API_URL}`
+- Identity is `user_name` + `main_character_id` (there is **no** `user_id`).
+- `characters` includes all of a user's characters, main included; the
+  character name field is `character_name`.
+- `discord_id` may be null; `teams` / `allowed_apps` are always arrays.
+- There is **no per-character `group`** and no `character_groups` vocabulary.
+  nvskills keeps its pool-filter machinery but places every character in a
+  single default group `"All"` (the feature is inert until/unless a `group`
+  field is added upstream). `rank` / `teams` / `allowed_apps` are accepted but
+  not consumed (access gating uses the proxy's `X-User-*` headers, not this
+  payload).
 
-```json
-{
-  "generated_at": "2026-06-10T11:30:00Z",
-  "users": [
-    {
-      "user_id": 42,
-      "characters": [
-        {
-          "character_id": 90001,
-          "skills": [
-            { "skill_id": 3300, "level": 5 },
-            { "skill_id": 3301, "level": 4 }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+## Skills API — `GET {NV_API_URL}/character_skills`
 
-- `users[].characters[].skills` are **trained** levels (1–5), not "active"
-  levels (no implant/alpha-clone adjustments). A skill absent from a
-  character's list means untrained (level 0).
-- Skill ids unknown to the SDE catalogue are dropped at snapshot build with a
-  `snapshot.unknown_skill` warning.
+    [ { "character_id": 123456,
+        "main_character_id": 123000,
+        "skills": { "3330": 5, "3300": 4 } } ]
 
-## Users API — `GET {USERS_API_URL}`
-
-```json
-{
-  "generated_at": "2026-06-10T11:30:00Z",
-  "character_groups": ["Home", "Strat", "Farm", "Alpha"],
-  "users": [
-    {
-      "user_id": 42,
-      "user_name": "Razok",
-      "main_character_id": 90001,
-      "characters": [
-        { "character_id": 90001, "name": "Razok Zateki", "group": "Home" },
-        { "character_id": 90002, "name": "Razok's Hammer", "group": "Strat" }
-      ]
-    }
-  ]
-}
-```
-
-- `group` classifies the character's role for the **pool filter** (queries
-  only consider characters whose group is selected). It is never a query
-  condition. Home/Strat/Farm/Alpha is the starting vocabulary; new groups
-  appearing here work without code changes.
-- `characters` includes **all** of a user's characters, the main included;
-  `main_character_id` must reference one of them.
-- `character_groups` is the authoritative vocabulary (and display order) for
-  the pool filter UI. If omitted or empty, nvskills falls back to the
-  distinct set of groups seen on characters, sorted.
+- One entry per character. `skills` maps skill_id (string) → **trained** level
+  (1–5). A skill absent from the map means untrained (level 0).
+- Joined to users on `character_id`. Skill ids unknown to the SDE catalogue are
+  dropped at snapshot build with a `snapshot.unknown_skill` warning.
 
 ## Reconciliation rules (implemented in `app/snapshot/build.py`)
 
-When the payloads disagree, the **users API is authoritative** for which
-users/characters exist, their names, groups, and mains; the **SDE catalogue
-is authoritative** for which skills exist:
+The users API is authoritative for which users/characters exist, their names
+and mains; the SDE catalogue is authoritative for which skills exist.
 
 | Situation | Behaviour |
 |---|---|
-| Character in skills API but not users API | Dropped; `snapshot.orphan_character` warning logged |
-| User in skills API but not users API | Dropped; `snapshot.orphan_user` warning logged |
+| Skills entry whose `character_id` is not in the users API | Dropped; `snapshot.orphan_character` warning |
 | Character in users API with no skills entry | Included with an empty skill set |
-| Trained skill id not in the SDE catalogue | Dropped; `snapshot.unknown_skill` warning logged once per id |
-| `main_character_id` not among the user's `characters` | Warning logged; first listed character treated as main |
-| User with zero characters | Dropped; warning logged |
+| Trained skill id not in the SDE catalogue | Dropped; `snapshot.unknown_skill` warning (once per id) |
+| `main_character_id` not among the user's `characters` | Warning; first listed character treated as main |
+| User with zero characters | Dropped; warning |
 
-## Open questions for the real API
-
-- Int vs string IDs (this doc assumes int).
-- Confirm "trained" (not "active") skill levels.
-- Confirm full-dataset, no-pagination responses are acceptable.
-- Could both payloads be served by one endpoint? nvskills fetches both
-  concurrently and joins them, so two endpoints are fine but not required.
-- Confirm the `group` vocabulary and who maintains it (Home/Strat/Farm/Alpha
-  proposed).
+Internally, each user's stable int identity (`user_id` in the snapshot models
+and API responses) is its `main_character_id`.

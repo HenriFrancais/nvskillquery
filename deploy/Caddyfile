@@ -1,0 +1,35 @@
+# TLS reverse proxy for the raz-tools integration host.
+#
+# ⚠️  SHARED FILE — this single hostname fronts eve-router (/ops/bd), nvinfo
+# (/wiki) AND nvskills (/skillquery) on the same VM. NV Tools authenticates
+# each user and path-routes to this one hostname; Caddy terminates TLS on :443
+# and dispatches by URL prefix to the right loopback-bound container. Do NOT
+# replace this with a single catch-all `reverse_proxy` — that hijacks the whole
+# hostname and 404s the other apps. Keep these matchers in sync with the
+# sibling eve-router and nvinfo deploy/Caddyfile copies.
+#
+# Install on the VM at /etc/caddy/Caddyfile, then:
+#   sudo caddy validate --config /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+
+tools-integration-raz.novacancies.space {
+	# eve-router — mounted at /ops/bd. flush_interval -1 + zeroed timeouts are
+	# mandatory: it streams map_changed SSE pings Caddy would otherwise buffer.
+	@router path /ops/bd /ops/bd/*
+	reverse_proxy @router 127.0.0.1:8000 {
+		flush_interval -1
+		transport http {
+			read_timeout 0
+			write_timeout 0
+		}
+	}
+
+	# nvinfo wiki — mounted at /wiki. No SSE.
+	@wiki path /wiki /wiki/*
+	reverse_proxy @wiki 127.0.0.1:8081
+
+	# nvskills skill-query — mounted at /skillquery. No SSE; the app keeps its
+	# /skillquery prefix (do NOT use handle_path, which strips it).
+	@skillquery path /skillquery /skillquery/*
+	reverse_proxy @skillquery 127.0.0.1:8083
+}

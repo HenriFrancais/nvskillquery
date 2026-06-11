@@ -237,7 +237,6 @@ export function SkillQuery() {
             <thead>
               <tr>
                 <th>User</th>
-                <th>Main character</th>
                 <th>Matching characters</th>
                 <th className="num">Matches</th>
               </tr>
@@ -245,7 +244,7 @@ export function SkillQuery() {
             <tbody>
               {result.rows.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="dim">
+                  <td colSpan={3} className="dim">
                     No matches.
                   </td>
                 </tr>
@@ -253,10 +252,6 @@ export function SkillQuery() {
               {result.rows.map((row) => (
                 <tr key={row.user_id} className={row.match_count === 0 ? 'zero-match' : ''}>
                   <td>{row.user_name}</td>
-                  <td className={row.main_character.matches ? 'main-match' : 'main-nomatch'}>
-                    {row.main_character.name}{' '}
-                    <span className="dim">({row.main_character.group})</span>
-                  </td>
                   <td>
                     {row.matching_characters.map((c) => (
                       <span key={c.character_id} className="char-chip">
@@ -273,7 +268,6 @@ export function SkillQuery() {
             <tfoot>
               <tr>
                 <td>{result.totals.users_with_matches} users</td>
-                <td />
                 <td />
                 <td className="num">{result.totals.total_matching_characters}</td>
               </tr>

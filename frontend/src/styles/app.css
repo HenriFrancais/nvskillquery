@@ -297,9 +297,6 @@ select, input[type="text"], input[type="search"] {
 
 .results .num { text-align: right; font-variant-numeric: tabular-nums; }
 
-.main-match { color: var(--ok); }
-.main-nomatch { color: var(--text-dim); }
-
 .char-chip {
   display: inline-block;
   background: var(--panel-2);

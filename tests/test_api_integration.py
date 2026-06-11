@@ -236,9 +236,6 @@ def test_csv_export(client):
     header = lines[0].split(",")
     assert header == [
         "user_name",
-        "main_character",
-        "main_character_group",
-        "main_character_matches",
         "match_count",
         "total_characters",
         "matching_characters",

@@ -46,7 +46,7 @@ def test_demo_fixtures_parse_and_build():
     assert len(snap.skills) == len(catalog.skills) >= 50
     assert len(snap.users) == 50
     assert len(snap.characters) >= 100
-    assert snap.character_groups == ("Home", "Strat", "Farm", "Alpha")
+    assert snap.character_groups == ("All",)
     assert snap.sde_build_number == catalog.build_number > 0
     # Trained skills reference the catalogue (real SDE ids) — nothing dropped.
     assert all(
@@ -60,4 +60,4 @@ def test_demo_fixtures_parse_and_build():
     # Some prereq chains exist in the catalogue.
     assert any(s.prerequisites for s in snap.skills.values())
     # Every character carries a known group.
-    assert {c.group for c in snap.characters.values()} <= set(snap.character_groups)
+    assert {c.group for c in snap.characters.values()} == {"All"}

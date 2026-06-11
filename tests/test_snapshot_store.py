@@ -12,8 +12,6 @@ from app.sde.catalog import SdeCatalog
 from app.snapshot.store import SnapshotStore
 from app.sources.payloads import SkillsApiPayload, UsersApiPayload
 
-GENERATED_AT = "2026-01-01T00:00:00Z"
-
 
 @pytest.fixture(autouse=True)
 def _stub_sde_catalog(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -34,26 +32,19 @@ class FakeSource:
         self.fetches += 1
         if self.fail:
             raise RuntimeError("upstream down")
-        return SkillsApiPayload.model_validate(
-            {"generated_at": GENERATED_AT, "users": []}
-        )
+        return SkillsApiPayload.model_validate([])
 
     async def fetch_users(self) -> UsersApiPayload:
         return UsersApiPayload.model_validate(
-            {
-                "generated_at": GENERATED_AT,
-                "character_groups": ["Home"],
-                "users": [
-                    {
-                        "user_id": 1,
-                        "user_name": "Alice",
-                        "main_character_id": 101,
-                        "characters": [
-                            {"character_id": 101, "name": "Alice", "group": "Home"}
-                        ],
-                    }
-                ],
-            }
+            [
+                {
+                    "user_name": "Alice",
+                    "main_character_id": 101,
+                    "characters": [
+                        {"character_id": 101, "character_name": "Alice"}
+                    ],
+                }
+            ]
         )
 
 

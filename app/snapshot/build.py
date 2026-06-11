@@ -14,6 +14,10 @@ from app.sde.catalog import SdeCatalog
 from app.snapshot.models import CharacterRecord, Snapshot, UserRecord
 from app.sources.payloads import SkillsApiPayload, UsersApiPayload
 
+# Real users API carries no per-character group, so the pool filter is inert:
+# every character lands in this single default group.
+DEFAULT_GROUP = "All"
+
 
 def build_snapshot(
     skills_payload: SkillsApiPayload,
@@ -22,83 +26,77 @@ def build_snapshot(
     version: int,
     fetched_at: float,
 ) -> Snapshot:
-    # character_id → {skill_id: level} from the skills payload.
+    users_in = users_payload.root
+    skills_in = skills_payload.root
+
+    known_character_ids = {c.character_id for u in users_in for c in u.characters}
+
+    # character_id -> {skill_id: level}, joined on character_id.
     trained: dict[int, dict[int, int]] = {}
-    known_character_ids = {
-        c.character_id for u in users_payload.users for c in u.characters
-    }
-    known_user_ids = {u.user_id for u in users_payload.users}
     unknown_skill_ids: set[int] = set()
-    for skills_user in skills_payload.users:
-        if skills_user.user_id not in known_user_ids:
-            log.warning("snapshot.orphan_user", user_id=skills_user.user_id)
+    for entry in skills_in:
+        if entry.character_id not in known_character_ids:
+            log.warning("snapshot.orphan_character", character_id=entry.character_id)
             continue
-        for char in skills_user.characters:
-            if char.character_id not in known_character_ids:
-                log.warning(
-                    "snapshot.orphan_character",
-                    user_id=skills_user.user_id,
-                    character_id=char.character_id,
-                )
+        levels: dict[int, int] = {}
+        for skill_id, level in entry.skills.items():
+            if skill_id not in catalog.skills:
+                if skill_id not in unknown_skill_ids:
+                    unknown_skill_ids.add(skill_id)
+                    log.warning("snapshot.unknown_skill", skill_id=skill_id)
                 continue
-            levels: dict[int, int] = {}
-            for s in char.skills:
-                if s.skill_id not in catalog.skills:
-                    # Upstream knows a skill the SDE doesn't — drop it (warn
-                    # once per id, not per character).
-                    if s.skill_id not in unknown_skill_ids:
-                        unknown_skill_ids.add(s.skill_id)
-                        log.warning("snapshot.unknown_skill", skill_id=s.skill_id)
-                    continue
-                levels[s.skill_id] = s.level
-            trained[char.character_id] = levels
+            levels[skill_id] = level
+        trained[entry.character_id] = levels
 
     users: dict[int, UserRecord] = {}
     characters: dict[int, CharacterRecord] = {}
-    for user in users_payload.users:
+    for user in users_in:
         if not user.characters:
-            log.warning("snapshot.user_without_characters", user_id=user.user_id)
+            log.warning("snapshot.user_without_characters", user_name=user.user_name)
             continue
         char_ids = {c.character_id for c in user.characters}
         main_id = user.main_character_id
         if main_id not in char_ids:
             log.warning(
                 "snapshot.main_not_in_characters",
-                user_id=user.user_id,
+                user_name=user.user_name,
                 main_character_id=main_id,
             )
             main_id = user.characters[0].character_id
+        # The user's stable int identity is its main character id.
+        user_id = main_id
+        if user_id in users:
+            # Two users resolving to the same main id would silently clobber
+            # each other; surface it like the other integrity violations.
+            log.warning("snapshot.duplicate_user_key", user_name=user.user_name, user_id=user_id)
+            continue
         alts = sorted(
             (c for c in user.characters if c.character_id != main_id),
-            key=lambda c: c.name,
+            key=lambda c: c.character_name,
         )
         ordered = [next(c for c in user.characters if c.character_id == main_id), *alts]
         for c in ordered:
             characters[c.character_id] = CharacterRecord(
                 character_id=c.character_id,
-                name=c.name,
-                group=c.group,
-                user_id=user.user_id,
+                name=c.character_name,
+                group=DEFAULT_GROUP,
+                user_id=user_id,
                 is_main=c.character_id == main_id,
                 skill_levels=trained.get(c.character_id, {}),
             )
-        users[user.user_id] = UserRecord(
-            user_id=user.user_id,
+        users[user_id] = UserRecord(
+            user_id=user_id,
             user_name=user.user_name,
             main_character_id=main_id,
             character_ids=tuple(c.character_id for c in ordered),
         )
-
-    character_groups = tuple(users_payload.character_groups) or tuple(
-        sorted({c.group for c in characters.values()})
-    )
 
     return Snapshot(
         version=version,
         fetched_at=fetched_at,
         sde_build_number=catalog.build_number,
         skills=catalog.skills,
-        character_groups=character_groups,
+        character_groups=(DEFAULT_GROUP,),
         users=users,
         characters=characters,
         users_sorted=tuple(sorted(users, key=lambda uid: users[uid].user_name)),

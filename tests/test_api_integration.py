@@ -3,7 +3,7 @@
 Demo ground truth is derived from the committed fixture files rather than
 hardcoded: the skill catalogue is a sampled subset of the REAL SDE (see
 scripts/gen_demo_fixtures.py), so ids and counts change when regenerated.
-50 users and the Home/Strat/Farm/Alpha vocabulary are generator constants.
+50 users and a single inert "All" pool group are generator constants.
 """
 
 from __future__ import annotations
@@ -21,10 +21,9 @@ DEMO_TRAINED = json.loads((DATA_DEMO / "skills_api.json").read_text())
 # The most commonly trained skill across the demo characters — guaranteed to
 # produce matches.
 COMMON_SKILL_ID = Counter(
-    s["skill_id"]
-    for u in DEMO_TRAINED["users"]
-    for c in u["characters"]
-    for s in c["skills"]
+    int(sid)
+    for c in DEMO_TRAINED
+    for sid in c["skills"]
 ).most_common(1)[0][0]
 
 DOCTRINE_HEADERS = {
@@ -78,7 +77,7 @@ def test_catalog_shape(client):
     assert len(cat["skills"]) == len(DEMO_CATALOG["skills"])
     expected_groups = {s["group_id"] for s in DEMO_CATALOG["skills"]}
     assert len(cat["groups"]) == len(expected_groups)
-    assert cat["character_groups"] == ["Home", "Strat", "Farm", "Alpha"]
+    assert cat["character_groups"] == ["All"]
     assert "char_types" not in cat
     assert cat["sde_build_number"] == DEMO_CATALOG["sde_build_number"]
     assert cat["snapshot_version"] == 1
@@ -101,7 +100,7 @@ def test_catalog_shape(client):
 
 
 def test_query_happy_path(client):
-    n_chars = sum(len(u["characters"]) for u in DEMO_TRAINED["users"])
+    n_chars = len(DEMO_TRAINED)
     resp = client.post("/api/query", json=SIMPLE_QUERY, headers=GATED_HEADERS)
     assert resp.status_code == 200
     body = resp.json()
@@ -147,13 +146,13 @@ def test_query_groups_scope_pool(client):
     full = client.post("/api/query", json=SIMPLE_QUERY, headers=GATED_HEADERS).json()
     home = client.post(
         "/api/query",
-        json={**SIMPLE_QUERY, "groups": ["Home"]},
+        json={**SIMPLE_QUERY, "groups": ["All"]},
         headers=GATED_HEADERS,
     ).json()
-    assert home["totals"]["total_characters"] < full["totals"]["total_characters"]
+    assert home["totals"]["total_characters"] <= full["totals"]["total_characters"]
     assert home["totals"]["total_characters"] > 0
     for row in home["rows"]:
-        assert all(c["group"] == "Home" for c in row["matching_characters"])
+        assert all(c["group"] == "All" for c in row["matching_characters"])
         assert row["match_count"] <= row["total_characters"]
     # Every group filter result is a subset of the unfiltered result.
     assert home["totals"]["total_matching_characters"] <= full["totals"][
@@ -191,7 +190,7 @@ def test_query_unknown_refs_422(client):
 
 
 def test_query_503_when_upstream_unavailable(make_client):
-    client = make_client(DATA_SOURCE="real", SKILLS_API_URL="", USERS_API_URL="")
+    client = make_client(DATA_SOURCE="real", NV_API_URL="")
     resp = client.post("/api/query", json=SIMPLE_QUERY, headers=GATED_HEADERS)
     assert resp.status_code == 503
     assert resp.json()["detail"] == "snapshot_unavailable"
@@ -215,7 +214,7 @@ def test_query_result_cached_per_snapshot_version_and_groups(client, monkeypatch
         )
     assert calls["n"] == 1
     # A different pool is a different cache entry.
-    body = {**SIMPLE_QUERY, "groups": ["Home"]}
+    body = {**SIMPLE_QUERY, "groups": ["All"]}
     assert client.post("/api/query", json=body, headers=GATED_HEADERS).status_code == 200
     assert calls["n"] == 2
 
@@ -257,7 +256,7 @@ def test_csv_export_groups_param(client):
 
     q = encode_query(QUERY_NODE_ADAPTER.validate_python(SIMPLE_QUERY["query"]))
     full = client.get(f"/api/query/export.csv?q={q}", headers=GATED_HEADERS)
-    home = client.get(f"/api/query/export.csv?q={q}&g=Home", headers=GATED_HEADERS)
+    home = client.get(f"/api/query/export.csv?q={q}&g=All", headers=GATED_HEADERS)
     assert home.status_code == 200
     assert len(home.text.strip().splitlines()) <= len(full.text.strip().splitlines())
     # Unknown group name → 422, same as the POST endpoint.

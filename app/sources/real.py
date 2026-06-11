@@ -1,7 +1,7 @@
 """Real upstream API client (DATA_SOURCE=real).
 
-The endpoints don't exist yet — this implements the proposed contract in
-docs/upstream-api.md and must be revisited once the real APIs are built.
+Talks to the NV Tools `users` and `character_skills` endpoints — one base
+host, one bearer token (see docs/upstream-api.md).
 """
 
 from __future__ import annotations
@@ -18,9 +18,16 @@ class RealApiSource:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
 
-    async def _get_json(self, url: str, token: str) -> object:
-        if not url:
-            raise RuntimeError("upstream API url not configured")
+    def _endpoint(self, path: str) -> str:
+        base = self._settings.nv_api_url.rstrip("/")
+        if not base:
+            raise RuntimeError("NV_API_URL not configured")
+        return f"{base}/{path}"
+
+    async def _get_json(self, path: str) -> object:
+        url = self._endpoint(path)
+        token = self._settings.nv_api_token
+        # httpx advertises Accept-Encoding and decompresses gzip itself.
         headers = {"authorization": f"Bearer {token}"} if token else {}
         async with httpx.AsyncClient(timeout=self._settings.upstream_timeout_s) as client:
             resp = await client.get(url, headers=headers)
@@ -28,13 +35,9 @@ class RealApiSource:
             return resp.json()
 
     async def fetch_skills(self) -> SkillsApiPayload:
-        data = await self._get_json(
-            self._settings.skills_api_url, self._settings.skills_api_token
-        )
+        data = await self._get_json("character_skills")
         return SkillsApiPayload.model_validate(data)
 
     async def fetch_users(self) -> UsersApiPayload:
-        data = await self._get_json(
-            self._settings.users_api_url, self._settings.users_api_token
-        )
+        data = await self._get_json("users")
         return UsersApiPayload.model_validate(data)

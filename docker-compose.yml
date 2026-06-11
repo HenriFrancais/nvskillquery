@@ -16,8 +16,6 @@ services:
       NV_TOKEN: ${NV_TOKEN:?set NV_TOKEN in .env}
       URL_PREFIX: ${URL_PREFIX:-}
       DATA_SOURCE: ${DATA_SOURCE:-real}
-      SKILLS_API_URL: ${SKILLS_API_URL:-}
-      SKILLS_API_TOKEN: ${SKILLS_API_TOKEN:-}
-      USERS_API_URL: ${USERS_API_URL:-}
-      USERS_API_TOKEN: ${USERS_API_TOKEN:-}
+      NV_API_URL: ${NV_API_URL:-https://tools.novacancies.space/api}
+      NV_API_TOKEN: ${NV_API_TOKEN:-}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}

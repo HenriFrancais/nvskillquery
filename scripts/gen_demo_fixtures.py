@@ -147,12 +147,37 @@ def generate() -> tuple[dict, dict, dict]:
         skills_users.append({"user_id": user_id, "characters": skills_chars})
 
     sde_payload = {"sde_build_number": artifact["sde_build_number"], "skills": skills}
-    skills_payload = {"generated_at": GENERATED_AT, "users": skills_users}
-    users_payload = {
-        "generated_at": GENERATED_AT,
-        "character_groups": CHARACTER_GROUPS,
-        "users": users_users,
+    # Real-shape skills API: flat list, one entry per character, skills as a map.
+    main_of = {
+        c["character_id"]: u["main_character_id"]
+        for u in users_users
+        for c in u["characters"]
     }
+    skills_payload = [
+        {
+            "character_id": c["character_id"],
+            "main_character_id": main_of[c["character_id"]],
+            "skills": {str(s["skill_id"]): s["level"] for s in c["skills"]},
+        }
+        for u in skills_users
+        for c in u["characters"]
+    ]
+    # Real-shape users API: flat list, character_name, no group/user_id.
+    users_payload = [
+        {
+            "user_name": u["user_name"],
+            "main_character_id": u["main_character_id"],
+            "characters": [
+                {"character_id": c["character_id"], "character_name": c["name"]}
+                for c in u["characters"]
+            ],
+            "discord_id": None,
+            "rank": "Member",
+            "teams": [],
+            "allowed_apps": ["skillquery"],
+        }
+        for u in users_users
+    ]
     return sde_payload, skills_payload, users_payload
 
 
@@ -162,7 +187,7 @@ def main() -> None:
     (OUT_DIR / "sde_skills.json").write_text(json.dumps(sde_payload, indent=1) + "\n")
     (OUT_DIR / "skills_api.json").write_text(json.dumps(skills_payload, indent=1) + "\n")
     (OUT_DIR / "users_api.json").write_text(json.dumps(users_payload, indent=1) + "\n")
-    n_chars = sum(len(u["characters"]) for u in users_payload["users"])
+    n_chars = sum(len(u["characters"]) for u in users_payload)
     print(
         f"wrote {len(sde_payload['skills'])} real skills "
         f"(SDE build {sde_payload['sde_build_number']}), {N_USERS} users, {n_chars} characters"

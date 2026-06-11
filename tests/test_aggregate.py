@@ -133,54 +133,37 @@ def test_empty_groups_means_all():
 def test_build_drops_orphans_and_fixes_bad_main():
     snap = snapshot_from(
         CATALOG_SKILLS,
-        {
-            "users": [
-                # user 7 exists; char 999 doesn't → orphan char dropped
-                {"user_id": 7, "characters": [{"character_id": 999, "skills": []}]},
-                # user 8 doesn't exist at all → orphan user dropped
-                {"user_id": 8, "characters": [{"character_id": 701, "skills": []}]},
-            ],
-        },
-        {
-            "character_groups": [],
-            "users": [
-                # main_character_id points at a character not in the list
-                {"user_id": 7, "user_name": "Dave", "main_character_id": 12345, "characters": [
-                    {"character_id": 701, "name": "Dave", "group": "Home"},
-                ]},
-                # zero characters → dropped entirely
-                {"user_id": 9, "user_name": "Eve", "main_character_id": 1, "characters": []},
-            ],
-        },
+        # skills API: flat list per character
+        [
+            {"character_id": 999, "main_character_id": 701, "skills": {}},  # orphan
+            {"character_id": 701, "main_character_id": 701, "skills": {}},
+        ],
+        # users API: flat list
+        [
+            # main_character_id points at a character not in the list → falls
+            # back to the first character (701), which becomes the user key.
+            {"user_name": "Dave", "main_character_id": 12345, "characters": [
+                {"character_id": 701, "character_name": "Dave"},
+            ]},
+            # zero characters → dropped entirely
+            {"user_name": "Eve", "main_character_id": 1, "characters": []},
+        ],
     )
-    assert set(snap.users) == {7}
-    assert snap.users[7].main_character_id == 701
+    assert set(snap.users) == {701}
+    assert snap.users[701].main_character_id == 701
     assert snap.characters[701].is_main
-    # character_groups fell back to the distinct set seen on characters.
-    assert snap.character_groups == ("Home",)
+    # Pool is inert: a single default group.
+    assert snap.character_groups == ("All",)
+    assert snap.characters[701].group == "All"
 
 
 def test_build_drops_unknown_trained_skills():
     snap = snapshot_from(
         CATALOG_SKILLS,
-        {
-            "users": [
-                {"user_id": 1, "characters": [
-                    {"character_id": 101, "skills": [
-                        {"skill_id": 1, "level": 5},
-                        {"skill_id": 999, "level": 3},  # not in SDE catalogue
-                    ]},
-                ]},
-            ],
-        },
-        {
-            "character_groups": ["Home"],
-            "users": [
-                {"user_id": 1, "user_name": "Alice", "main_character_id": 101, "characters": [
-                    {"character_id": 101, "name": "Alice", "group": "Home"},
-                ]},
-            ],
-        },
+        [{"character_id": 101, "main_character_id": 101,
+          "skills": {"1": 5, "999": 3}}],  # 999 not in SDE catalogue
+        [{"user_name": "Alice", "main_character_id": 101, "characters": [
+            {"character_id": 101, "character_name": "Alice"}]}],
     )
     assert snap.characters[101].skill_levels == {1: 5}
 

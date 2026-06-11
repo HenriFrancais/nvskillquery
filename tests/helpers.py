@@ -7,8 +7,6 @@ from app.snapshot.build import build_snapshot
 from app.snapshot.models import CharacterRecord, SkillDef, Snapshot, UserRecord
 from app.sources.payloads import SkillPrereq, SkillsApiPayload, UsersApiPayload
 
-GENERATED_AT = "2026-01-01T00:00:00Z"
-
 
 def char(
     character_id: int = 1,
@@ -50,16 +48,16 @@ def catalog_from(skills: list[dict], build_number: int = 1) -> SdeCatalog:
 
 def snapshot_from(
     catalog_skills: list[dict],
-    trained: dict,
-    users: dict,
+    skills_entries: list[dict],
+    users_entries: list[dict],
     version: int = 1,
     fetched_at: float = 0.0,
 ) -> Snapshot:
-    """Build a snapshot from raw payload dicts (validated through the
-    upstream models, same as production) plus an SDE catalogue."""
+    """Build a snapshot from raw real-shape payload lists (validated through
+    the upstream models, same as production) plus an SDE catalogue."""
     return build_snapshot(
-        SkillsApiPayload.model_validate({"generated_at": GENERATED_AT, **trained}),
-        UsersApiPayload.model_validate({"generated_at": GENERATED_AT, **users}),
+        SkillsApiPayload.model_validate(skills_entries),
+        UsersApiPayload.model_validate(users_entries),
         catalog=catalog_from(catalog_skills),
         version=version,
         fetched_at=fetched_at,

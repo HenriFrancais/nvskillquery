@@ -1,921 +1,1050 @@
-{
- "generated_at": "2026-01-01T00:00:00Z",
- "character_groups": [
-  "Home",
-  "Strat",
-  "Farm",
-  "Alpha"
- ],
- "users": [
+[
   {
-   "user_id": 1,
-   "user_name": "Zokdro",
-   "main_character_id": 90000001,
-   "characters": [
-    {
-     "character_id": 90000001,
-     "name": "Zokdro",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000002,
-     "name": "Zokdro II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000003,
-     "name": "Zokdro Prime",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000004,
-     "name": "Zokdro's Hammer",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000005,
-     "name": "Zokdro's Anvil",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Zokdro",
+    "main_character_id": 90000001,
+    "characters": [
+      {
+        "character_id": 90000001,
+        "character_name": "Zokdro"
+      },
+      {
+        "character_id": 90000002,
+        "character_name": "Zokdro II"
+      },
+      {
+        "character_id": 90000003,
+        "character_name": "Zokdro Prime"
+      },
+      {
+        "character_id": 90000004,
+        "character_name": "Zokdro's Hammer"
+      },
+      {
+        "character_id": 90000005,
+        "character_name": "Zokdro's Anvil"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 2,
-   "user_name": "Raqui",
-   "main_character_id": 90000006,
-   "characters": [
-    {
-     "character_id": 90000006,
-     "name": "Raqui",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Raqui",
+    "main_character_id": 90000006,
+    "characters": [
+      {
+        "character_id": 90000006,
+        "character_name": "Raqui"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 3,
-   "user_name": "Raven",
-   "main_character_id": 90000007,
-   "characters": [
-    {
-     "character_id": 90000007,
-     "name": "Raven",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000008,
-     "name": "Raven II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000009,
-     "name": "Raven Prime",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Raven",
+    "main_character_id": 90000007,
+    "characters": [
+      {
+        "character_id": 90000007,
+        "character_name": "Raven"
+      },
+      {
+        "character_id": 90000008,
+        "character_name": "Raven II"
+      },
+      {
+        "character_id": 90000009,
+        "character_name": "Raven Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 4,
-   "user_name": "Thalkarthal",
-   "main_character_id": 90000010,
-   "characters": [
-    {
-     "character_id": 90000010,
-     "name": "Thalkarthal",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000011,
-     "name": "Thalkarthal II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000012,
-     "name": "Thalkarthal Prime",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalkarthal",
+    "main_character_id": 90000010,
+    "characters": [
+      {
+        "character_id": 90000010,
+        "character_name": "Thalkarthal"
+      },
+      {
+        "character_id": 90000011,
+        "character_name": "Thalkarthal II"
+      },
+      {
+        "character_id": 90000012,
+        "character_name": "Thalkarthal Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 5,
-   "user_name": "Drodroash",
-   "main_character_id": 90000013,
-   "characters": [
-    {
-     "character_id": 90000013,
-     "name": "Drodroash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000014,
-     "name": "Drodroash II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000015,
-     "name": "Drodroash Prime",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Drodroash",
+    "main_character_id": 90000013,
+    "characters": [
+      {
+        "character_id": 90000013,
+        "character_name": "Drodroash"
+      },
+      {
+        "character_id": 90000014,
+        "character_name": "Drodroash II"
+      },
+      {
+        "character_id": 90000015,
+        "character_name": "Drodroash Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 6,
-   "user_name": "Zokkarkar",
-   "main_character_id": 90000016,
-   "characters": [
-    {
-     "character_id": 90000016,
-     "name": "Zokkarkar",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Zokkarkar",
+    "main_character_id": 90000016,
+    "characters": [
+      {
+        "character_id": 90000016,
+        "character_name": "Zokkarkar"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 7,
-   "user_name": "Zokash",
-   "main_character_id": 90000017,
-   "characters": [
-    {
-     "character_id": 90000017,
-     "name": "Zokash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000018,
-     "name": "Zokash II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000019,
-     "name": "Zokash Prime",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000020,
-     "name": "Zokash's Hammer",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Zokash",
+    "main_character_id": 90000017,
+    "characters": [
+      {
+        "character_id": 90000017,
+        "character_name": "Zokash"
+      },
+      {
+        "character_id": 90000018,
+        "character_name": "Zokash II"
+      },
+      {
+        "character_id": 90000019,
+        "character_name": "Zokash Prime"
+      },
+      {
+        "character_id": 90000020,
+        "character_name": "Zokash's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 8,
-   "user_name": "Venkar",
-   "main_character_id": 90000021,
-   "characters": [
-    {
-     "character_id": 90000021,
-     "name": "Venkar",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000022,
-     "name": "Venkar II",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000023,
-     "name": "Venkar Prime",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Venkar",
+    "main_character_id": 90000021,
+    "characters": [
+      {
+        "character_id": 90000021,
+        "character_name": "Venkar"
+      },
+      {
+        "character_id": 90000022,
+        "character_name": "Venkar II"
+      },
+      {
+        "character_id": 90000023,
+        "character_name": "Venkar Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 9,
-   "user_name": "Norbel",
-   "main_character_id": 90000024,
-   "characters": [
-    {
-     "character_id": 90000024,
-     "name": "Norbel",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000025,
-     "name": "Norbel II",
-     "group": "Farm"
-    }
-   ]
+    "user_name": "Norbel",
+    "main_character_id": 90000024,
+    "characters": [
+      {
+        "character_id": 90000024,
+        "character_name": "Norbel"
+      },
+      {
+        "character_id": 90000025,
+        "character_name": "Norbel II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 10,
-   "user_name": "Rasunsun",
-   "main_character_id": 90000026,
-   "characters": [
-    {
-     "character_id": 90000026,
-     "name": "Rasunsun",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Rasunsun",
+    "main_character_id": 90000026,
+    "characters": [
+      {
+        "character_id": 90000026,
+        "character_name": "Rasunsun"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 11,
-   "user_name": "Venbel",
-   "main_character_id": 90000027,
-   "characters": [
-    {
-     "character_id": 90000027,
-     "name": "Venbel",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000028,
-     "name": "Venbel II",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Venbel",
+    "main_character_id": 90000027,
+    "characters": [
+      {
+        "character_id": 90000027,
+        "character_name": "Venbel"
+      },
+      {
+        "character_id": 90000028,
+        "character_name": "Venbel II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 12,
-   "user_name": "Zoksunthal",
-   "main_character_id": 90000029,
-   "characters": [
-    {
-     "character_id": 90000029,
-     "name": "Zoksunthal",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000030,
-     "name": "Zoksunthal II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000031,
-     "name": "Zoksunthal Prime",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Zoksunthal",
+    "main_character_id": 90000029,
+    "characters": [
+      {
+        "character_id": 90000029,
+        "character_name": "Zoksunthal"
+      },
+      {
+        "character_id": 90000030,
+        "character_name": "Zoksunthal II"
+      },
+      {
+        "character_id": 90000031,
+        "character_name": "Zoksunthal Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 13,
-   "user_name": "Thalbelash",
-   "main_character_id": 90000032,
-   "characters": [
-    {
-     "character_id": 90000032,
-     "name": "Thalbelash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000033,
-     "name": "Thalbelash II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000034,
-     "name": "Thalbelash Prime",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000035,
-     "name": "Thalbelash's Hammer",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalbelash",
+    "main_character_id": 90000032,
+    "characters": [
+      {
+        "character_id": 90000032,
+        "character_name": "Thalbelash"
+      },
+      {
+        "character_id": 90000033,
+        "character_name": "Thalbelash II"
+      },
+      {
+        "character_id": 90000034,
+        "character_name": "Thalbelash Prime"
+      },
+      {
+        "character_id": 90000035,
+        "character_name": "Thalbelash's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 14,
-   "user_name": "Thalvenven",
-   "main_character_id": 90000036,
-   "characters": [
-    {
-     "character_id": 90000036,
-     "name": "Thalvenven",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000037,
-     "name": "Thalvenven II",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Thalvenven",
+    "main_character_id": 90000036,
+    "characters": [
+      {
+        "character_id": 90000036,
+        "character_name": "Thalvenven"
+      },
+      {
+        "character_id": 90000037,
+        "character_name": "Thalvenven II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 15,
-   "user_name": "Venqui",
-   "main_character_id": 90000038,
-   "characters": [
-    {
-     "character_id": 90000038,
-     "name": "Venqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000039,
-     "name": "Venqui II",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Venqui",
+    "main_character_id": 90000038,
+    "characters": [
+      {
+        "character_id": 90000038,
+        "character_name": "Venqui"
+      },
+      {
+        "character_id": 90000039,
+        "character_name": "Venqui II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 16,
-   "user_name": "Sunzoksun",
-   "main_character_id": 90000040,
-   "characters": [
-    {
-     "character_id": 90000040,
-     "name": "Sunzoksun",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Sunzoksun",
+    "main_character_id": 90000040,
+    "characters": [
+      {
+        "character_id": 90000040,
+        "character_name": "Sunzoksun"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 17,
-   "user_name": "Karkar",
-   "main_character_id": 90000041,
-   "characters": [
-    {
-     "character_id": 90000041,
-     "name": "Karkar",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000042,
-     "name": "Karkar II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000043,
-     "name": "Karkar Prime",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000044,
-     "name": "Karkar's Hammer",
-     "group": "Farm"
-    }
-   ]
+    "user_name": "Karkar",
+    "main_character_id": 90000041,
+    "characters": [
+      {
+        "character_id": 90000041,
+        "character_name": "Karkar"
+      },
+      {
+        "character_id": 90000042,
+        "character_name": "Karkar II"
+      },
+      {
+        "character_id": 90000043,
+        "character_name": "Karkar Prime"
+      },
+      {
+        "character_id": 90000044,
+        "character_name": "Karkar's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 18,
-   "user_name": "Dronorzok",
-   "main_character_id": 90000045,
-   "characters": [
-    {
-     "character_id": 90000045,
-     "name": "Dronorzok",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Dronorzok",
+    "main_character_id": 90000045,
+    "characters": [
+      {
+        "character_id": 90000045,
+        "character_name": "Dronorzok"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 19,
-   "user_name": "Sunqui",
-   "main_character_id": 90000046,
-   "characters": [
-    {
-     "character_id": 90000046,
-     "name": "Sunqui",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Sunqui",
+    "main_character_id": 90000046,
+    "characters": [
+      {
+        "character_id": 90000046,
+        "character_name": "Sunqui"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 20,
-   "user_name": "Ashashthal",
-   "main_character_id": 90000047,
-   "characters": [
-    {
-     "character_id": 90000047,
-     "name": "Ashashthal",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Ashashthal",
+    "main_character_id": 90000047,
+    "characters": [
+      {
+        "character_id": 90000047,
+        "character_name": "Ashashthal"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 21,
-   "user_name": "Ashdrothal",
-   "main_character_id": 90000048,
-   "characters": [
-    {
-     "character_id": 90000048,
-     "name": "Ashdrothal",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Ashdrothal",
+    "main_character_id": 90000048,
+    "characters": [
+      {
+        "character_id": 90000048,
+        "character_name": "Ashdrothal"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 22,
-   "user_name": "Zokven",
-   "main_character_id": 90000049,
-   "characters": [
-    {
-     "character_id": 90000049,
-     "name": "Zokven",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000050,
-     "name": "Zokven II",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Zokven",
+    "main_character_id": 90000049,
+    "characters": [
+      {
+        "character_id": 90000049,
+        "character_name": "Zokven"
+      },
+      {
+        "character_id": 90000050,
+        "character_name": "Zokven II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 23,
-   "user_name": "Thalnorqui",
-   "main_character_id": 90000051,
-   "characters": [
-    {
-     "character_id": 90000051,
-     "name": "Thalnorqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000052,
-     "name": "Thalnorqui II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000053,
-     "name": "Thalnorqui Prime",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Thalnorqui",
+    "main_character_id": 90000051,
+    "characters": [
+      {
+        "character_id": 90000051,
+        "character_name": "Thalnorqui"
+      },
+      {
+        "character_id": 90000052,
+        "character_name": "Thalnorqui II"
+      },
+      {
+        "character_id": 90000053,
+        "character_name": "Thalnorqui Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 24,
-   "user_name": "Normi",
-   "main_character_id": 90000054,
-   "characters": [
-    {
-     "character_id": 90000054,
-     "name": "Normi",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Normi",
+    "main_character_id": 90000054,
+    "characters": [
+      {
+        "character_id": 90000054,
+        "character_name": "Normi"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 25,
-   "user_name": "Quiquibel",
-   "main_character_id": 90000055,
-   "characters": [
-    {
-     "character_id": 90000055,
-     "name": "Quiquibel",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Quiquibel",
+    "main_character_id": 90000055,
+    "characters": [
+      {
+        "character_id": 90000055,
+        "character_name": "Quiquibel"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 26,
-   "user_name": "Thalthal",
-   "main_character_id": 90000056,
-   "characters": [
-    {
-     "character_id": 90000056,
-     "name": "Thalthal",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000057,
-     "name": "Thalthal II",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalthal",
+    "main_character_id": 90000056,
+    "characters": [
+      {
+        "character_id": 90000056,
+        "character_name": "Thalthal"
+      },
+      {
+        "character_id": 90000057,
+        "character_name": "Thalthal II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 27,
-   "user_name": "Thalmi",
-   "main_character_id": 90000058,
-   "characters": [
-    {
-     "character_id": 90000058,
-     "name": "Thalmi",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000059,
-     "name": "Thalmi II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000060,
-     "name": "Thalmi Prime",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000061,
-     "name": "Thalmi's Hammer",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalmi",
+    "main_character_id": 90000058,
+    "characters": [
+      {
+        "character_id": 90000058,
+        "character_name": "Thalmi"
+      },
+      {
+        "character_id": 90000059,
+        "character_name": "Thalmi II"
+      },
+      {
+        "character_id": 90000060,
+        "character_name": "Thalmi Prime"
+      },
+      {
+        "character_id": 90000061,
+        "character_name": "Thalmi's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 28,
-   "user_name": "Thalash",
-   "main_character_id": 90000062,
-   "characters": [
-    {
-     "character_id": 90000062,
-     "name": "Thalash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000063,
-     "name": "Thalash II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000064,
-     "name": "Thalash Prime",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000065,
-     "name": "Thalash's Hammer",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalash",
+    "main_character_id": 90000062,
+    "characters": [
+      {
+        "character_id": 90000062,
+        "character_name": "Thalash"
+      },
+      {
+        "character_id": 90000063,
+        "character_name": "Thalash II"
+      },
+      {
+        "character_id": 90000064,
+        "character_name": "Thalash Prime"
+      },
+      {
+        "character_id": 90000065,
+        "character_name": "Thalash's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 29,
-   "user_name": "Thalquira",
-   "main_character_id": 90000066,
-   "characters": [
-    {
-     "character_id": 90000066,
-     "name": "Thalquira",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Thalquira",
+    "main_character_id": 90000066,
+    "characters": [
+      {
+        "character_id": 90000066,
+        "character_name": "Thalquira"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 30,
-   "user_name": "Rasun",
-   "main_character_id": 90000067,
-   "characters": [
-    {
-     "character_id": 90000067,
-     "name": "Rasun",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000068,
-     "name": "Rasun II",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Rasun",
+    "main_character_id": 90000067,
+    "characters": [
+      {
+        "character_id": 90000067,
+        "character_name": "Rasun"
+      },
+      {
+        "character_id": 90000068,
+        "character_name": "Rasun II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 31,
-   "user_name": "Quiqui",
-   "main_character_id": 90000069,
-   "characters": [
-    {
-     "character_id": 90000069,
-     "name": "Quiqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000070,
-     "name": "Quiqui II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000071,
-     "name": "Quiqui Prime",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Quiqui",
+    "main_character_id": 90000069,
+    "characters": [
+      {
+        "character_id": 90000069,
+        "character_name": "Quiqui"
+      },
+      {
+        "character_id": 90000070,
+        "character_name": "Quiqui II"
+      },
+      {
+        "character_id": 90000071,
+        "character_name": "Quiqui Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 32,
-   "user_name": "Miashsun",
-   "main_character_id": 90000072,
-   "characters": [
-    {
-     "character_id": 90000072,
-     "name": "Miashsun",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000073,
-     "name": "Miashsun II",
-     "group": "Farm"
-    }
-   ]
+    "user_name": "Miashsun",
+    "main_character_id": 90000072,
+    "characters": [
+      {
+        "character_id": 90000072,
+        "character_name": "Miashsun"
+      },
+      {
+        "character_id": 90000073,
+        "character_name": "Miashsun II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 33,
-   "user_name": "Beldro",
-   "main_character_id": 90000074,
-   "characters": [
-    {
-     "character_id": 90000074,
-     "name": "Beldro",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000075,
-     "name": "Beldro II",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Beldro",
+    "main_character_id": 90000074,
+    "characters": [
+      {
+        "character_id": 90000074,
+        "character_name": "Beldro"
+      },
+      {
+        "character_id": 90000075,
+        "character_name": "Beldro II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 34,
-   "user_name": "Norkar",
-   "main_character_id": 90000076,
-   "characters": [
-    {
-     "character_id": 90000076,
-     "name": "Norkar",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Norkar",
+    "main_character_id": 90000076,
+    "characters": [
+      {
+        "character_id": 90000076,
+        "character_name": "Norkar"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 35,
-   "user_name": "Venmi",
-   "main_character_id": 90000077,
-   "characters": [
-    {
-     "character_id": 90000077,
-     "name": "Venmi",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Venmi",
+    "main_character_id": 90000077,
+    "characters": [
+      {
+        "character_id": 90000077,
+        "character_name": "Venmi"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 36,
-   "user_name": "Thalvenkar",
-   "main_character_id": 90000078,
-   "characters": [
-    {
-     "character_id": 90000078,
-     "name": "Thalvenkar",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalvenkar",
+    "main_character_id": 90000078,
+    "characters": [
+      {
+        "character_id": 90000078,
+        "character_name": "Thalvenkar"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 37,
-   "user_name": "Rakarven",
-   "main_character_id": 90000079,
-   "characters": [
-    {
-     "character_id": 90000079,
-     "name": "Rakarven",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Rakarven",
+    "main_character_id": 90000079,
+    "characters": [
+      {
+        "character_id": 90000079,
+        "character_name": "Rakarven"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 38,
-   "user_name": "Thalvennor",
-   "main_character_id": 90000080,
-   "characters": [
-    {
-     "character_id": 90000080,
-     "name": "Thalvennor",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Thalvennor",
+    "main_character_id": 90000080,
+    "characters": [
+      {
+        "character_id": 90000080,
+        "character_name": "Thalvennor"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 39,
-   "user_name": "Quiash",
-   "main_character_id": 90000081,
-   "characters": [
-    {
-     "character_id": 90000081,
-     "name": "Quiash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000082,
-     "name": "Quiash II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000083,
-     "name": "Quiash Prime",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Quiash",
+    "main_character_id": 90000081,
+    "characters": [
+      {
+        "character_id": 90000081,
+        "character_name": "Quiash"
+      },
+      {
+        "character_id": 90000082,
+        "character_name": "Quiash II"
+      },
+      {
+        "character_id": 90000083,
+        "character_name": "Quiash Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 40,
-   "user_name": "Karvenkar",
-   "main_character_id": 90000084,
-   "characters": [
-    {
-     "character_id": 90000084,
-     "name": "Karvenkar",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000085,
-     "name": "Karvenkar II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000086,
-     "name": "Karvenkar Prime",
-     "group": "Farm"
-    }
-   ]
+    "user_name": "Karvenkar",
+    "main_character_id": 90000084,
+    "characters": [
+      {
+        "character_id": 90000084,
+        "character_name": "Karvenkar"
+      },
+      {
+        "character_id": 90000085,
+        "character_name": "Karvenkar II"
+      },
+      {
+        "character_id": 90000086,
+        "character_name": "Karvenkar Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 41,
-   "user_name": "Venthalbel",
-   "main_character_id": 90000087,
-   "characters": [
-    {
-     "character_id": 90000087,
-     "name": "Venthalbel",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000088,
-     "name": "Venthalbel II",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Venthalbel",
+    "main_character_id": 90000087,
+    "characters": [
+      {
+        "character_id": 90000087,
+        "character_name": "Venthalbel"
+      },
+      {
+        "character_id": 90000088,
+        "character_name": "Venthalbel II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 42,
-   "user_name": "Quizokqui",
-   "main_character_id": 90000089,
-   "characters": [
-    {
-     "character_id": 90000089,
-     "name": "Quizokqui",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000090,
-     "name": "Quizokqui II",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000091,
-     "name": "Quizokqui Prime",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000092,
-     "name": "Quizokqui's Hammer",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Quizokqui",
+    "main_character_id": 90000089,
+    "characters": [
+      {
+        "character_id": 90000089,
+        "character_name": "Quizokqui"
+      },
+      {
+        "character_id": 90000090,
+        "character_name": "Quizokqui II"
+      },
+      {
+        "character_id": 90000091,
+        "character_name": "Quizokqui Prime"
+      },
+      {
+        "character_id": 90000092,
+        "character_name": "Quizokqui's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 43,
-   "user_name": "Norven",
-   "main_character_id": 90000093,
-   "characters": [
-    {
-     "character_id": 90000093,
-     "name": "Norven",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000094,
-     "name": "Norven II",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Norven",
+    "main_character_id": 90000093,
+    "characters": [
+      {
+        "character_id": 90000093,
+        "character_name": "Norven"
+      },
+      {
+        "character_id": 90000094,
+        "character_name": "Norven II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 44,
-   "user_name": "Belmi",
-   "main_character_id": 90000095,
-   "characters": [
-    {
-     "character_id": 90000095,
-     "name": "Belmi",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Belmi",
+    "main_character_id": 90000095,
+    "characters": [
+      {
+        "character_id": 90000095,
+        "character_name": "Belmi"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 45,
-   "user_name": "Ashradro",
-   "main_character_id": 90000096,
-   "characters": [
-    {
-     "character_id": 90000096,
-     "name": "Ashradro",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000097,
-     "name": "Ashradro II",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000098,
-     "name": "Ashradro Prime",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Ashradro",
+    "main_character_id": 90000096,
+    "characters": [
+      {
+        "character_id": 90000096,
+        "character_name": "Ashradro"
+      },
+      {
+        "character_id": 90000097,
+        "character_name": "Ashradro II"
+      },
+      {
+        "character_id": 90000098,
+        "character_name": "Ashradro Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 46,
-   "user_name": "Sundrokar",
-   "main_character_id": 90000099,
-   "characters": [
-    {
-     "character_id": 90000099,
-     "name": "Sundrokar",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000100,
-     "name": "Sundrokar II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000101,
-     "name": "Sundrokar Prime",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Sundrokar",
+    "main_character_id": 90000099,
+    "characters": [
+      {
+        "character_id": 90000099,
+        "character_name": "Sundrokar"
+      },
+      {
+        "character_id": 90000100,
+        "character_name": "Sundrokar II"
+      },
+      {
+        "character_id": 90000101,
+        "character_name": "Sundrokar Prime"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 47,
-   "user_name": "Karzok",
-   "main_character_id": 90000102,
-   "characters": [
-    {
-     "character_id": 90000102,
-     "name": "Karzok",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000103,
-     "name": "Karzok II",
-     "group": "Strat"
-    }
-   ]
+    "user_name": "Karzok",
+    "main_character_id": 90000102,
+    "characters": [
+      {
+        "character_id": 90000102,
+        "character_name": "Karzok"
+      },
+      {
+        "character_id": 90000103,
+        "character_name": "Karzok II"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 48,
-   "user_name": "Miash",
-   "main_character_id": 90000104,
-   "characters": [
-    {
-     "character_id": 90000104,
-     "name": "Miash",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000105,
-     "name": "Miash II",
-     "group": "Alpha"
-    },
-    {
-     "character_id": 90000106,
-     "name": "Miash Prime",
-     "group": "Farm"
-    },
-    {
-     "character_id": 90000107,
-     "name": "Miash's Hammer",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Miash",
+    "main_character_id": 90000104,
+    "characters": [
+      {
+        "character_id": 90000104,
+        "character_name": "Miash"
+      },
+      {
+        "character_id": 90000105,
+        "character_name": "Miash II"
+      },
+      {
+        "character_id": 90000106,
+        "character_name": "Miash Prime"
+      },
+      {
+        "character_id": 90000107,
+        "character_name": "Miash's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 49,
-   "user_name": "Zokthal",
-   "main_character_id": 90000108,
-   "characters": [
-    {
-     "character_id": 90000108,
-     "name": "Zokthal",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000109,
-     "name": "Zokthal II",
-     "group": "Strat"
-    },
-    {
-     "character_id": 90000110,
-     "name": "Zokthal Prime",
-     "group": "Home"
-    },
-    {
-     "character_id": 90000111,
-     "name": "Zokthal's Hammer",
-     "group": "Alpha"
-    }
-   ]
+    "user_name": "Zokthal",
+    "main_character_id": 90000108,
+    "characters": [
+      {
+        "character_id": 90000108,
+        "character_name": "Zokthal"
+      },
+      {
+        "character_id": 90000109,
+        "character_name": "Zokthal II"
+      },
+      {
+        "character_id": 90000110,
+        "character_name": "Zokthal Prime"
+      },
+      {
+        "character_id": 90000111,
+        "character_name": "Zokthal's Hammer"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   },
   {
-   "user_id": 50,
-   "user_name": "Zokqui",
-   "main_character_id": 90000112,
-   "characters": [
-    {
-     "character_id": 90000112,
-     "name": "Zokqui",
-     "group": "Home"
-    }
-   ]
+    "user_name": "Zokqui",
+    "main_character_id": 90000112,
+    "characters": [
+      {
+        "character_id": 90000112,
+        "character_name": "Zokqui"
+      }
+    ],
+    "discord_id": null,
+    "rank": "Member",
+    "teams": [],
+    "allowed_apps": [
+      "skillquery"
+    ]
   }
- ]
-}
+]

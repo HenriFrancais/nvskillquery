@@ -40,10 +40,10 @@ class Settings(BaseSettings):
     # the container image; gitignored locally.
     sde_dir: Path = Path("./var/sde")
 
-    skills_api_url: str = ""
-    skills_api_token: str = ""
-    users_api_url: str = ""
-    users_api_token: str = ""
+    # Real NV Tools APIs share one base host + one bearer token. Endpoints
+    # (/users, /character_skills) are derived from the base in real.py.
+    nv_api_url: str = "https://tools.novacancies.space/api"
+    nv_api_token: str = ""
 
     # Stale-while-revalidate TTL for the in-memory snapshot of both upstreams.
     # Skills change slowly; 30 minutes keeps queries snappy without going stale.

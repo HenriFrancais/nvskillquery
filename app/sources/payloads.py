@@ -1,6 +1,6 @@
 """Pydantic models for the two upstream API payloads.
 
-The shapes are the proposed contract in docs/upstream-api.md; the committed
+The shapes are the real NV Tools contract in docs/upstream-api.md; the committed
 demo fixtures conform to them. The skill catalogue is NOT part of either
 payload — it comes from the processed SDE artifact (app/sde/catalog.py);
 the skills API only carries trained levels.
@@ -8,9 +8,7 @@ the skills API only carries trained levels.
 
 from __future__ import annotations
 
-from datetime import datetime
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, RootModel
 
 
 class SkillPrereq(BaseModel):
@@ -20,40 +18,39 @@ class SkillPrereq(BaseModel):
     level: int = Field(ge=1, le=5)
 
 
-class TrainedSkillIn(BaseModel):
-    skill_id: int
-    level: int = Field(ge=1, le=5)
-
-
 class SkillsCharacterIn(BaseModel):
     character_id: int
-    skills: list[TrainedSkillIn] = Field(default_factory=list)
+    main_character_id: int
+    # skill_id (string in JSON) -> trained level 1-5. Pydantic coerces the
+    # string keys to int. Absent skill = untrained.
+    skills: dict[int, int] = Field(default_factory=dict)
+
+    model_config = {"extra": "ignore"}
 
 
-class SkillsUserIn(BaseModel):
-    user_id: int
-    characters: list[SkillsCharacterIn] = Field(default_factory=list)
-
-
-class SkillsApiPayload(BaseModel):
-    generated_at: datetime
-    users: list[SkillsUserIn]
+class SkillsApiPayload(RootModel[list[SkillsCharacterIn]]):
+    """`GET /api/character_skills` — a flat array, one entry per character."""
 
 
 class UsersCharacterIn(BaseModel):
     character_id: int
-    name: str
-    group: str
+    character_name: str
+
+    model_config = {"extra": "ignore"}
 
 
 class UsersUserIn(BaseModel):
-    user_id: int
     user_name: str
     main_character_id: int
-    characters: list[UsersCharacterIn]
+    characters: list[UsersCharacterIn] = Field(default_factory=list)
+    # Carried for completeness / forward-compat; not consumed by the snapshot.
+    discord_id: str | None = None
+    rank: str = ""
+    teams: list[str] = Field(default_factory=list)
+    allowed_apps: list[str] = Field(default_factory=list)
+
+    model_config = {"extra": "ignore"}
 
 
-class UsersApiPayload(BaseModel):
-    generated_at: datetime
-    character_groups: list[str] = Field(default_factory=list)
-    users: list[UsersUserIn]
+class UsersApiPayload(RootModel[list[UsersUserIn]]):
+    """`GET /api/users` — a flat array, one entry per user."""

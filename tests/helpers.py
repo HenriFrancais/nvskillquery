@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from app.sde.catalog import SdeCatalog
 from app.snapshot.build import build_snapshot
-from app.snapshot.models import CharacterRecord, SkillDef, Snapshot
+from app.snapshot.models import CharacterRecord, SkillDef, Snapshot, UserRecord
 from app.sources.payloads import SkillPrereq, SkillsApiPayload, UsersApiPayload
 
 GENERATED_AT = "2026-01-01T00:00:00Z"
@@ -76,44 +76,43 @@ CATALOG_SKILLS = [
 
 def simple_snapshot() -> Snapshot:
     """Three users / five characters / two skills — covers mains, alts,
-    zero-match users, and the group pool.
+    zero-match users, and a multi-group pool. Built directly (not through
+    build_snapshot) because the real upstream payload no longer carries
+    per-character groups; the pool-filter logic itself is group-agnostic and
+    is still exercised here.
 
     - Alice: main Alice (Home, skill 1 @5), alt Alice II (Strat, skill 1 @3, skill 2 @4)
     - Bob: main Bob (Home, skill 2 @2)
     - Carol: main Carol (Farm, no skills), alt Carol II (Home, skill 1 @4)
     """
-    return snapshot_from(
-        CATALOG_SKILLS,
-        {
-            "users": [
-                {"user_id": 1, "characters": [
-                    {"character_id": 101, "skills": [{"skill_id": 1, "level": 5}]},
-                    {"character_id": 102, "skills": [{"skill_id": 1, "level": 3},
-                                                     {"skill_id": 2, "level": 4}]},
-                ]},
-                {"user_id": 2, "characters": [
-                    {"character_id": 201, "skills": [{"skill_id": 2, "level": 2}]},
-                ]},
-                {"user_id": 3, "characters": [
-                    {"character_id": 301, "skills": []},
-                    {"character_id": 302, "skills": [{"skill_id": 1, "level": 4}]},
-                ]},
-            ],
-        },
-        {
-            "character_groups": ["Home", "Strat", "Farm", "Alpha"],
-            "users": [
-                {"user_id": 1, "user_name": "Alice", "main_character_id": 101, "characters": [
-                    {"character_id": 101, "name": "Alice", "group": "Home"},
-                    {"character_id": 102, "name": "Alice II", "group": "Strat"},
-                ]},
-                {"user_id": 2, "user_name": "Bob", "main_character_id": 201, "characters": [
-                    {"character_id": 201, "name": "Bob", "group": "Home"},
-                ]},
-                {"user_id": 3, "user_name": "Carol", "main_character_id": 301, "characters": [
-                    {"character_id": 301, "name": "Carol", "group": "Farm"},
-                    {"character_id": 302, "name": "Carol II", "group": "Home"},
-                ]},
-            ],
-        },
+    catalog = catalog_from(CATALOG_SKILLS)
+    characters = {
+        101: CharacterRecord(character_id=101, name="Alice", group="Home",
+                             user_id=1, is_main=True, skill_levels={1: 5}),
+        102: CharacterRecord(character_id=102, name="Alice II", group="Strat",
+                             user_id=1, is_main=False, skill_levels={1: 3, 2: 4}),
+        201: CharacterRecord(character_id=201, name="Bob", group="Home",
+                             user_id=2, is_main=True, skill_levels={2: 2}),
+        301: CharacterRecord(character_id=301, name="Carol", group="Farm",
+                             user_id=3, is_main=True, skill_levels={}),
+        302: CharacterRecord(character_id=302, name="Carol II", group="Home",
+                             user_id=3, is_main=False, skill_levels={1: 4}),
+    }
+    users = {
+        1: UserRecord(user_id=1, user_name="Alice", main_character_id=101,
+                      character_ids=(101, 102)),
+        2: UserRecord(user_id=2, user_name="Bob", main_character_id=201,
+                      character_ids=(201,)),
+        3: UserRecord(user_id=3, user_name="Carol", main_character_id=301,
+                      character_ids=(301, 302)),
+    }
+    return Snapshot(
+        version=1,
+        fetched_at=0.0,
+        sde_build_number=catalog.build_number,
+        skills=catalog.skills,
+        character_groups=("Home", "Strat", "Farm", "Alpha"),
+        users=users,
+        characters=characters,
+        users_sorted=tuple(sorted(users, key=lambda uid: users[uid].user_name)),
     )

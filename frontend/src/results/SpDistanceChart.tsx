@@ -60,6 +60,42 @@ function wheelZoomPlugin(): uPlot.Plugin {
   }
 }
 
+/**
+ * Hover readout: a small label that snaps to the nearest step and shows the
+ * exact cumulative character count (and the SP value) at the cursor.
+ */
+function valueTooltipPlugin(): uPlot.Plugin {
+  let tip: HTMLDivElement | null = null
+  return {
+    hooks: {
+      ready(u) {
+        tip = document.createElement('div')
+        tip.className = 'sp-tooltip'
+        tip.style.display = 'none'
+        u.over.appendChild(tip)
+      },
+      setCursor(u) {
+        if (!tip) return
+        const idx = u.cursor.idx
+        const x = idx == null ? null : u.data[0][idx]
+        const y = idx == null ? null : (u.data[1][idx] as number | null)
+        if (idx == null || x == null || y == null) {
+          tip.style.display = 'none'
+          return
+        }
+        tip.textContent = `${y} character${y === 1 ? '' : 's'} · ${fmtSp(x)} SP`
+        tip.style.display = 'block'
+        tip.style.left = `${u.valToPos(x, 'x')}px`
+        tip.style.top = `${u.valToPos(y, 'y')}px`
+      },
+      destroy() {
+        tip?.remove()
+        tip = null
+      },
+    },
+  }
+}
+
 export function SpDistanceChart({ gaps }: { gaps: number[] }) {
   const ref = useRef<HTMLDivElement>(null)
   const plot = useRef<uPlot | null>(null)
@@ -118,7 +154,7 @@ export function SpDistanceChart({ gaps }: { gaps: number[] }) {
           paths: uPlot.paths.stepped!({ align: 1 }),
         },
       ],
-      plugins: [wheelZoomPlugin()],
+      plugins: [wheelZoomPlugin(), valueTooltipPlugin()],
     }
 
     const u = new uPlot(opts, [xs, ys], el)

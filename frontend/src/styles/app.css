@@ -371,11 +371,32 @@ select, input[type="text"], input[type="search"] {
 }
 .sp-chart {
   width: 100%;
+  position: relative;
 }
 /* uPlot draws on a dark panel; keep its chrome legible. */
 .sp-chart .u-cursor-x,
 .sp-chart .u-cursor-y {
   border-color: var(--text-dim);
+}
+/* The drag-to-zoom selection box (default fill is invisible on dark). */
+.sp-chart .u-select {
+  background: color-mix(in srgb, var(--and) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--and) 55%, transparent);
+}
+/* Hover readout pinned to the nearest step. */
+.sp-tooltip {
+  position: absolute;
+  transform: translate(10px, -50%);
+  pointer-events: none;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--text);
+  z-index: 5;
 }
 
 .match-toggle {

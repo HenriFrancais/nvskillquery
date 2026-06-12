@@ -315,6 +315,81 @@ select, input[type="text"], input[type="search"] {
   border-bottom: none;
 }
 
+/* ---- Results summary (cards + chart + expandable table) ---- */
+
+.stat-cards {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.stat-card {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+}
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.stat-value {
+  font-size: 1.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.stat-total {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-dim);
+}
+
+.chart-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.chart-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.chart-empty {
+  padding: 1.5rem 0;
+  text-align: center;
+}
+.chart-hint {
+  font-size: 12px;
+}
+.sp-chart {
+  width: 100%;
+}
+/* uPlot draws on a dark panel; keep its chrome legible. */
+.sp-chart .u-cursor-x,
+.sp-chart .u-cursor-y {
+  border-color: var(--text-dim);
+}
+
+.match-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 13px;
+  padding: 0.3rem 0;
+  user-select: none;
+}
+.match-toggle:hover { color: var(--text); }
+.match-table { margin-top: 0.4rem; }
+
 /* ---- Pool filter ---- */
 
 .pool-filter {

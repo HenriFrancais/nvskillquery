@@ -16,8 +16,12 @@ the tests with `uv run pytest -q`.
 
 ## Configuration
 
-Secrets and per-deployment values come from `.env` (gitignored; copy
-`.env.example`). The access-gate allowlist (which ranks/teams may query) is in
+Secrets and per-deployment values come from `.env` (gitignored). Bootstrap it
+with `cp .env.example .env`, then fill in the blanks — it's a template with
+documented defaults and empty secrets (`NV_API_TOKEN`, plus `NV_TOKEN` for
+production), not an empty file. Since `.env` is gitignored your token is never
+committed. (Don't copy over an existing `.env` that already holds real values —
+it overwrites.) The access-gate allowlist (which ranks/teams may query) is in
 `config.toml` / `config.local.toml`.
 
 | Var | Purpose |
@@ -40,11 +44,13 @@ contract.
 
 1. **Build and run the container** (on the VM):
 
-       cd ~/dev/nvskills
-       echo "NV_TOKEN=<shared-proxy-secret>"  >> .env
-       echo "NV_API_TOKEN=<upstream-api-token>" >> .env
-       echo "URL_PREFIX=/skillquery"           >> .env
-       echo "DATA_SOURCE=real"                  >> .env
+       cd ~/dev/nvskillquery
+       cp .env.example .env
+       # then edit .env and set:
+       #   NV_TOKEN=<shared-proxy-secret>      # must match what the NV Tools proxy sends
+       #   NV_API_TOKEN=<upstream-api-token>   # from the NV Tools admin
+       #   URL_PREFIX=/skillquery
+       # DATA_SOURCE=real is already the default in .env.example.
        docker compose build && docker compose up -d
 
    `URL_PREFIX=/skillquery` is passed as both the runtime env var and the

@@ -3,7 +3,7 @@ import { api, ApiError, DoctrineFitOut, QueryResponse } from '../api'
 import { DoctrineSelector, resolveDown } from '../components/DoctrineSelector'
 import { PoolFilter } from '../components/PoolFilter'
 import { GroupEditor } from '../components/QueryBuilder/GroupEditor'
-import { ResultsTable } from '../components/ResultsTable'
+import { ResultsSummary } from '../results/ResultsSummary'
 import { useCatalog } from '../hooks/useCatalog'
 import {
   BuilderGroup,
@@ -346,7 +346,7 @@ export function SkillQuery() {
 
       {queryError && <div className="notice error">{queryError}</div>}
 
-      {result && <ResultsTable result={result} />}
+      {result && <ResultsSummary result={result} />}
     </div>
   )
 }

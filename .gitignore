@@ -11,3 +11,6 @@ frontend/dist/
 var/
 *.egg-info/
 frontend/tsconfig.tsbuildinfo
+
+# brainstorming visual companion
+.superpowers/

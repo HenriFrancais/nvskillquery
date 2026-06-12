@@ -78,6 +78,10 @@ export interface QueryResponse {
   totals: QueryTotals
   snapshot_version: number
   snapshot_fetched_at: string
+  // Minimal additional SP for each non-matching pool character to satisfy the
+  // query — one entry per non-matching character, unordered. Powers the
+  // distance-to-target chart.
+  additional_sp: number[]
   // Present only for doctrine-sourced queries; null/absent for manual queries.
   doctrine?: DoctrineLabel | null
 }

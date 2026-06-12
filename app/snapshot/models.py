@@ -19,6 +19,10 @@ class SkillDef:
     group_id: int
     group_name: str
     prerequisites: tuple[SkillPrereq, ...]
+    # SDE training-time multiplier (dogma attr 275). Defaults to 1 so artifacts
+    # and fixtures predating SP-cost support stay valid; real ranks arrive via
+    # refresh_sde on the production data path.
+    rank: int = 1
 
 
 @dataclass(slots=True, frozen=True)

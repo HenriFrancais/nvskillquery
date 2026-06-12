@@ -127,6 +127,34 @@ def test_empty_groups_means_all():
     assert run_query(snap, q(SKILL1_AT_3), groups=[]) == run_query(snap, q(SKILL1_AT_3))
 
 
+# ---- additional SP (distance-to-target) ----
+
+
+def test_additional_sp_lists_non_matching_character_gaps():
+    snap = simple_snapshot()
+    resp = run_query(snap, q(SKILL1_AT_3))
+    # Two non-matching pool chars (Bob, Carol) both lack skill 1: 0->3 = 8000.
+    assert sorted(resp.additional_sp) == [8000, 8000]
+    # One gap per non-matching pool character.
+    assert len(resp.additional_sp) == (
+        resp.totals.total_characters - resp.totals.total_matching_characters
+    )
+
+
+def test_additional_sp_ignores_include_non_matching_flag():
+    snap = simple_snapshot()
+    without = run_query(snap, q(SKILL1_AT_3))
+    with_flag = run_query(snap, q(SKILL1_AT_3), include_non_matching=True)
+    assert sorted(without.additional_sp) == sorted(with_flag.additional_sp)
+
+
+def test_additional_sp_is_pool_scoped():
+    snap = simple_snapshot()
+    resp = run_query(snap, q(SKILL1_AT_3), groups=["Home"])
+    # Home pool: Alice(match), Carol II(match), Bob(non-match, 0->3 = 8000).
+    assert resp.additional_sp == [8000]
+
+
 # ---- snapshot build rules ----
 
 

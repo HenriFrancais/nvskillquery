@@ -18,36 +18,51 @@ function fmtSp(n: number): string {
   return `${Math.round(n)}`
 }
 
-/** Wheel to zoom the x-axis around the cursor; drag to pan it. */
+/**
+ * Wheel to zoom the x-axis around the cursor; drag to pan it. All listeners
+ * (including the document-level drag listeners) are torn down in the `destroy`
+ * hook, so nothing leaks and no stray event reaches a destroyed chart — even
+ * if the chart is rebuilt or unmounted mid-drag.
+ */
 function interactionPlugin(): uPlot.Plugin {
+  const teardown: Array<() => void> = []
   return {
     hooks: {
       ready(u) {
         const over = u.over
-        over.addEventListener(
-          'wheel',
-          (e: WheelEvent) => {
-            e.preventDefault()
-            const { left, width } = over.getBoundingClientRect()
-            const cursorX = e.clientX - left
-            const xVal = u.posToVal(cursorX, 'x')
-            const min = u.scales.x.min ?? 0
-            const max = u.scales.x.max ?? 1
-            const factor = e.deltaY < 0 ? 0.8 : 1.25
-            const leftFrac = cursorX / width
-            const nextSpan = (max - min) * factor
-            let nextMin = xVal - leftFrac * nextSpan
-            let nextMax = xVal + (1 - leftFrac) * nextSpan
-            if (nextMin < 0) {
-              nextMax -= nextMin
-              nextMin = 0
-            }
-            u.setScale('x', { min: nextMin, max: nextMax })
-          },
-          { passive: false },
-        )
 
-        over.addEventListener('mousedown', (e: MouseEvent) => {
+        const onWheel = (e: WheelEvent) => {
+          e.preventDefault()
+          const { left, width } = over.getBoundingClientRect()
+          const cursorX = e.clientX - left
+          const xVal = u.posToVal(cursorX, 'x')
+          const min = u.scales.x.min ?? 0
+          const max = u.scales.x.max ?? 1
+          const factor = e.deltaY < 0 ? 0.8 : 1.25
+          const leftFrac = cursorX / width
+          const nextSpan = (max - min) * factor
+          let nextMin = xVal - leftFrac * nextSpan
+          let nextMax = xVal + (1 - leftFrac) * nextSpan
+          if (nextMin < 0) {
+            nextMax -= nextMin
+            nextMin = 0
+          }
+          u.setScale('x', { min: nextMin, max: nextMax })
+        }
+        over.addEventListener('wheel', onWheel, { passive: false })
+        teardown.push(() => over.removeEventListener('wheel', onWheel))
+
+        // Active-drag listeners live on `document`; endDrag detaches them and
+        // is also called from `destroy` so an in-progress drag can't outlive
+        // the chart.
+        let onMove: ((e: MouseEvent) => void) | null = null
+        let onUp: (() => void) | null = null
+        const endDrag = () => {
+          if (onMove) document.removeEventListener('mousemove', onMove)
+          if (onUp) document.removeEventListener('mouseup', onUp)
+          onMove = onUp = null
+        }
+        const onDown = (e: MouseEvent) => {
           if (e.button !== 0) return
           e.preventDefault()
           const { width } = over.getBoundingClientRect()
@@ -55,7 +70,7 @@ function interactionPlugin(): uPlot.Plugin {
           const min0 = u.scales.x.min ?? 0
           const max0 = u.scales.x.max ?? 1
           const perPx = (max0 - min0) / width
-          const onMove = (me: MouseEvent) => {
+          onMove = (me: MouseEvent) => {
             const dx = (me.clientX - startX) * perPx
             let nextMin = min0 - dx
             let nextMax = max0 - dx
@@ -65,14 +80,17 @@ function interactionPlugin(): uPlot.Plugin {
             }
             u.setScale('x', { min: nextMin, max: nextMax })
           }
-          const onUp = () => {
-            document.removeEventListener('mousemove', onMove)
-            document.removeEventListener('mouseup', onUp)
-          }
-          document.removeEventListener('mousemove', onMove)
+          onUp = endDrag
           document.addEventListener('mousemove', onMove)
           document.addEventListener('mouseup', onUp)
-        })
+        }
+        over.addEventListener('mousedown', onDown)
+        teardown.push(() => over.removeEventListener('mousedown', onDown))
+        teardown.push(endDrag)
+      },
+      destroy() {
+        teardown.forEach((fn) => fn())
+        teardown.length = 0
       },
     },
   }

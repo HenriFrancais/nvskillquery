@@ -16,7 +16,10 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.config import get_settings
 
-_CSP = "frame-ancestors https://tools.novacancies.space"
+# CSP frame-ancestors: space-separated allowlist of hosts that may iframe us.
+# tools.novacancies.space is the NV Tools portal; novacancies.space is the public
+# web host, which also embeds us. Both are required.
+_CSP = "frame-ancestors https://tools.novacancies.space https://novacancies.space"
 
 
 def _open_paths(prefix: str) -> set[str]:

@@ -48,6 +48,14 @@ def test_prerequisites_extracted_and_unknown_targets_dropped() -> None:
     assert by_id[3300]["prerequisites"] == []
 
 
+def test_rank_extracted_and_defaults_to_one() -> None:
+    by_id = {s["skill_id"]: s for s in _process()["skills"]}
+    # 3301 carries dogma attr 275 (skillTimeConstant) = 6.
+    assert by_id[3301]["rank"] == 6
+    # 3300 has no dogma entry at all → rank defaults to 1.
+    assert by_id[3300]["rank"] == 1
+
+
 def test_build_number_echoed() -> None:
     assert _process(build=999)["sde_build_number"] == 999
 

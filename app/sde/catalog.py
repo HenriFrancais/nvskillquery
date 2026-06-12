@@ -37,6 +37,7 @@ def _parse(path: Path) -> SdeCatalog:
             name=s["name"],
             group_id=int(s["group_id"]),
             group_name=s["group_name"],
+            rank=int(s.get("rank", 1)),
             prerequisites=tuple(
                 SkillPrereq(skill_id=p["skill_id"], level=p["level"])
                 for p in s.get("prerequisites", [])

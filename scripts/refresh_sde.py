@@ -33,6 +33,8 @@ SDE_ZIP_URL = "https://developers.eveonline.com/static-data/eve-online-static-da
 SKILL_CATEGORY_ID = 16
 # typeDogma attribute pairs: (required skill type id, required level).
 PREREQ_ATTRS = [(182, 277), (183, 278), (184, 279)]
+# skillTimeConstant — the skill's rank / training-time multiplier.
+RANK_ATTR = 275
 
 NEEDED_FILES = ("types.jsonl", "groups.jsonl", "typeDogma.jsonl")
 
@@ -93,6 +95,7 @@ def process_sde_files(
             "group_id": int(group_id),
             "group_name": skill_groups[group_id],
             "prerequisites": [],
+            "rank": 1,
         }
 
     for d in _iter_jsonl(dogma_path):
@@ -104,6 +107,10 @@ def process_sde_files(
             for a in d.get("dogmaAttributes", [])
             if "attributeID" in a and "value" in a
         }
+        # Skill rank (training-time multiplier), dogma attr 275. Absent for a
+        # handful of skills — default to 1.
+        if RANK_ATTR in attrs:
+            skills[type_id]["rank"] = int(attrs[RANK_ATTR])
         prereqs = []
         for skill_attr, level_attr in PREREQ_ATTRS:
             if skill_attr in attrs and level_attr in attrs:

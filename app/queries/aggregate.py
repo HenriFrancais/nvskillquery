@@ -19,6 +19,7 @@ from pydantic import BaseModel
 
 from app.queries.doctrine import DoctrineLabel
 from app.queries.evaluate import character_matches
+from app.queries.sp_cost import character_gap
 from app.queries.tree import AnyQueryNode
 from app.snapshot.models import Snapshot
 
@@ -54,6 +55,11 @@ class QueryResponse(BaseModel):
     totals: QueryTotals
     snapshot_version: int
     snapshot_fetched_at: str  # ISO 8601
+    # Minimal additional SP for each non-matching pool character to satisfy the
+    # query — one entry per non-matching character, unordered. Powers the
+    # distance-to-target chart. Independent of include_non_matching (which only
+    # governs which user rows are returned).
+    additional_sp: list[int] = []
     # Set only for doctrine-sourced queries — names the fit + tier behind the
     # expanded skill set. None for manual queries. Attached after aggregation
     # (the cached result is provenance-free and shared with the manual path).
@@ -71,6 +77,7 @@ def run_query(
     empty_rows: list[UserRow] = []
     pool_users = 0
     pool_characters = 0
+    additional_sp: list[int] = []
 
     for user_id in snapshot.users_sorted:
         user = snapshot.users[user_id]
@@ -80,6 +87,12 @@ def run_query(
         if in_pool:
             pool_users += 1
         matching = [c for c in in_pool if character_matches(root, c)]
+        matching_ids = {c.character_id for c in matching}
+        additional_sp.extend(
+            character_gap(root, c, snapshot.skills)
+            for c in in_pool
+            if c.character_id not in matching_ids
+        )
         main = snapshot.characters[user.main_character_id]
         row = UserRow(
             user_id=user.user_id,
@@ -116,4 +129,5 @@ def run_query(
         ),
         snapshot_version=snapshot.version,
         snapshot_fetched_at=datetime.fromtimestamp(snapshot.fetched_at, tz=UTC).isoformat(),
+        additional_sp=additional_sp,
     )

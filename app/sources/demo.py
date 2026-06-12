@@ -10,7 +10,7 @@ import asyncio
 import json
 from pathlib import Path
 
-from app.sources.payloads import SkillsApiPayload, UsersApiPayload
+from app.sources.payloads import DoctrinesApiPayload, SkillsApiPayload, UsersApiPayload
 
 
 class DemoSource:
@@ -26,3 +26,12 @@ class DemoSource:
     async def fetch_users(self) -> UsersApiPayload:
         raw = await asyncio.to_thread((self._data_dir / "users_api.json").read_text)
         return UsersApiPayload.model_validate(json.loads(raw))
+
+    async def fetch_doctrines(self) -> DoctrinesApiPayload:
+        path = self._data_dir / "doctrine_definitions_api.json"
+        # The fixture is committed, but tolerate its absence so the rest of the
+        # demo stack still boots if it hasn't been regenerated.
+        if not path.exists():
+            return DoctrinesApiPayload.model_validate([])
+        raw = await asyncio.to_thread(path.read_text)
+        return DoctrinesApiPayload.model_validate(json.loads(raw))

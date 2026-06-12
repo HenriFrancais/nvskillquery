@@ -36,6 +36,25 @@ class CharacterRecord:
 
 
 @dataclass(slots=True, frozen=True)
+class DoctrineSkillReq:
+    skill_id: int
+    level_yellow: int
+    level_green: int
+
+
+@dataclass(slots=True, frozen=True)
+class DoctrineFit:
+    # Identity, in group-by significance order. fit_name may be "".
+    doctrine: str
+    role: str
+    ship_type: str
+    fit_name: str
+    # Flattened across all skillpacks, deduped by skill_id, filtered to the
+    # SDE catalogue so an expanded query never references an unknown skill.
+    skills: tuple[DoctrineSkillReq, ...]
+
+
+@dataclass(slots=True, frozen=True)
 class UserRecord:
     user_id: int
     user_name: str
@@ -56,3 +75,6 @@ class Snapshot:
     characters: dict[int, CharacterRecord]
     # user_ids sorted by user_name — stable result ordering.
     users_sorted: tuple[int, ...]
+    # Doctrine fits sorted by (doctrine, role, ship_type, fit_name). Empty when
+    # the upstream doctrine API isn't configured.
+    doctrines: tuple[DoctrineFit, ...] = ()

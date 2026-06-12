@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useReducer } from 'react'
-import { api, ApiError, QueryResponse } from '../api'
+import { api, ApiError, DoctrineFitOut, QueryResponse } from '../api'
+import { DoctrineSelector, resolveDown } from '../components/DoctrineSelector'
 import { PoolFilter } from '../components/PoolFilter'
 import { GroupEditor } from '../components/QueryBuilder/GroupEditor'
+import { ResultsTable } from '../components/ResultsTable'
 import { useCatalog } from '../hooks/useCatalog'
 import {
   BuilderGroup,
@@ -12,10 +14,24 @@ import {
   treeDepth,
 } from '../query/builder'
 import { describeQuery } from '../query/describe'
+import {
+  DoctrineRef,
+  decodeDoctrineRef,
+  doctrineLabel,
+  doctrineOptions,
+  encodeDoctrineRef,
+  findFit,
+} from '../query/doctrineRef'
 import { decodeQuery, encodeQuery } from '../query/encode'
 import { groupsToParam, parseGroupsParam } from '../query/groups'
 import { MAX_DEPTH, MAX_NODES } from '../query/model'
 import { builderReducer } from '../query/reducer'
+
+type Mode = 'manual' | 'doctrine'
+
+function initialMode(): Mode {
+  return new URLSearchParams(window.location.search).has('d') ? 'doctrine' : 'manual'
+}
 
 function initialRoot(): BuilderGroup {
   const q = new URLSearchParams(window.location.search).get('q')
@@ -59,7 +75,10 @@ function Summary({ text }: { text: string }) {
 
 export function SkillQuery() {
   const { catalog, error: catalogError } = useCatalog(true)
+  const [mode, setMode] = useState<Mode>(initialMode)
   const [root, dispatch] = useReducer(builderReducer, undefined, initialRoot)
+  const [doctrineFits, setDoctrineFits] = useState<DoctrineFitOut[] | null>(null)
+  const [docSel, setDocSel] = useState<DoctrineRef | null>(null)
   // null until the catalog delivers the vocabulary; then a concrete selection.
   const [selectedGroups, setSelectedGroups] = useState<Set<string> | null>(null)
   const [includeNonMatching, setIncludeNonMatching] = useState(false)
@@ -71,11 +90,39 @@ export function SkillQuery() {
   const allGroups = useMemo(() => catalog?.character_groups ?? [], [catalog])
 
   useEffect(() => {
+    api.doctrines().then(
+      (r) => setDoctrineFits(r.fits),
+      () => setDoctrineFits([]),
+    )
+  }, [])
+
+  useEffect(() => {
     if (catalog && selectedGroups === null) {
       const g = new URLSearchParams(window.location.search).get('g')
       setSelectedGroups(parseGroupsParam(g, catalog.character_groups))
     }
   }, [catalog, selectedGroups])
+
+  // Seed the doctrine selection from the URL (&d=) or default to the first fit.
+  useEffect(() => {
+    if (!doctrineFits || doctrineFits.length === 0 || docSel !== null) return
+    const d = new URLSearchParams(window.location.search).get('d')
+    const decoded = d ? decodeDoctrineRef(d) : null
+    if (decoded) {
+      setDocSel(
+        resolveDown(
+          doctrineFits,
+          decoded.tier,
+          decoded.doctrine,
+          decoded.role,
+          decoded.ship_type,
+          decoded.fit_name,
+        ),
+      )
+    } else {
+      setDocSel(resolveDown(doctrineFits, 'green', doctrineOptions(doctrineFits)[0]))
+    }
+  }, [doctrineFits, docSel])
 
   const wire = useMemo(() => toWire(root), [root])
   const nodes = countNodes(root)
@@ -100,45 +147,85 @@ export function SkillQuery() {
   }, [selectedGroups, allGroups])
   const groupsParam = selectedGroups ? groupsToParam(selectedGroups, allGroups) : null
 
+  // The doctrine fit currently selected and its skill count at the chosen tier.
+  const docFit = docSel && doctrineFits ? findFit(doctrineFits, docSel) : null
+  const docSkillCount = docFit
+    ? docSel!.tier === 'yellow'
+      ? docFit.yellow_skill_count
+      : docFit.green_skill_count
+    : 0
+  const docRunnable = mode === 'doctrine' && !!docSel && !!docFit && docSkillCount > 0
+
+  const writeUrl = useCallback(() => {
+    const params = new URLSearchParams()
+    if (mode === 'manual' && wire) params.set('q', encodeQuery(wire))
+    if (mode === 'doctrine' && docSel) params.set('d', encodeDoctrineRef(docSel))
+    if (groupsParam) params.set('g', groupsParam)
+    return params
+  }, [mode, wire, docSel, groupsParam])
+
   const run = useCallback(async () => {
-    if (!wire || emptyPool) return
+    if (emptyPool) return
+    if (mode === 'manual' && !wire) return
+    if (mode === 'doctrine' && !docRunnable) return
     setRunning(true)
     setQueryError(null)
     try {
-      const res = await api.query(wire, groupsList, includeNonMatching)
+      const res =
+        mode === 'doctrine'
+          ? await api.queryDoctrine(docSel!, groupsList, includeNonMatching)
+          : await api.query(wire!, groupsList, includeNonMatching)
       setResult(res)
-      const params = new URLSearchParams()
-      params.set('q', encodeQuery(wire))
-      if (groupsParam) params.set('g', groupsParam)
-      window.history.replaceState(null, '', `?${params.toString()}`)
+      window.history.replaceState(null, '', `?${writeUrl().toString()}`)
     } catch (e) {
       setResult(null)
       setQueryError(e instanceof ApiError ? e.message : String(e))
     } finally {
       setRunning(false)
     }
-  }, [wire, emptyPool, groupsList, groupsParam, includeNonMatching])
+  }, [mode, wire, docSel, docRunnable, emptyPool, groupsList, includeNonMatching, writeUrl])
 
   // A shared link should show its results without an extra click.
   const autoRan = useRef(false)
   useEffect(() => {
     if (autoRan.current || selectedGroups === null) return
-    if (wire && new URLSearchParams(window.location.search).has('q')) {
+    const params = new URLSearchParams(window.location.search)
+    if (mode === 'manual' && wire && params.has('q')) {
+      autoRan.current = true
+      void run()
+    } else if (mode === 'doctrine' && docRunnable && params.has('d')) {
       autoRan.current = true
       void run()
     }
-  }, [wire, run, selectedGroups])
+  }, [mode, wire, docRunnable, run, selectedGroups])
+
+  const switchMode = (next: Mode) => {
+    if (next === mode) return
+    setMode(next)
+    setResult(null)
+    setQueryError(null)
+  }
 
   const copyLink = async () => {
-    if (!wire) return
-    const params = new URLSearchParams()
-    params.set('q', encodeQuery(wire))
-    if (groupsParam) params.set('g', groupsParam)
-    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`
+    const url = `${window.location.origin}${window.location.pathname}?${writeUrl().toString()}`
     await navigator.clipboard.writeText(url)
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)
   }
+
+  const csvHref =
+    mode === 'doctrine'
+      ? docSel && docRunnable
+        ? api.exportCsvDoctrineUrl(encodeDoctrineRef(docSel), groupsParam, includeNonMatching)
+        : null
+      : wire
+        ? api.exportCsvUrl(encodeQuery(wire), groupsParam, includeNonMatching)
+        : null
+
+  const runDisabled =
+    running ||
+    emptyPool ||
+    (mode === 'manual' ? !wire || capWarning !== null : !docRunnable)
 
   if (catalogError) {
     return <div className="centered dim">Failed to load catalog: {catalogError}</div>
@@ -157,6 +244,27 @@ export function SkillQuery() {
         </span>
       </div>
 
+      <div className="mode-tabs" role="tablist" aria-label="Query source">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === 'manual'}
+          className={`mode-tab${mode === 'manual' ? ' on' : ''}`}
+          onClick={() => switchMode('manual')}
+        >
+          Manual
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === 'doctrine'}
+          className={`mode-tab${mode === 'doctrine' ? ' on' : ''}`}
+          onClick={() => switchMode('doctrine')}
+        >
+          Doctrine
+        </button>
+      </div>
+
       <PoolFilter
         groups={allGroups}
         selected={selectedGroups}
@@ -170,28 +278,45 @@ export function SkillQuery() {
         }
       />
 
-      <GroupEditor
-        group={root}
-        catalog={catalog}
-        dispatch={dispatch}
-        atNodeCap={nodes >= MAX_NODES}
-      />
+      {mode === 'manual' ? (
+        <>
+          <GroupEditor
+            group={root}
+            catalog={catalog}
+            dispatch={dispatch}
+            atNodeCap={nodes >= MAX_NODES}
+          />
+          {capWarning && <div className="notice">{capWarning}</div>}
+          {wire ? (
+            <Summary text={describeQuery(wire, skillName)} />
+          ) : (
+            <div className="query-summary dim">Fill in a condition to run the query.</div>
+          )}
+        </>
+      ) : (
+        <>
+          {doctrineFits === null ? (
+            <div className="query-summary dim">Loading doctrines…</div>
+          ) : doctrineFits.length === 0 ? (
+            <div className="query-summary dim">No doctrine definitions available.</div>
+          ) : docSel ? (
+            <>
+              <DoctrineSelector fits={doctrineFits} value={docSel} onChange={setDocSel} />
+              <Summary text={docSel ? doctrineLabel(docSel, docSkillCount) : ''} />
+            </>
+          ) : null}
+        </>
+      )}
 
-      {capWarning && <div className="notice">{capWarning}</div>}
       {emptyPool && (
         <div className="notice">Select at least one character group to query.</div>
-      )}
-      {wire ? (
-        <Summary text={describeQuery(wire, skillName)} />
-      ) : (
-        <div className="query-summary dim">Fill in a condition to run the query.</div>
       )}
 
       <div className="run-bar">
         <button
           type="button"
           className="btn primary"
-          disabled={!wire || running || capWarning !== null || emptyPool}
+          disabled={runDisabled}
           onClick={() => void run()}
         >
           {running ? 'Running…' : 'Run query'}
@@ -204,15 +329,16 @@ export function SkillQuery() {
           />
           include users with no matches
         </label>
-        <button type="button" className="btn" disabled={!wire} onClick={() => void copyLink()}>
+        <button
+          type="button"
+          className="btn"
+          disabled={mode === 'manual' ? !wire : !docRunnable}
+          onClick={() => void copyLink()}
+        >
           {copied ? 'Copied!' : 'Copy link'}
         </button>
-        {wire && !emptyPool && (
-          <a
-            className="btn"
-            href={api.exportCsvUrl(encodeQuery(wire), groupsParam, includeNonMatching)}
-            download="skill-query.csv"
-          >
+        {csvHref && !emptyPool && (
+          <a className="btn" href={csvHref} download="skill-query.csv">
             Export CSV
           </a>
         )}
@@ -220,61 +346,7 @@ export function SkillQuery() {
 
       {queryError && <div className="notice error">{queryError}</div>}
 
-      {result && (
-        <div className="results">
-          <div className="results-meta">
-            <span>
-              {result.totals.users_with_matches} of {result.totals.total_users} users match ·{' '}
-              {result.totals.total_matching_characters} of {result.totals.total_characters}{' '}
-              characters in pool
-            </span>
-            <span>
-              snapshot v{result.snapshot_version} ·{' '}
-              {new Date(result.snapshot_fetched_at).toLocaleString()}
-            </span>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Matching characters</th>
-                <th className="num">Matches</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.rows.length === 0 && (
-                <tr>
-                  <td colSpan={3} className="dim">
-                    No matches.
-                  </td>
-                </tr>
-              )}
-              {result.rows.map((row) => (
-                <tr key={row.user_id} className={row.match_count === 0 ? 'zero-match' : ''}>
-                  <td>{row.user_name}</td>
-                  <td>
-                    {row.matching_characters.map((c) => (
-                      <span key={c.character_id} className="char-chip">
-                        {c.name} <span className="type">{c.group}</span>
-                      </span>
-                    ))}
-                  </td>
-                  <td className="num">
-                    {row.match_count}/{row.total_characters}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td>{result.totals.users_with_matches} users</td>
-                <td />
-                <td className="num">{result.totals.total_matching_characters}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      )}
+      {result && <ResultsTable result={result} />}
     </div>
   )
 }

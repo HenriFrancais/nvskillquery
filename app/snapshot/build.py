@@ -10,9 +10,10 @@ from the processed SDE artifact.
 from __future__ import annotations
 
 from app.observability.logging import log
+from app.queries.doctrine import build_doctrine_fits
 from app.sde.catalog import SdeCatalog
 from app.snapshot.models import CharacterRecord, Snapshot, UserRecord
-from app.sources.payloads import SkillsApiPayload, UsersApiPayload
+from app.sources.payloads import DoctrinesApiPayload, SkillsApiPayload, UsersApiPayload
 
 # Real users API carries no per-character group, so the pool filter is inert:
 # every character lands in this single default group.
@@ -25,6 +26,7 @@ def build_snapshot(
     catalog: SdeCatalog,
     version: int,
     fetched_at: float,
+    doctrines_payload: DoctrinesApiPayload | None = None,
 ) -> Snapshot:
     users_in = users_payload.root
     skills_in = skills_payload.root
@@ -91,6 +93,12 @@ def build_snapshot(
             character_ids=tuple(c.character_id for c in ordered),
         )
 
+    doctrines = (
+        build_doctrine_fits(doctrines_payload, catalog)
+        if doctrines_payload is not None
+        else ()
+    )
+
     return Snapshot(
         version=version,
         fetched_at=fetched_at,
@@ -100,4 +108,5 @@ def build_snapshot(
         users=users,
         characters=characters,
         users_sorted=tuple(sorted(users, key=lambda uid: users[uid].user_name)),
+        doctrines=doctrines,
     )

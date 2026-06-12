@@ -15,7 +15,7 @@ def test_healthz_sets_csp_header(client):
     resp = client.get("/healthz")
     assert (
         resp.headers["content-security-policy"]
-        == "frame-ancestors https://tools.novacancies.space"
+        == "frame-ancestors https://tools.novacancies.space https://novacancies.space"
     )
 
 

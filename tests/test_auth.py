@@ -27,7 +27,7 @@ def test_401_still_sets_csp(client):
     resp = client.get("/api/anything")
     assert (
         resp.headers["content-security-policy"]
-        == "frame-ancestors https://tools.novacancies.space"
+        == "frame-ancestors https://tools.novacancies.space https://novacancies.space"
     )
 
 

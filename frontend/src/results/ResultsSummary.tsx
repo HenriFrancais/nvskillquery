@@ -59,7 +59,7 @@ export function ResultsSummary({ result }: { result: QueryResponse }) {
             <SpDistanceChart gaps={result.additional_sp} />
             <div className="chart-hint dim">
               Each step is a non-matching character that would meet the query after training that
-              many more skill points. Scroll to zoom, drag to pan.
+              many more skill points. Drag to box-zoom, scroll to zoom, double-click to reset.
             </div>
           </>
         )}

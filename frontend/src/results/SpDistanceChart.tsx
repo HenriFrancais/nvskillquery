@@ -1,12 +1,13 @@
 // Interactive "characters reachable vs. added skill points" plot. A cumulative
-// step line over the per-character SP gaps, with wheel-zoom and drag-pan on the
-// x-axis (which spans a wide range). The default view caps at 5M SP; the user
-// can freely zoom or pan beyond it.
+// step line over the per-character SP gaps. The x-axis spans a wide range, so
+// the view opens at [0, DEFAULT_X_MAX] and is navigable: drag a region to
+// box-zoom (uPlot native), scroll to zoom around the cursor, double-click to
+// reset to the default view.
 
 import { useEffect, useRef } from 'react'
 import uPlot from 'uplot'
 import 'uplot/dist/uPlot.min.css'
-import { defaultXMax, distanceCurve } from './distanceCurve'
+import { DEFAULT_X_MAX, distanceCurve } from './distanceCurve'
 
 const ACCENT = '#4db8ff'
 const GRID = 'rgba(138,147,167,0.15)'
@@ -19,18 +20,17 @@ function fmtSp(n: number): string {
 }
 
 /**
- * Wheel to zoom the x-axis around the cursor; drag to pan it. All listeners
- * (including the document-level drag listeners) are torn down in the `destroy`
- * hook, so nothing leaks and no stray event reaches a destroyed chart — even
- * if the chart is rebuilt or unmounted mid-drag.
+ * Wheel to zoom the x-axis around the cursor. The listener is torn down in the
+ * `destroy` hook so nothing leaks and no stray wheel event reaches a destroyed
+ * chart when it is rebuilt or unmounted. (Box-zoom and reset are wired through
+ * uPlot's own cursor config, which it cleans up itself.)
  */
-function interactionPlugin(): uPlot.Plugin {
-  const teardown: Array<() => void> = []
+function wheelZoomPlugin(): uPlot.Plugin {
+  let detach: (() => void) | null = null
   return {
     hooks: {
       ready(u) {
         const over = u.over
-
         const onWheel = (e: WheelEvent) => {
           e.preventDefault()
           const { left, width } = over.getBoundingClientRect()
@@ -50,47 +50,11 @@ function interactionPlugin(): uPlot.Plugin {
           u.setScale('x', { min: nextMin, max: nextMax })
         }
         over.addEventListener('wheel', onWheel, { passive: false })
-        teardown.push(() => over.removeEventListener('wheel', onWheel))
-
-        // Active-drag listeners live on `document`; endDrag detaches them and
-        // is also called from `destroy` so an in-progress drag can't outlive
-        // the chart.
-        let onMove: ((e: MouseEvent) => void) | null = null
-        let onUp: (() => void) | null = null
-        const endDrag = () => {
-          if (onMove) document.removeEventListener('mousemove', onMove)
-          if (onUp) document.removeEventListener('mouseup', onUp)
-          onMove = onUp = null
-        }
-        const onDown = (e: MouseEvent) => {
-          if (e.button !== 0) return
-          e.preventDefault()
-          const { width } = over.getBoundingClientRect()
-          const startX = e.clientX
-          const min0 = u.scales.x.min ?? 0
-          const max0 = u.scales.x.max ?? 1
-          const perPx = (max0 - min0) / width
-          onMove = (me: MouseEvent) => {
-            const dx = (me.clientX - startX) * perPx
-            let nextMin = min0 - dx
-            let nextMax = max0 - dx
-            if (nextMin < 0) {
-              nextMax -= nextMin
-              nextMin = 0
-            }
-            u.setScale('x', { min: nextMin, max: nextMax })
-          }
-          onUp = endDrag
-          document.addEventListener('mousemove', onMove)
-          document.addEventListener('mouseup', onUp)
-        }
-        over.addEventListener('mousedown', onDown)
-        teardown.push(() => over.removeEventListener('mousedown', onDown))
-        teardown.push(endDrag)
+        detach = () => over.removeEventListener('wheel', onWheel)
       },
       destroy() {
-        teardown.forEach((fn) => fn())
-        teardown.length = 0
+        detach?.()
+        detach = null
       },
     },
   }
@@ -107,15 +71,26 @@ export function SpDistanceChart({ gaps }: { gaps: number[] }) {
     const points = distanceCurve(gaps)
     const xs = points.map((p) => p.x)
     const ys = points.map((p) => p.y)
-    const xMax = defaultXMax(gaps)
 
     const opts: uPlot.Options = {
       width: el.clientWidth || 640,
       height: 220,
-      cursor: { drag: { x: false, y: false } },
+      cursor: {
+        // Native box-zoom: drag a horizontal region to zoom into it. `dist`
+        // requires a deliberate drag so a plain click doesn't zoom.
+        drag: { x: true, y: false, dist: 5 },
+        // Double-click resets to the default view rather than uPlot's auto-fit.
+        bind: {
+          dblclick: (u) => () => {
+            u.setScale('x', { min: 0, max: DEFAULT_X_MAX })
+            return null
+          },
+        },
+      },
       legend: { show: false },
       scales: {
-        x: { time: false, range: () => [0, xMax] },
+        // No range override on x — that would pin the scale and defeat zoom.
+        x: { time: false },
         y: { range: (_u, _min, max) => [0, Math.max(1, max)] },
       },
       axes: [
@@ -143,13 +118,13 @@ export function SpDistanceChart({ gaps }: { gaps: number[] }) {
           paths: uPlot.paths.stepped!({ align: 1 }),
         },
       ],
-      plugins: [interactionPlugin()],
+      plugins: [wheelZoomPlugin()],
     }
 
     const u = new uPlot(opts, [xs, ys], el)
     plot.current = u
-    // The default range() fires on init; setScale makes the cap the live view.
-    u.setScale('x', { min: 0, max: xMax })
+    // Open at the default window; box-zoom / wheel / reset move it from here.
+    u.setScale('x', { min: 0, max: DEFAULT_X_MAX })
 
     const onResize = () => u.setSize({ width: el.clientWidth || 640, height: 220 })
     window.addEventListener('resize', onResize)

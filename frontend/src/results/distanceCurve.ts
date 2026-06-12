@@ -6,8 +6,9 @@ export interface CurvePoint {
   y: number // non-matching characters that would meet the query at this budget
 }
 
-// Default cap for the x-axis view; users can pan/zoom beyond it.
-export const X_MAX_CAP = 5_000_000
+// Default upper bound of the x-axis view (added skill points). The chart opens
+// at [0, DEFAULT_X_MAX]; users can box-zoom, wheel-zoom, or reset back to it.
+export const DEFAULT_X_MAX = 500_000
 
 /**
  * Cumulative step points: at each distinct gap value, y is the number of
@@ -23,10 +24,4 @@ export function distanceCurve(gaps: number[]): CurvePoint[] {
     points.push({ x, y: i + 1 })
   }
   return points
-}
-
-/** Default upper bound for the x-axis: the largest gap, capped at X_MAX_CAP. */
-export function defaultXMax(gaps: number[]): number {
-  if (gaps.length === 0) return X_MAX_CAP
-  return Math.min(Math.max(...gaps), X_MAX_CAP)
 }

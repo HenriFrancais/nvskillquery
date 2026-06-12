@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { defaultXMax, distanceCurve } from './distanceCurve'
+import { DEFAULT_X_MAX, distanceCurve } from './distanceCurve'
 
 describe('distanceCurve', () => {
   it('returns a single origin point when there are no gaps', () => {
@@ -27,16 +27,8 @@ describe('distanceCurve', () => {
   })
 })
 
-describe('defaultXMax', () => {
-  it('caps the default view at 5,000,000 SP', () => {
-    expect(defaultXMax([9_000_000])).toBe(5_000_000)
-  })
-
-  it('uses the largest gap when it is below the cap', () => {
-    expect(defaultXMax([8000, 250, 45255])).toBe(45255)
-  })
-
-  it('falls back to the cap when there are no gaps', () => {
-    expect(defaultXMax([])).toBe(5_000_000)
+describe('DEFAULT_X_MAX', () => {
+  it('opens the x-axis at 500k SP', () => {
+    expect(DEFAULT_X_MAX).toBe(500_000)
   })
 })

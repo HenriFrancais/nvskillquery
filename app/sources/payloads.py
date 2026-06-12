@@ -54,3 +54,33 @@ class UsersUserIn(BaseModel):
 
 class UsersApiPayload(RootModel[list[UsersUserIn]]):
     """`GET /api/users` — a flat array, one entry per user."""
+
+
+class DoctrineSkillIn(BaseModel):
+    """One resolved skill requirement inside a skillpack. Levels are a
+    traffic-light pair: yellow = minimum acceptable, green = recommended.
+    A level of 0 means "not required at this tier" (only yellow is ever 0)."""
+
+    skill_id: int
+    level_yellow: int = Field(ge=0, le=5)
+    level_green: int = Field(ge=0, le=5)
+
+    model_config = {"extra": "ignore"}
+
+
+class DoctrineFitIn(BaseModel):
+    """One doctrine fit, identified by (doctrine, role, ship_type, fit_name).
+    fit_eft/defining_items are carried by the API but unused here."""
+
+    doctrine: str
+    role: str
+    ship_type: str
+    fit_name: str = ""
+    # skillpack name -> the skills that pack contributes to this fit.
+    skillpacks: dict[str, list[DoctrineSkillIn]] = Field(default_factory=dict)
+
+    model_config = {"extra": "ignore"}
+
+
+class DoctrinesApiPayload(RootModel[list[DoctrineFitIn]]):
+    """`GET /api/doctrine_definitions` — a flat array, one entry per fit."""

@@ -5,7 +5,12 @@ from __future__ import annotations
 from app.sde.catalog import SdeCatalog
 from app.snapshot.build import build_snapshot
 from app.snapshot.models import CharacterRecord, SkillDef, Snapshot, UserRecord
-from app.sources.payloads import SkillPrereq, SkillsApiPayload, UsersApiPayload
+from app.sources.payloads import (
+    DoctrinesApiPayload,
+    SkillPrereq,
+    SkillsApiPayload,
+    UsersApiPayload,
+)
 
 
 def char(
@@ -52,6 +57,7 @@ def snapshot_from(
     users_entries: list[dict],
     version: int = 1,
     fetched_at: float = 0.0,
+    doctrines_entries: list[dict] | None = None,
 ) -> Snapshot:
     """Build a snapshot from raw real-shape payload lists (validated through
     the upstream models, same as production) plus an SDE catalogue."""
@@ -61,6 +67,11 @@ def snapshot_from(
         catalog=catalog_from(catalog_skills),
         version=version,
         fetched_at=fetched_at,
+        doctrines_payload=(
+            DoctrinesApiPayload.model_validate(doctrines_entries)
+            if doctrines_entries is not None
+            else None
+        ),
     )
 
 

@@ -15,6 +15,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from app.api.catalog import router as catalog_router
+from app.api.doctrines import router as doctrines_router
 from app.api.meta import router as meta_router
 from app.api.query import router as query_router
 from app.config import get_settings
@@ -61,6 +62,7 @@ def create_app() -> FastAPI:
     app.include_router(health_router, prefix=prefix)
     app.include_router(meta_router, prefix=prefix)
     app.include_router(catalog_router, prefix=prefix)
+    app.include_router(doctrines_router, prefix=prefix)
     app.include_router(query_router, prefix=prefix)
     # Mount the built React bundle last so it acts as a catch-all for non-API paths.
     # API routes registered above take precedence; static assets fall through here.

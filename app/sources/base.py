@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from app.sources.payloads import SkillsApiPayload, UsersApiPayload
+from app.sources.payloads import DoctrinesApiPayload, SkillsApiPayload, UsersApiPayload
 
 
 class DataSource(Protocol):
@@ -13,3 +13,5 @@ class DataSource(Protocol):
     async def fetch_skills(self) -> SkillsApiPayload: ...
 
     async def fetch_users(self) -> UsersApiPayload: ...
+
+    async def fetch_doctrines(self) -> DoctrinesApiPayload: ...

@@ -17,6 +17,7 @@ from datetime import UTC, datetime
 
 from pydantic import BaseModel
 
+from app.queries.doctrine import DoctrineLabel
 from app.queries.evaluate import character_matches
 from app.queries.tree import AnyQueryNode
 from app.snapshot.models import Snapshot
@@ -53,6 +54,10 @@ class QueryResponse(BaseModel):
     totals: QueryTotals
     snapshot_version: int
     snapshot_fetched_at: str  # ISO 8601
+    # Set only for doctrine-sourced queries — names the fit + tier behind the
+    # expanded skill set. None for manual queries. Attached after aggregation
+    # (the cached result is provenance-free and shared with the manual path).
+    doctrine: DoctrineLabel | None = None
 
 
 def run_query(

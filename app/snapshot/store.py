@@ -86,8 +86,10 @@ class SnapshotStore:
     async def _fetch(self) -> Snapshot:
         from app.sde.catalog import get_sde_catalog
 
-        skills, users = await asyncio.gather(
-            self._source.fetch_skills(), self._source.fetch_users()
+        skills, users, doctrines = await asyncio.gather(
+            self._source.fetch_skills(),
+            self._source.fetch_users(),
+            self._source.fetch_doctrines(),
         )
         snap = build_snapshot(
             skills,
@@ -95,6 +97,7 @@ class SnapshotStore:
             catalog=get_sde_catalog(),
             version=self._version + 1,
             fetched_at=time.time(),
+            doctrines_payload=doctrines,
         )
         log.info(
             "snapshot.fetched",
@@ -102,6 +105,7 @@ class SnapshotStore:
             users=len(snap.users),
             characters=len(snap.characters),
             skills=len(snap.skills),
+            doctrines=len(snap.doctrines),
         )
         return snap
 

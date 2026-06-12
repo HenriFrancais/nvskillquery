@@ -9,7 +9,7 @@ from __future__ import annotations
 import httpx
 
 from app.config import Settings
-from app.sources.payloads import SkillsApiPayload, UsersApiPayload
+from app.sources.payloads import DoctrinesApiPayload, SkillsApiPayload, UsersApiPayload
 
 
 class RealApiSource:
@@ -41,3 +41,7 @@ class RealApiSource:
     async def fetch_users(self) -> UsersApiPayload:
         data = await self._get_json("users")
         return UsersApiPayload.model_validate(data)
+
+    async def fetch_doctrines(self) -> DoctrinesApiPayload:
+        data = await self._get_json("doctrine_definitions")
+        return DoctrinesApiPayload.model_validate(data)

@@ -10,7 +10,11 @@ import pytest
 from app.config import Settings
 from app.sde.catalog import SdeCatalog
 from app.snapshot.store import SnapshotStore
-from app.sources.payloads import SkillsApiPayload, UsersApiPayload
+from app.sources.payloads import (
+    DoctrinesApiPayload,
+    SkillsApiPayload,
+    UsersApiPayload,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -46,6 +50,9 @@ class FakeSource:
                 }
             ]
         )
+
+    async def fetch_doctrines(self) -> DoctrinesApiPayload:
+        return DoctrinesApiPayload.model_validate([])
 
 
 def make_store(ttl: float = 1000.0) -> tuple[SnapshotStore, FakeSource]:

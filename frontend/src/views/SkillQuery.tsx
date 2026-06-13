@@ -4,6 +4,7 @@ import { DoctrineSelector, resolveDown } from '../components/DoctrineSelector'
 import { PoolFilter } from '../components/PoolFilter'
 import { GroupEditor } from '../components/QueryBuilder/GroupEditor'
 import { ResultsSummary } from '../results/ResultsSummary'
+import { copyToClipboard } from '../clipboard'
 import { useCatalog } from '../hooks/useCatalog'
 import {
   BuilderGroup,
@@ -85,7 +86,7 @@ export function SkillQuery() {
   const [result, setResult] = useState<QueryResponse | null>(null)
   const [queryError, setQueryError] = useState<string | null>(null)
   const [running, setRunning] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const [copyState, setCopyState] = useState<'idle' | 'ok' | 'fail'>('idle')
 
   const allGroups = useMemo(() => catalog?.character_groups ?? [], [catalog])
 
@@ -208,9 +209,9 @@ export function SkillQuery() {
 
   const copyLink = async () => {
     const url = `${window.location.origin}${window.location.pathname}?${writeUrl().toString()}`
-    await navigator.clipboard.writeText(url)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+    const ok = await copyToClipboard(url)
+    setCopyState(ok ? 'ok' : 'fail')
+    setTimeout(() => setCopyState('idle'), 1500)
   }
 
   const csvHref =
@@ -335,7 +336,7 @@ export function SkillQuery() {
           disabled={mode === 'manual' ? !wire : !docRunnable}
           onClick={() => void copyLink()}
         >
-          {copied ? 'Copied!' : 'Copy link'}
+          {copyState === 'ok' ? 'Copied!' : copyState === 'fail' ? 'Copy failed' : 'Copy link'}
         </button>
         {csvHref && !emptyPool && (
           <a className="btn" href={csvHref} download="skill-query.csv">

@@ -80,3 +80,13 @@ def test_needs_refresh_short_circuits_when_current(tmp_path: Path) -> None:
 def test_needs_refresh_when_artifact_missing(tmp_path: Path) -> None:
     (tmp_path / "manifest.json").write_text(json.dumps({"buildNumber": 42}))
     assert needs_refresh(tmp_path, remote_build=42) is True
+
+
+def test_needs_refresh_force_overrides_matching_build(tmp_path: Path) -> None:
+    # CCP sometimes mutates SDE data in place under an unchanged build number;
+    # --force re-downloads anyway so a stale rank/prereq can't be pinned by the
+    # build-number short-circuit (and the Docker cache mount that persists it).
+    (tmp_path / "manifest.json").write_text(json.dumps({"buildNumber": 42}))
+    (tmp_path / "skills.json").write_text(json.dumps({"sde_build_number": 42, "skills": []}))
+    assert needs_refresh(tmp_path, remote_build=42) is False
+    assert needs_refresh(tmp_path, remote_build=42, force=True) is True

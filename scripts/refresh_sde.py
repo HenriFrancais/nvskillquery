@@ -138,7 +138,13 @@ def _read_manifest(cache_dir: Path) -> dict:
         return {}
 
 
-def needs_refresh(cache_dir: Path, remote_build: int) -> bool:
+def needs_refresh(cache_dir: Path, remote_build: int, force: bool = False) -> bool:
+    if force:
+        # CCP can revise SDE data in place under an unchanged build number, so
+        # the build-number comparison alone can serve stale data indefinitely
+        # (the Docker cache mount then pins it across rebuilds). --force bypasses
+        # the short-circuit and always re-downloads.
+        return True
     local_build = int(_read_manifest(cache_dir).get("buildNumber") or 0)
     return remote_build != local_build or not (cache_dir / "skills.json").exists()
 
@@ -184,6 +190,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=None,
                         help="copy the artifact here after refresh (default: cache dir)")
     parser.add_argument("--timeout", type=float, default=300.0)
+    parser.add_argument(
+        "--force", action="store_true",
+        help="re-download even when the build number is unchanged (catches "
+             "in-place CCP SDE corrections; use in deploys to defeat a stale "
+             "cache mount)",
+    )
     args = parser.parse_args(argv)
 
     cache: Path = args.cache
@@ -203,8 +215,9 @@ def main(argv: list[str] | None = None) -> int:
               file=sys.stderr)
         return 1
 
-    if needs_refresh(cache, remote_build):
-        print(f"SDE stale or missing; downloading build {remote_build}…", file=sys.stderr)
+    if needs_refresh(cache, remote_build, force=args.force):
+        why = "forced" if args.force else "stale or missing"
+        print(f"SDE {why}; downloading build {remote_build}…", file=sys.stderr)
         try:
             _download_and_process(cache, remote_build, args.timeout)
         except Exception as exc:  # noqa: BLE001

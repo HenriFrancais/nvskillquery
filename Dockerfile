@@ -26,8 +26,13 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS sde
 WORKDIR /sde
 RUN uv pip install --system httpx
 COPY scripts/refresh_sde.py ./
+# Set to any non-empty value (`--build-arg SDE_FORCE_REFRESH=1`) to re-download
+# even when the build number is unchanged. CCP revises SDE data in place under
+# the same build number, and the cache mount otherwise pins that stale artifact
+# across rebuilds; force a refresh after such a correction.
+ARG SDE_FORCE_REFRESH=
 RUN --mount=type=cache,target=/sde-cache,id=nvskills-sde \
-    python refresh_sde.py --cache /sde-cache --out /out/sde
+    python refresh_sde.py --cache /sde-cache --out /out/sde ${SDE_FORCE_REFRESH:+--force}
 
 
 # ---- Stage 3: Python runtime --------------------------------------------------

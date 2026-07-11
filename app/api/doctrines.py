@@ -10,12 +10,12 @@ from datetime import UTC, datetime
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from app.api.auth import require_skills
+from app.api.auth import require_access
 from app.api.query import get_snapshot_or_503
 from app.queries.doctrine import fit_skill_counts
 from app.snapshot.models import Snapshot
 
-router = APIRouter(dependencies=[Depends(require_skills)])
+router = APIRouter(dependencies=[Depends(require_access)])
 
 
 class DoctrineFitOut(BaseModel):

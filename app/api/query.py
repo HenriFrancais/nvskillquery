@@ -6,10 +6,10 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Request, Response
 from pydantic import BaseModel
 
-from app.api.auth import require_skills
+from app.api.auth import access_scope
 from app.api.cache import LRU
 from app.config import get_settings
 from app.observability.logging import log
@@ -36,7 +36,7 @@ from app.queries.tree import (
 from app.snapshot.models import Snapshot
 from app.snapshot.store import get_snapshot_store
 
-router = APIRouter(dependencies=[Depends(require_skills)])
+router = APIRouter()
 
 _query_cache: LRU[QueryResponse] | None = None
 
@@ -94,6 +94,7 @@ def _execute(
     root: AnyQueryNode,
     groups: list[str],
     include_non_matching: bool,
+    restrict_to_user_id: int | None,
 ) -> QueryResponse:
     try:
         validate_limits(root)
@@ -103,38 +104,61 @@ def _execute(
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     cache = _get_query_cache()
+    # restrict_to_user_id MUST be part of the key: a self-scoped member and a
+    # full-visibility caller run identical query trees but must never share a
+    # cached result (that would leak the whole corp to a scoped member).
     key = (
         f"{canonical_hash(root)}:{','.join(sorted(groups))}"
-        f":{snapshot.version}:{include_non_matching}"
+        f":{snapshot.version}:{include_non_matching}:{restrict_to_user_id}"
     )
     cached = cache.get(key)
     if cached is not None:
         return cached
     result = run_query(
-        snapshot, root, groups=groups, include_non_matching=include_non_matching
+        snapshot,
+        root,
+        groups=groups,
+        include_non_matching=include_non_matching,
+        restrict_to_user_id=restrict_to_user_id,
     )
     cache.put(key, result)
     return result
 
 
+def _resolve_scope(request: Request, snapshot: Snapshot) -> int | None:
+    """The user_id to restrict results to (None = full corp visibility).
+    Rejects callers with no roster match — the same gate `require_access`
+    applies to the other routers."""
+    scope = access_scope(request, snapshot)
+    if scope is None:
+        raise HTTPException(status_code=403, detail="forbidden")
+    return None if scope == "all" else scope
+
+
 @router.post("/api/query")
-async def query(body: QueryRequest) -> QueryResponse:
+async def query(body: QueryRequest, request: Request) -> QueryResponse:
     if (body.query is None) == (body.doctrine is None):
         raise HTTPException(
             status_code=422, detail="provide exactly one of query or doctrine"
         )
     snapshot = await get_snapshot_or_503()
+    restrict = _resolve_scope(request, snapshot)
     if body.doctrine is not None:
         root, label = _resolve_doctrine(snapshot, body.doctrine)
-        result = _execute(snapshot, root, body.groups, body.include_non_matching)
+        result = _execute(
+            snapshot, root, body.groups, body.include_non_matching, restrict
+        )
         # model_copy so the shared (provenance-free) cache entry isn't mutated.
         return result.model_copy(update={"doctrine": label})
     assert body.query is not None  # guarded above
-    return _execute(snapshot, body.query, body.groups, body.include_non_matching)
+    return _execute(
+        snapshot, body.query, body.groups, body.include_non_matching, restrict
+    )
 
 
 @router.get("/api/query/export.csv")
 async def export_csv(
+    request: Request,
     q: str | None = None,
     d: str | None = None,
     g: str = "",
@@ -145,6 +169,7 @@ async def export_csv(
     if (q is None) == (d is None):
         raise HTTPException(status_code=422, detail="provide exactly one of q or d")
     snapshot = await get_snapshot_or_503()
+    restrict = _resolve_scope(request, snapshot)
     label: DoctrineLabel | None = None
     if d is not None:
         try:
@@ -159,7 +184,7 @@ async def export_csv(
         except QueryDecodeError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
     groups = [s for s in g.split(",") if s]
-    result = _execute(snapshot, root, groups, include_non_matching)
+    result = _execute(snapshot, root, groups, include_non_matching, restrict)
     stamp = datetime.now(tz=UTC).strftime("%Y%m%d-%H%M%S")
     return Response(
         content=query_response_to_csv(result, doctrine=label),

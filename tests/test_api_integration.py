@@ -12,7 +12,13 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from tests.conftest import GATED_HEADERS, TEST_TOKEN, UNGATED_HEADERS
+from tests.conftest import (
+    GATED_HEADERS,
+    MEMBER_HEADERS,
+    MEMBER_USER_ID,
+    TEST_TOKEN,
+    UNGATED_HEADERS,
+)
 
 DATA_DEMO = Path(__file__).resolve().parent.parent / "data_demo"
 DEMO_CATALOG = json.loads((DATA_DEMO / "sde_skills.json").read_text())
@@ -39,19 +45,28 @@ SIMPLE_QUERY = {"query": {"kind": "skill", "skill_id": COMMON_SKILL_ID, "min_lev
 # --- gating matrix -----------------------------------------------------------
 
 
-def test_me_reports_can_query_truth_table(client):
+def test_me_reports_scope_truth_table(client):
+    # Allowlisted caller → full corp visibility.
     me = client.get("/api/me", headers=GATED_HEADERS).json()
     assert me == {
         "user_name": "Gated User",
         "user_rank": "CEO",
         "user_teams": [],
+        "scope": "all",
         "can_query": True,
     }
-    assert client.get("/api/me", headers=UNGATED_HEADERS).json()["can_query"] is False
-    assert client.get("/api/me", headers=DOCTRINE_HEADERS).json()["can_query"] is True
+    # Doctrine team → also full visibility.
+    doc = client.get("/api/me", headers=DOCTRINE_HEADERS).json()
+    assert doc["scope"] == "all" and doc["can_query"] is True
+    # Plain roster member → self-scoped, still able to query.
+    mem = client.get("/api/me", headers=MEMBER_HEADERS).json()
+    assert mem["scope"] == "self" and mem["can_query"] is True
+    # Non-member → no access.
+    non = client.get("/api/me", headers=UNGATED_HEADERS).json()
+    assert non["scope"] == "none" and non["can_query"] is False
 
 
-def test_gated_endpoints_403_for_ungated_user(client):
+def test_gated_endpoints_403_for_non_member(client):
     assert client.get("/api/catalog", headers=UNGATED_HEADERS).status_code == 403
     assert (
         client.post("/api/query", json=SIMPLE_QUERY, headers=UNGATED_HEADERS).status_code == 403
@@ -67,6 +82,36 @@ def test_gated_endpoints_ok_for_doctrine_team(client):
         client.post("/api/query", json=SIMPLE_QUERY, headers=DOCTRINE_HEADERS).status_code
         == 200
     )
+
+
+def test_member_can_query_but_only_sees_own_characters(client):
+    # Members can reach the catalog (needed to build queries).
+    assert client.get("/api/catalog", headers=MEMBER_HEADERS).status_code == 200
+    # include_non_matching guarantees the member's own row appears even with
+    # zero skill matches, so the scoping assertions are deterministic.
+    body = {**SIMPLE_QUERY, "include_non_matching": True}
+    resp = client.post("/api/query", json=body, headers=MEMBER_HEADERS)
+    assert resp.status_code == 200
+    result = resp.json()
+    # Only the caller's own user is in scope: one user, their three characters.
+    assert result["totals"]["total_users"] == 1
+    assert result["totals"]["total_characters"] == 3
+    assert {r["user_id"] for r in result["rows"]} == {MEMBER_USER_ID}
+
+
+def test_member_scope_does_not_share_cache_with_full_visibility(client):
+    # A full-visibility caller runs the query first (populates the cache with a
+    # corp-wide result), then a member runs the identical query. The member must
+    # NOT receive the cached corp-wide rows — the cache key includes the scope.
+    full = client.post(
+        "/api/query", json=SIMPLE_QUERY, headers=GATED_HEADERS
+    ).json()
+    assert full["totals"]["total_users"] == 50
+    scoped = client.post(
+        "/api/query", json=SIMPLE_QUERY, headers=MEMBER_HEADERS
+    ).json()
+    assert scoped["totals"]["total_users"] == 1
+    assert all(r["user_id"] == MEMBER_USER_ID for r in scoped["rows"])
 
 
 # --- catalog -----------------------------------------------------------------

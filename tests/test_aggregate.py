@@ -69,6 +69,41 @@ def test_snapshot_metadata_passthrough():
     assert resp.snapshot_fetched_at == "1970-01-01T00:00:00+00:00"
 
 
+# ---- self-scope (restrict_to_user_id) ----
+
+
+def test_restrict_to_user_id_scopes_rows_and_totals():
+    snap = simple_snapshot()
+    # Alice (user 1) has two chars both matching skill 1 @3.
+    resp = run_query(snap, q(SKILL1_AT_3), restrict_to_user_id=1)
+    assert [r.user_name for r in resp.rows] == ["Alice"]
+    assert {r.user_id for r in resp.rows} == {1}
+    # Totals + additional_sp cover only Alice's characters, not the whole corp.
+    assert resp.totals.total_users == 1
+    assert resp.totals.total_characters == 2
+    assert resp.totals.total_matching_characters == 2
+    assert resp.additional_sp == []
+
+
+def test_restrict_to_user_id_scopes_non_matching_gaps():
+    snap = simple_snapshot()
+    # Carol (user 3): main has no skills (gap), alt Carol II matches.
+    resp = run_query(snap, q(SKILL1_AT_3), restrict_to_user_id=3)
+    assert {r.user_id for r in resp.rows} == {3}
+    assert resp.totals.total_characters == 2
+    # Only Carol's one non-matching character contributes a gap.
+    assert resp.additional_sp == [8000]
+
+
+def test_restrict_to_unknown_user_id_yields_nothing():
+    snap = simple_snapshot()
+    resp = run_query(snap, q(SKILL1_AT_3), restrict_to_user_id=99999)
+    assert resp.rows == []
+    assert resp.totals.total_users == 0
+    assert resp.totals.total_characters == 0
+    assert resp.additional_sp == []
+
+
 # ---- group pool filter ----
 
 

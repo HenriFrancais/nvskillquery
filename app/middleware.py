@@ -56,6 +56,7 @@ class NVToolsAuthMiddleware(BaseHTTPMiddleware):
                 token=settings.nv_token,
                 rank=settings.dev_user_rank,
                 teams=settings.dev_user_teams,
+                main_character_id=settings.dev_user_main_character_id,
             )
             request.scope["headers"] = scope_headers
             headers_lookup = {
@@ -86,21 +87,25 @@ def _inject_dev_headers(
     token: str,
     rank: str = "",
     teams: str = "",
+    main_character_id: str = "0",
 ) -> list[tuple[bytes, bytes]]:
     """Add fake auth + user headers to the ASGI scope (dev mode only).
 
-    Rank/teams default to ``Member`` / ``Admin`` (router convention); note that
-    identity does NOT pass the skill-query gate — set ``DEV_USER_RANK`` /
-    ``DEV_USER_TEAMS`` to test the gated paths.
+    Rank/teams default to ``Member`` / ``Admin`` (router convention) and the
+    main character id to ``0`` (no roster match) — so the fallback identity
+    lands on the no-access screen. Set ``DEV_USER_RANK`` / ``DEV_USER_TEAMS``
+    for full visibility, or ``DEV_USER_MAIN_CHARACTER_ID`` to a real demo main
+    id to test the self-scoped path.
     """
     effective_rank = rank.strip() or "Member"
     effective_teams = teams.strip() or "Admin"
+    effective_main = main_character_id.strip() or "0"
     extra = [
         (b"authorization", f"Bearer {token}".encode()),
         (b"x-user-name", b"Test User"),
         (b"x-user-rank", effective_rank.encode("latin-1")),
         (b"x-user-teams", effective_teams.encode("latin-1")),
-        (b"x-user-main-character-id", b"0"),
+        (b"x-user-main-character-id", effective_main.encode("latin-1")),
     ]
     existing_names = {name for name, _ in headers}
     return [*headers, *[(n, v) for n, v in extra if n not in existing_names]]

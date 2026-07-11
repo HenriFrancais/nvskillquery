@@ -1,5 +1,8 @@
-# Who may use the skill query tool. A user qualifies with EITHER a matching
-# rank OR a matching team. Override per deployment in config.local.toml
-# (gitignored) rather than editing this committed example.
+# Who gets FULL-CORP visibility in the skill query tool (can see every
+# member). A user qualifies with EITHER a matching rank OR a matching team.
+# Every other authenticated NV member can still use the tool, but only sees
+# their own characters; only non-members are turned away. Override per
+# deployment in config.local.toml (gitignored) rather than editing this
+# committed example.
 visibility_ranks = ["CEO", "High Command"]
 visibility_teams = ["Doctrine"]

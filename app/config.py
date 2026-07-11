@@ -17,8 +17,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class AppConfig(BaseModel):
     """Loaded from a TOML file. Unlike router's seeds config, the defaults here
-    are populated so a deployment without a config file still gates sensibly
-    instead of locking everyone out."""
+    are populated so a deployment without a config file still behaves sensibly.
+
+    These allowlists grant **full-corp visibility** (see every member). Every
+    other authenticated member still gets in, but scoped to their own
+    characters; only callers with no roster match are turned away entirely."""
 
     visibility_ranks: list[str] = Field(default_factory=lambda: ["CEO", "High Command"])
     visibility_teams: list[str] = Field(default_factory=lambda: ["Doctrine"])
@@ -55,10 +58,13 @@ class Settings(BaseSettings):
     config_local_path: Path = Path("./config.local.toml")
 
     # Dev-mode header overrides — only consulted when DEV_MODE=true. The
-    # fallback identity (Member/Admin) does NOT pass the skill-query gate;
-    # set DEV_USER_RANK=CEO or DEV_USER_TEAMS=Doctrine to test gated paths.
+    # fallback identity (Member/Admin, main id 0) has no roster match, so it
+    # gets the no-access screen; set DEV_USER_RANK=CEO / DEV_USER_TEAMS=Doctrine
+    # for full visibility, or DEV_USER_MAIN_CHARACTER_ID=<a demo main id> to
+    # exercise the self-scoped member path.
     dev_user_rank: str = ""
     dev_user_teams: str = ""
+    dev_user_main_character_id: str = "0"
 
     dev_mode: bool = False
     log_level: str = "INFO"

@@ -71,6 +71,7 @@ def run_query(
     root: AnyQueryNode,
     groups: Sequence[str] = (),
     include_non_matching: bool = False,
+    restrict_to_user_id: int | None = None,
 ) -> QueryResponse:
     pool = set(groups)
     matching_rows: list[UserRow] = []
@@ -79,7 +80,16 @@ def run_query(
     pool_characters = 0
     additional_sp: list[int] = []
 
-    for user_id in snapshot.users_sorted:
+    # None = every user; an int scopes the whole result (rows, totals, and the
+    # additional_sp gaps) to that single member — used for self-scoped callers.
+    if restrict_to_user_id is None:
+        user_ids: Sequence[int] = snapshot.users_sorted
+    elif restrict_to_user_id in snapshot.users:
+        user_ids = [restrict_to_user_id]
+    else:
+        user_ids = []
+
+    for user_id in user_ids:
         user = snapshot.users[user_id]
         chars = [snapshot.characters[cid] for cid in user.character_ids]
         in_pool = [c for c in chars if not pool or c.group in pool]

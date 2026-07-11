@@ -18,8 +18,8 @@ from app.snapshot.store import reset_snapshot_store_for_tests
 
 TEST_TOKEN = "test-token"
 
-# Headers the NV Tools proxy would inject for a user who passes the default
-# visibility gate (rank CEO).
+# Headers the NV Tools proxy would inject for a user with FULL corp visibility
+# (on the rank/team allowlist, here rank CEO). Scope = "all".
 GATED_HEADERS = {
     "Authorization": f"Bearer {TEST_TOKEN}",
     "X-User-Name": "Gated User",
@@ -28,13 +28,26 @@ GATED_HEADERS = {
     "X-User-Main-Character-Id": "90000001",
 }
 
-# Headers for an authenticated user who does NOT pass the gate.
+# A plain roster member (not on the allowlist) whose main maps to a demo user
+# (Raven, 90000007, 3 characters). Scope = "self": query works, but results are
+# limited to their own characters.
+MEMBER_HEADERS = {
+    "Authorization": f"Bearer {TEST_TOKEN}",
+    "X-User-Name": "Raven",
+    "X-User-Rank": "Member",
+    "X-User-Teams": "",
+    "X-User-Main-Character-Id": "90000007",
+}
+MEMBER_USER_ID = 90000007
+
+# An authenticated caller whose main matches NO roster member (non-member).
+# Scope = "none": every gated endpoint returns 403.
 UNGATED_HEADERS = {
     "Authorization": f"Bearer {TEST_TOKEN}",
-    "X-User-Name": "Plain Member",
+    "X-User-Name": "Random Person",
     "X-User-Rank": "Member",
     "X-User-Teams": "Recruitment",
-    "X-User-Main-Character-Id": "90000002",
+    "X-User-Main-Character-Id": "70000000",
 }
 
 

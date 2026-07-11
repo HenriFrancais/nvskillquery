@@ -7,6 +7,8 @@ export interface MeResponse {
   user_name: string
   user_rank: string
   user_teams: string[]
+  // "all" = full corp visibility; "self" = own characters only; "none" = no access.
+  scope: 'all' | 'self' | 'none'
   can_query: boolean
 }
 
